@@ -1,15 +1,15 @@
 <template>
     <div class="quick-entrance">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <template v-for="item of quickEntrance">
-                <router-link class="item" tag="div" to="#">
-                    <img :src="item[1]">
-                    <span>{{item[0]}}</span>
-                </router-link>
-            </template>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <template v-for="item of quickEntrance">
+                    <a class="item" tag="div" :href="item[2]">
+                        <img :src="item[1]">
+                        <span>{{item[0]}}</span>
+                    </a>
+                </template>
+            </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -17,18 +17,15 @@
 
   export default {
     name:'',
-    data() {
-      return {
-        quickEntrance:[["在线客服",require('@/assets/img/kefu.png')],["预约顾问",require('@/assets/img/预约顾问.png')],["小马理赔",require('@/assets/img/小马理赔.png')],["预核保",require('@/assets/img/预核保.png')]]
-      }
+    props:{
+        quickEntrance:Array
     }
-
   }
 
 </script>
 <style lang='stylus' scoped>
     .quick-entrance
-        background-color #f4f4f4
+        background-color #ffffff
         width 100%
         .swiper-wrapper
             width 100%
@@ -52,5 +49,6 @@
                         display block
                         text-align center
                         padding-top 5px
+                        color #000000
 
 </style>

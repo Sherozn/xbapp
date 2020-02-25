@@ -1,0 +1,12 @@
+{
+    "types":[[0,"按险种配置"],[1,"按疾病/异常配置"],[2,"按成员配置"],[3,"按预算配置"]],
+    "typeItem":[["重疾险", "寿险", "医疗险", "意外险", "年金险", "旅行意外险", "家财险"],
+    						["乙肝", "高危职业", "高血压", "甲状腺结节", "糖尿病", "医保卡外借"],
+    						["成人配置方案", "少儿配置方案", "老人配置方案"],
+    						["5千-1万预算","2万及以上预算"]],
+    "banners":["static/img/1.jpg","static/img/2.jpg"],
+    "quickEntrance":[["在线客服","static/img/kefu.png","https://hh.hzins.com/chat/chatting/?domain=hzins&language=zh&businessType=zYE1NkKg-Fg&referrer=https%3A%2F%2Fcps.qixin18.com%2Fm%2Fxl1034620%2Fmedia-11414.html&msrc=QX&platform=mobile&fromApp=0&title=&mid=5NfJ%2FsKM7mU%3D&cuid=6%2Bpkq7sq5YA%3D"],
+					    	["预约顾问","static/img/预约顾问.png","https://cps.qixin18.com/v3/m/xl1034620/reservation"],
+					    	["小马理赔","static/img/小马理赔.png","http://www.bxy18.com/"],
+					    	["预核保","static/img/预核保.png","https://cps.qixin18.com/m/xl1034620/preNucleation/index"]]
+}

@@ -11,26 +11,28 @@
 
 <script>
   export default {
-      name:'Banner',
-      data() {
-        return {
-          swiperOption: {
-            spaceBetween: 30,
-            centeredSlides: true,
-            autoplay: {
-              delay: 300000,
-              disableOnInteraction: false
-            },
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true
-            }
+    name:'Banner',
+    props:{
+      banners:Array
+    },
+    data() {
+      return {
+        swiperOption: {
+          spaceBetween: 30,
+          centeredSlides: true,
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false
           },
-          banners:[require('@/assets/img/1.jpg'),require('@/assets/img/2.jpg')],
-        }
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          }
+        },
       }
-
     }
+
+  }
 </script>
 <style lang='stylus' scoped>
 

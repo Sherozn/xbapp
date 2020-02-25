@@ -1,0 +1,15 @@
+INSERT INTO products (imgUrl,name,note,price,buyUrl,testUrl,as_type,createdAt,updatedAt) VALUES ("/static/img/划算大方.jpeg",'达尔文2号',"60岁前赔150%保额，涵盖120种重疾+20种中症+50种轻症，保额赔付比例高，可选癌症二次赔付","449","https://cps.qixin18.com/v3/m/xl1034620/product/detail?prodId=104016&planId=128466&tenantId=-1","https://mp.weixin.qq.com/s/WANJkk5l9O2bFC3hDzImhw",1,now(),now());
+
+INSERT INTO products (imgUrl,name,note,price,buyUrl,testUrl,as_type,createdAt,updatedAt) VALUES ("/static/img/划算大方.jpeg",'康惠保2020版
+',"华丽的实力派，综合性价比最高的终身重疾险，保障全面价格便宜，赞~","314","https://m.inswin.cn/ra0000112018/jiankang-baoxian/321174.shtml","https://mp.weixin.qq.com/s/39Ld_Zieqqp9sdtPQYA1aQ",1,now(),now());
+
+INSERT INTO products (imgUrl,name,note,price,buyUrl,testUrl,as_type,createdAt,updatedAt) VALUES ("/static/img/划算大方.jpeg",'超级玛丽2020
+',"前15年赔付150%，男性买价格低，医保卡外借药店买药能自证清白可以直接投保
+","324","https://m.baodan360.com/insurance/detail?id=138670&chn=cps_149975432&subagent=10010","https://mp.weixin.qq.com/s/1s2ZD8B60HefsTFpSheH1Q",1,now(),now());
+
+INSERT INTO products (imgUrl,name,note,price,buyUrl,testUrl,as_type,createdAt,updatedAt) VALUES ("/static/img/划算大方.jpeg",'健康保2.0重大疾病保险
+',"6只保重疾+中症+轻症，性价比最高，有条件的建议附加重疾医疗津贴","759.76","https://m.inswin.cn/ra0000112018/jiankang-baoxian/320065.shtml","https://mp.weixin.qq.com/s/qWGiva_u9VC25yMzzZha1g",1,now(),now());
+
+INSERT INTO product_types (productId,type1,type2,as_sort,createdAt,updatedAt) VALUES (1,0,0,1,now(),now());
+INSERT INTO product_types (productId,type1,type2,as_sort,createdAt,updatedAt) VALUES (1,1,0,1,now(),now());
+

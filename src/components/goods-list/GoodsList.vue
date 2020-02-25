@@ -1,6 +1,7 @@
 <template>
     <div class="goods-list">
-        <router-link tag="div" to="#" class="item" v-for="(item,index) in goodsList" :key="index">
+
+        <a :href="item[4]" class="item" v-for="(item,index) in goodsList" :key="index">
             <div class="left">
                 <img :src="item[0]">
             </div>
@@ -8,26 +9,35 @@
                 <div class="title">
                     {{item[1]}}
                 </div>
+                <div class="content">
+                    {{item[2]}}
+                </div>
                 <div class="price-and-user">
                     <div class="price">
-                        <span class="_price"> <i>￥</i> {{item[2]}}</span>
-                        <span class="sell-num">已拼{{item[3]}}万+件</span>
+                        <span class="_price"> <i>￥</i>{{item[3]}}</span>
+                        <span class="sell-num">起</span>
+                    </div>
+                    <div class="btn">
+                        <a :href="item[4]">
+                            <div class="buy">购买</div>
+                        </a>
+                        <a :href="item[5]">
+                            <div class="test">测评</div>
+                        </a>
                     </div>
                 </div>
                 <div class="line"></div>
             </div>
-        </router-link>
+        </a>
 
     </div>
 </template>
 
 <script>
-
+    import axios from 'axios'
     export default {
-        data () {
-          return {
-            goodsList:[[require("@/assets/img/kefu.png"),"你好","100","1000"],[require("@/assets/img/kefu.png"),"你好","100","1000"],[require("@/assets/img/kefu.png"),"你好","100","1000"],[require("@/assets/img/kefu.png"),"你好","100","1000"],[require("@/assets/img/kefu.png"),"你好","100","1000"],[require("@/assets/img/kefu.png"),"你好","100","1000"],[require("@/assets/img/kefu.png"),"你好","100","1000"]]
-          }
+        props:{
+          goodsList:Array
         }
     }
 
@@ -39,19 +49,21 @@
             margin-bottom 10px
             padding 15px 15px 0px
             display flex
+            .item-a
+                display block
             .left
-                width 172px
+                width 122px
                 heigh 172px
                 img 
-                    width 100px
+                    width 110px
                     height 100px
+
             .right
                 position relative
                 flex 1
                 display flex
                 flex-direction column
                 justify-content space-between
-                padding-left 10px
                 .line
                     position absolute
                     bottom -10px
@@ -62,13 +74,17 @@
                 .title
                     font-size 15px
                     color #151516
-                    line-height 18px
-                    height 34px
+                    line-height 28px
+                    height 28px
                     overflow hidden
                     letter-spacing 1px
+                .content
+                    padding-top 4px
+                    font-size 12px
+                    color #9c9c9c
                 .price-and-user
                     width 100%
-                    height 50px
+                    height 30px
                     display flex
                     align-items flex-end
                     justify-content space-between
@@ -80,4 +96,27 @@
                             font-weight bold
                             i 
                               font-size 12px
+                    .btn
+                        width 50%
+                        text-align center
+                        line-height 25px
+
+                        .buy
+                            border-radius 5px
+                            height 25px
+                            width 40%
+                            float:right
+                            background-color #ff7700
+                            color #ffffff
+
+                        .test
+                            border-radius 5px
+                            height 25px
+                            width 40%
+                            background-color #ffe7d5
+                            color #ff5600
+
+                    .sell-num
+                        font-size 10px
+
 </style>

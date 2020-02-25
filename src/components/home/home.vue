@@ -1,40 +1,59 @@
 <template>
     <div>
-      <Header :navigation = "navigation"></Header>
+      <div class="header">
+        <router-link tag="div" to="/admin">
+          <Search></Search>
+        </router-link>
+        <Banner :banners="banners"></Banner>
+        <QuickEntrance :quickEntrance="quickEntrance"></QuickEntrance>
+      </div>
+      <Type :types="types" :typeItem="typeItem"></Type>
       <div class="test">
         <GoodsList></GoodsList>
       </div>
-      <Footer></Footer>
+      <!-- <Footer></Footer> -->
     </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import Header from '@/components/header/header'
-  import Footer from '@/components/footer/footer'
+  import config from '@/config.js'
+  import Search from '@/components/search/search'
+  import Banner from '@/components/banner/banner'
+  import QuickEntrance from '@/components/quick-entrance/QuickEntrance'
+  import Type from '@/components/type/type'
   import GoodsList from '@/components/goods-list/GoodsList'
+  import Footer from '@/components/footer/footer'
+  
   export default {
     name:'Home',
     components: {
-      Header,
-      Footer,
-      GoodsList
+      Search,
+      Banner,
+      QuickEntrance,
+      Type,
+      GoodsList,
+      Footer
     },
     data () {
       return {
-        navigation:[]
+        types:[],
+        typeItem:[],
+        banners:[],
+        quickEntrance:[]
       };
     },
     methods:{
       getHomeData(){
-        // axios.get('http://192.168.0.107:3000/data')
-        // .then(this._getHomeData);
+        axios.get(`${config.host}/data/getData`)
+        .then(this._getHomeData);
       },
       _getHomeData(res){
-        // this.banners = res.data.banners
-        // this.navigation = res.data.navigation
-        // this.quickEntrance = res.data.quick_entrance
-        // this.goodsList = res.data.goods_list
+        console.log("res",res)
+        this.types = res.data.types
+        this.typeItem = res.data.typeItem
+        this.banners = res.data.banners
+        this.quickEntrance = res.data.quickEntrance
       }
     },
     mounted(){
@@ -45,8 +64,11 @@
 
 </script>
 <style lang='stylus' scoped>
+  .header
+      top 0
+      left 0
+      background-color #ff7700
   .test
-    background-color #f4f4f4
     padding-bottom 50px
     width 100%
 
