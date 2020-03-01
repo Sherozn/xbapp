@@ -4,11 +4,12 @@ class dataController {
     //注册用户
     static async getData(ctx) {
         console.log("进入到方法中了")
+        const res = ctx.request.query
         try {
             var path=require('path');
             var defpath=path.join(__dirname,'../')
             console.log("defpath",defpath)
-            const data = JSON.parse(fs.readFileSync(defpath+'public/data/data.json', 'utf8'));
+            const data = JSON.parse(fs.readFileSync(defpath+'public/data/data.json', 'utf8'))[res.user_id];
 
             ctx.response.status = 200;
             ctx.body = {

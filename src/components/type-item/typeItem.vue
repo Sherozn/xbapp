@@ -36,7 +36,7 @@
       },
       _registerHooks(hookNames, handler) {
         hookNames.forEach((name) => {
-          console.log("this.bs",this.bs)
+          // console.log("this.bs",this.bs)
           this.bs.on(name, handler)
         })
       },

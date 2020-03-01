@@ -37,10 +37,10 @@ export default {
 .modal-mask {
   width: 100%;
   height: 100%;
-  position: fixed;
   top: 0;
   left: 0;
   background: #000;
+  position: fixed; 
   opacity: 0.5;
   overflow: hidden;
   z-index: 9000;
@@ -50,12 +50,14 @@ export default {
   box-sizing: border-box;
   width: 350px;
   overflow: hidden;
-  margin: -120px auto;
-  position: relative; 
-  top: 0;
+  top:200px;
+  left: 0;
+  right: 0;
+  position: fixed; 
+  margin: auto;
   z-index: 9999;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 .modal-content {
   box-sizing: border-box;

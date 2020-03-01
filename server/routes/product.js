@@ -28,9 +28,8 @@ const router = new Router({
     prefix: '/product'
 });
 
-//用户注册
-router.get('/getProduct',productController.getProducts)
 router.get('/getAllProduct',productController.getAllProduct)
+router.get('/getAllProductName',productController.getAllProductName)
 router.post('/deleteProduct',productController.deleteProduct)
 router.post('/editProduct',productController.editProduct)
 router.post('/editProductFile',upload.array('avatar', 1),productController.editProductFile)

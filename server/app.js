@@ -11,7 +11,7 @@ const users = require('./routes/users')
 const data = require('./routes/data')
 const product = require('./routes/product')
 const product_type = require('./routes/product_type')
-const admin = require('./routes/admin')
+const login = require('./routes/login')
 const cors = require('koa-cors')
 
 // error handler
@@ -45,7 +45,7 @@ app.use(users.routes(), users.allowedMethods())
 app.use(data.routes(), data.allowedMethods())
 app.use(product.routes(), product.allowedMethods())
 app.use(product_type.routes(), product_type.allowedMethods())
-app.use(admin.routes(), admin.allowedMethods())
+app.use(login.routes(), login.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

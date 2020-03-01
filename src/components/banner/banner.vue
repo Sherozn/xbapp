@@ -2,7 +2,9 @@
     <div class="banner">
         <swiper :options="swiperOption">
             <swiper-slide v-for="(item,index) of banners" :key="index">
-              <img :src='item'>
+              <a :href="item[1]">
+                <img :src='item[0]'>
+              </a>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -38,15 +40,18 @@
 
     .banner
         width 100%
+        text-align: center;
         .swiper-container
             width 100%
+            background-color #ffffff
             .swiper-wrapper
-                width 100%
                 .swiper-slide
-                    width 100%
-                    img 
-                        width 100%
-                        height 120px
+                    img
+                      width 95%
+                      height 130px
+                      margin 10px 10px
+
+                      border-radius 10px
             .swiper-pagination
                 left 40%
             .swiper-pagination >>> .swiper-pagination-bullet 

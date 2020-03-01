@@ -27,32 +27,27 @@ class productModule {
             buyUrl: data.buyUrl,
             testUrl: data.testUrl,
             as_type:data.as_type,
-            imgUrl:imgUrl
+            imgUrl:imgUrl,
+            user_id:data.user_id
         })
     }
 
-    static async getProduct(as_type) {
-        
+    static async getAllProductName(data) {
         return await product.findAll({
-            include: [{ 
-                model: productType, // 指定关联的model
-                where:{
-                    as_type:as_type
-                },
-                attributes: ['productId'],
-            }],
-            attributes: ['id','imgUrl','name','note','price','buyUrl','testUrl'],
-            raw:true,
             where:{
-                status:0
-            }
+                status:0,
+                user_id:data.user_id
+            },
+            attributes:['id','name'],
+            raw:true
         })
     }
 
-    static async getAllProduct() {
+    static async getAllProduct(data) {
         return await product.findAll({
             where:{
-                status:0
+                status:0,
+                user_id:data.user_id
             }
         })
     }
@@ -66,9 +61,7 @@ class productModule {
             {
                 'where': { 'id': product_id }
             }
-        ).catch(err => {
-                console.log('Error',err)
-            })
+        )
     }
 
     static async editProductFile(data,imgUrl) {  
@@ -85,9 +78,7 @@ class productModule {
             {
                 'where': { 'id': data.id }
             }
-        ).catch(err => {
-                console.log('Error',err)
-            })
+        )
     }
 
     static async editProduct(data) {  
@@ -103,21 +94,19 @@ class productModule {
             {
                 'where': { 'id': data.id }
             }
-        ).catch(err => {
-                console.log('Error',err)
-            })
+        )
     }
 }
 
 
 class productController {
-    //注册用户
-    static async getProducts(ctx) {
-        console.log("进入到方法中了")
-        // const as_type = ctx.request.body;
-        const as_type = 1
+    
+    static async getAllProduct(ctx) {
+        console.log("进入到获取所有产品方法中了")
+        const data = ctx.request.query
+        console.log("data*********",data.user_id)
         try {
-            const products = await productModule.getProduct(as_type);
+            const products = await productModule.getAllProduct(data);
 
             console.log("products",products)
             ctx.response.status = 200;
@@ -136,13 +125,15 @@ class productController {
         }
     }
 
-    static async getAllProduct(ctx) {
+    static async getAllProductName(ctx) {
         console.log("进入到获取所有产品方法中了")
+        const data = ctx.request.query
+        console.log("data*********",data)
         // const as_type = ctx.request.body;
         try {
-            const products = await productModule.getAllProduct();
+            const products = await productModule.getAllProductName(data);
 
-            console.log("products",products)
+            console.log("productsName",products)
             ctx.response.status = 200;
             ctx.body = {
                 code: 0,

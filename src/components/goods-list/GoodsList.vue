@@ -1,27 +1,26 @@
 <template>
     <div class="goods-list">
-
-        <a :href="item[4]" class="item" v-for="(item,index) in goodsList" :key="index">
+        <a class="item" v-for="(product,index) in products" :href='product.buyUrl' :key="index">
             <div class="left">
-                <img :src="item[0]">
+                <img :src="product.imgUrl">
             </div>
             <div class="right">
                 <div class="title">
-                    {{item[1]}}
+                    {{product.name}}
                 </div>
                 <div class="content">
-                    {{item[2]}}
+                    {{product.note}}
                 </div>
                 <div class="price-and-user">
                     <div class="price">
-                        <span class="_price"> <i>￥</i>{{item[3]}}</span>
+                        <span class="_price"> <i>￥</i>{{product.price}}</span>
                         <span class="sell-num">起</span>
                     </div>
                     <div class="btn">
-                        <a :href="item[4]">
+                        <a :href="product.buyUrl">
                             <div class="buy">购买</div>
                         </a>
-                        <a :href="item[5]">
+                        <a v-show="product.testUrl" :href="product.testUrl">
                             <div class="test">测评</div>
                         </a>
                     </div>
@@ -29,22 +28,28 @@
                 <div class="line"></div>
             </div>
         </a>
-
-    </div>
+    </div> 
 </template>
 
 <script>
     import axios from 'axios'
     export default {
         props:{
-          goodsList:Array
+          products:Array
         }
+        // data(){
+        //     return{
+        //         product_arr:this.products
+        //     }
+        // }
     }
+
 
 </script>
 <style lang='stylus' scoped>
     .goods-list
         width 100%
+        padding-bottom 50px
         .item
             margin-bottom 10px
             padding 15px 15px 0px

@@ -1,16 +1,17 @@
 <template>
     <div>
       <div class="header">
-        <router-link tag="div" to="/admin">
+        <!-- <router-link tag="div" to="/admin">
           <Search></Search>
-        </router-link>
+        </router-link> -->
         <Banner :banners="banners"></Banner>
-        <QuickEntrance :quickEntrance="quickEntrance"></QuickEntrance>
+        <template v-if="quickEntrance">
+          <QuickEntrance :quickEntrance="quickEntrance"></QuickEntrance>
+        </template>
       </div>
       <Type :types="types" :typeItem="typeItem"></Type>
-      <div class="test">
-        <GoodsList></GoodsList>
-      </div>
+
+
       <!-- <Footer></Footer> -->
     </div>
 </template>
@@ -22,7 +23,7 @@
   import Banner from '@/components/banner/banner'
   import QuickEntrance from '@/components/quick-entrance/QuickEntrance'
   import Type from '@/components/type/type'
-  import GoodsList from '@/components/goods-list/GoodsList'
+
   import Footer from '@/components/footer/footer'
   
   export default {
@@ -32,7 +33,6 @@
       Banner,
       QuickEntrance,
       Type,
-      GoodsList,
       Footer
     },
     data () {
@@ -45,7 +45,11 @@
     },
     methods:{
       getHomeData(){
-        axios.get(`${config.host}/data/getData`)
+        axios.get(`${config.host}/data/getData`,{
+          params:{
+            user_id:this.$route.params.id
+          }
+        })
         .then(this._getHomeData);
       },
       _getHomeData(res){
@@ -68,9 +72,7 @@
       top 0
       left 0
       background-color #ff7700
-  .test
-    padding-bottom 50px
-    width 100%
+    
 
 
 </style>

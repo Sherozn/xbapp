@@ -7,7 +7,7 @@
             <template slot="title"><i class="el-icon-message"></i>配置</template>
             <el-menu-item-group>
               <el-menu-item index="1-1">保险配置</el-menu-item>
-              <router-link tag="div" to="/items">
+              <router-link tag="div" to="/types">
                 <el-menu-item index="1-2">编辑标签</el-menu-item>
               </router-link>
             </el-menu-item-group>
@@ -15,7 +15,9 @@
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-menu"></i>账户管理</template>
             <el-menu-item-group>
-              <el-menu-item index="2-1">修改密码</el-menu-item>
+              <el-menu-item index="2-1">头部图片</el-menu-item>
+              <el-menu-item index="2-2">图标配置</el-menu-item>
+              <el-menu-item index="2-3">标签配置</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -80,13 +82,18 @@
         ifeditProduct:false,
         product_id :"",
         index:"",
-        product:{}
+        product:{},
+        user_id:0
       };
     },
     methods:{
       getHomeData(){
-        axios.get(`${config.host}/product/getAllProduct`)
-        .then(this._getHomeData);
+        const data = {
+          user_id:this.user_id
+        }
+        axios.get(`${config.host}/product/getAllProduct`,{
+          params:data
+        }).then(this._getHomeData);
       },
       _getHomeData(res){
         this.products = res.data.products
@@ -120,16 +127,25 @@
       },
       ifAdd(data){
         this.ifaddProduct = false
-        window.location.reload()
+        if(data == 1){
+          window.location.reload()
+        }
       },
 
       ifEdit(data){
         this.ifeditProduct = false
-        window.location.reload()
+        if(data == 1){
+          window.location.reload()
+        }
       }
 
     },
     mounted(){
+      this.user_id = this.$store.getters.userinfo.id
+      console.log("user_id",this.user_id)
+      if(!this.user_id){
+        this.user_id = localStorage.getItem("user-xbapp")
+      }
       this.getHomeData();
     }
   }

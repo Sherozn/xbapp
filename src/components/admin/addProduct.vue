@@ -82,7 +82,8 @@ export default {
       as_type_name:"重疾险",
       ins_types:["重疾险", "寿险", "医疗险", "意外险", "年金险", "旅行意外险", "家财险"],
       fileList:[],
-      error:""
+      error:"",
+      user_id:0
 
     }
   },
@@ -104,6 +105,7 @@ export default {
           buyUrl:this.buyUrl,
           testUrl:this.testUrl,
           as_type:this.as_type,
+          user_id:this.user_id
         };
         console.log("data",data)
         const fileArray = this.$refs.upload.uploadFiles;
@@ -129,6 +131,13 @@ export default {
       }
       
     }
+  },
+  mounted(){
+    this.user_id = this.$store.getters.userinfo.id
+    console.log("user_id",this.user_id)
+    if(!this.user_id){
+      this.user_id = localStorage.getItem("user-xbapp")
+    }
   }
 }
 </script>
@@ -137,10 +146,10 @@ export default {
 .modal-mask {
   width: 100%;
   height: 100%;
-  position: fixed;
   top: 0;
   left: 0;
   background: #000;
+  position: fixed; 
   opacity: 0.5;
   overflow: hidden;
   z-index: 9000;
@@ -150,8 +159,11 @@ export default {
   box-sizing: border-box;
   width: 500px;
   overflow: hidden;
-  margin: -550px auto;
-  position: relative; 
+  top:100px;
+  left: 0;
+  right: 0;
+  position: fixed; 
+  margin: auto;
   z-index: 9999;
   background: #fff;
   border-radius: 5px;
@@ -216,23 +228,6 @@ export default {
 button {
   background:#feb600;
   color: #ffffff;
-}
-.little-tip {
-  padding-top:15px;
-  padding-bottom:3px;
-  font-size: 14px;
-  font-weight:bold;
-  color: #feb600;
-}
-.little-content {
-  padding-top:5px;
-  font-size: 13px;
-  color:#606060;
-}
-.key-bold {
-  padding-top:5px;
-  font-size: 14px;
-  font-weight:bold;
 }
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;

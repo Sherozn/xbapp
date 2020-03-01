@@ -8,6 +8,11 @@ module.exports = function(sequelize,DataTypes){
                 allowNull: false,
                 autoIncrement: true
             },
+            user_id:{
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                field: 'user_id'
+            },
             productId:{
                 type: DataTypes.INTEGER,
                 allowNull: false,

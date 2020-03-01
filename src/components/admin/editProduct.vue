@@ -73,7 +73,6 @@ export default {
       testUrl:"",
       fileList:[],
       error:""
-
     }
   },
   methods: {
@@ -89,7 +88,7 @@ export default {
           note:this.note,
           price:this.price,
           buyUrl:this.buyUrl,
-          testUrl:this.testUrl,
+          testUrl:this.testUrl
         };
         console.log("data",data)
 
@@ -140,10 +139,10 @@ export default {
 .modal-mask {
   width: 100%;
   height: 100%;
-  position: fixed;
   top: 0;
   left: 0;
   background: #000;
+  position: fixed; 
   opacity: 0.5;
   overflow: hidden;
   z-index: 9000;
@@ -153,8 +152,11 @@ export default {
   box-sizing: border-box;
   width: 500px;
   overflow: hidden;
-  margin: -550px auto;
-  position: relative; 
+  top:100px;
+  left: 0;
+  right: 0;
+  position: fixed; 
+  margin: auto;
   z-index: 9999;
   background: #fff;
   border-radius: 5px;
@@ -219,23 +221,6 @@ export default {
 button {
   background:#feb600;
   color: #ffffff;
-}
-.little-tip {
-  padding-top:15px;
-  padding-bottom:3px;
-  font-size: 14px;
-  font-weight:bold;
-  color: #feb600;
-}
-.little-content {
-  padding-top:5px;
-  font-size: 13px;
-  color:#606060;
-}
-.key-bold {
-  padding-top:5px;
-  font-size: 14px;
-  font-weight:bold;
 }
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
