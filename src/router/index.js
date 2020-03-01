@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home/home.vue'
-import Admin from '@/components/admin/admin.vue'
-import Login from '@/components/admin/login.vue'
-import ProductType from '@/components/product-type/productType.vue'
+// import Admin from '@/components/admin/admin.vue'
+// import Login from '@/components/admin/login.vue'
+// import ProductType from '@/components/product-type/productType.vue'
 
 Vue.use(Router)
 
@@ -20,7 +20,7 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login,
+      component: resolve=>require(['@/components/admin/login.vue'],resolve),
       meta: {
         isLogin: false
       }
@@ -28,7 +28,7 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: Admin,
+      component: resolve=>require(['@/components/admin/admin.vue'],resolve),
       meta: {
         isLogin: true
       }
@@ -36,7 +36,7 @@ export default new Router({
     {
       path: '/types',
       name: 'ProductType',
-      component: ProductType,
+      component: resolve=>require(['@/components/product-type/productType.vue'],resolve),
       meta: {
         isLogin: true
       }
