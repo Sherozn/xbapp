@@ -10,7 +10,7 @@ class dataController {
             var defpath=path.join(__dirname,'../')
             console.log("defpath",defpath)
             const data = JSON.parse(fs.readFileSync(defpath+'public/data/data.json', 'utf8'))[res.user_id];
-
+            console.log("data*****",data)
             ctx.response.status = 200;
             ctx.body = {
                 code: 0,
