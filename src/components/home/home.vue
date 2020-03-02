@@ -45,6 +45,8 @@
     },
     methods:{
       getHomeData(){
+        console.log("我开始请求后端，请求的链接是：",`${config.host}/data/getData`)
+        console.log("当前的user_id是：",this.$route.params.id)
         axios.get(`${config.host}/data/getData`,{
           params:{
             user_id:this.$route.params.id
