@@ -18,6 +18,7 @@ const cors = require('koa-cors')
 onerror(app)
 
 // middlewares
+app.use(cors())
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
@@ -36,8 +37,6 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
-
-app.use(cors())
 
 // routes
 app.use(index.routes(), index.allowedMethods())
