@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/data':{
-            target: 'http://lgshuolicai.com:3303',
+            target: 'http://lgshuolicai.com:3303/data',
             changeOrigin: true
         }
     },
