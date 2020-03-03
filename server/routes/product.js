@@ -8,7 +8,7 @@ console.log("defpath",defpath)
 const storage = multer.diskStorage({
     destination (req, file, cb) {
         // 设置文件的存储目录，需提前创建
-        cb(null, `${defpath}static/img`)
+        cb(null, `${defpath}dist/static/img`)
     },
     filename (req, file, cb) {
         // 设置 文件名
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
         // 即： .png，.jpg等，这样就需要上传文件的后缀名为3位
         const extension = name.substring(name.length - 4);
         
-        	cb(null, 'img' + Date.now() + extension);
+        	cb(null, 'img-' + Date.now() + extension);
         
     }
 })
