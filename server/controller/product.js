@@ -198,7 +198,7 @@ class productController {
         console.log("进入添加保险方法中了")
         const files = ctx.req.files
         const data = ctx.request.query
-        const imgUrl = "static/img/" + files[0].filename
+        const imgUrl = "/static/img/" + files[0].filename
         console.log("data****************",data)
         try{
             await productModule.createProduct(data,imgUrl)
@@ -221,7 +221,7 @@ class productController {
         console.log("进入编辑保险方法中了")
         const files = ctx.req.files
         const data = ctx.request.query
-        const imgUrl = "static/img/" + files[0].filename
+        const imgUrl = "/static/img/" + files[0].filename
         console.log("data****************",data)
         try{
             await productModule.editProductFile(data,imgUrl)

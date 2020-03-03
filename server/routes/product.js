@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
         // 即： .png，.jpg等，这样就需要上传文件的后缀名为3位
         const extension = name.substring(name.length - 4);
         
-        	cb(null, 'img-' + Date.now() + extension);
+        	cb(null, 'img' + Date.now() + extension);
         
     }
 })
