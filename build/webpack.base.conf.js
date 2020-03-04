@@ -17,8 +17,8 @@ module.exports = {
   },
   externals: {
     'vue': 'Vue',
-    // 'vue-router': 'VueRouter',
-    'element-ui': 'ElementUI',
+    // 'vue-router': 'Router',
+    'element-ui': 'ElementUI'
     // 'vuex':'Vuex'
   },
   output: {

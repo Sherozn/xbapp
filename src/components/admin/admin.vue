@@ -142,10 +142,10 @@
     },
     mounted(){
       this.user_id = this.$store.getters.userinfo.id
-      console.log("user_id",this.user_id)
       if(!this.user_id){
         this.user_id = localStorage.getItem("user-xbapp")
       }
+      console.log("user_id",this.user_id)
       this.getHomeData();
     }
   }

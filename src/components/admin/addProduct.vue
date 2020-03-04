@@ -97,7 +97,6 @@ export default {
     },
     submitUpload(){
       if(this.name && this.name.length<20 && this.note && this.note.length<60 && this.price && this.buyUrl){
-        this.$emit('ifAdd',1)
         const data = {
           name:this.name,
           note:this.note,
@@ -124,7 +123,8 @@ export default {
             data: fd,
             params: data
         }).then(res => {
-            console.log(res.data);
+            this.$emit('ifAdd',1)
+            console.log("addProduct的res：",res);
         })
       }else{
         this.error = "*必填项为空，或者超出规定长度，请检查重新提交"
@@ -134,10 +134,10 @@ export default {
   },
   mounted(){
     this.user_id = this.$store.getters.userinfo.id
-    console.log("user_id",this.user_id)
     if(!this.user_id){
       this.user_id = localStorage.getItem("user-xbapp")
     }
+    console.log("user_id",this.user_id)
   }
 }
 </script>

@@ -44,7 +44,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    border: 1px solid #eaeaea;
+    /*border: 1px solid #eaeaea;*/
     transform-origin: 0 0;
 }
 .border-top::before,
