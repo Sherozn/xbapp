@@ -45,12 +45,12 @@
         this.items_index = i
         this.$emit('asTypeF',i)
       }
+    },
+    watch:{
+      items(){//箭头函数  不然会发生this改变
+        this.items_index = 0
+      }
     }
-    // watch:{
-    //   emojis_index(){//箭头函数  不然会发生this改变
-    //     this.items_index = 0
-    //   }
-    // }
 
 	}
 </script>
