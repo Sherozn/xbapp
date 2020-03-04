@@ -6,10 +6,10 @@
                                 ["成人配置方案", "少儿配置方案", "老人配置方案"],
                                 ["5千-1万预算","2万及以上预算"]],
         "banners":[["static/img/1.jpg","https://mp.weixin.qq.com/s/kzFoF4BwD2fQdq7fDHlg-g"],["static/img/2.jpg","https://mp.weixin.qq.com/s/An5cDR_Dh2Hj8a8bCaMuqQ"]],
-        "quickEntrance":[["在线客服","static/img/kefu.png","https://hh.hzins.com/chat/chatting/?domain=hzins&language=zh&businessType=zYE1NkKg-Fg&referrer=https%3A%2F%2Fcps.qixin18.com%2Fm%2Fxl1034620%2Fmedia-11414.html&msrc=QX&platform=mobile&fromApp=0&title=&mid=5NfJ%2FsKM7mU%3D&cuid=6%2Bpkq7sq5YA%3D"],
-                                ["预约顾问","static/img/预约顾问.png","https://cps.qixin18.com/v3/m/xl1034620/reservation"],
-                                ["小马理赔","static/img/小马理赔.png","http://www.bxy18.com/"],
-                                ["预核保","static/img/预核保.png","https://cps.qixin18.com/m/xl1034620/preNucleation/index"]]
+        "quickEntrance":[["在线客服","static/img/客服.jpg","https://hh.hzins.com/chat/chatting/?domain=hzins&language=zh&businessType=zYE1NkKg-Fg&referrer=https%3A%2F%2Fcps.qixin18.com%2Fm%2Fxl1034620%2Fmedia-11414.html&msrc=QX&platform=mobile&fromApp=0&title=&mid=5NfJ%2FsKM7mU%3D&cuid=6%2Bpkq7sq5YA%3D"],
+                                ["预约顾问","static/img/预约顾问.jpg","https://cps.qixin18.com/v3/m/xl1034620/reservation"],
+                                ["小马理赔","static/img/小马理赔.jpg","http://www.bxy18.com/"],
+                                ["预核保","static/img/预核保.jpg","https://cps.qixin18.com/m/xl1034620/preNucleation/index"]]
     },
 
     "2":{
