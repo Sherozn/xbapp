@@ -24,7 +24,7 @@
   import QuickEntrance from '@/components/quick-entrance/QuickEntrance'
   import Type from '@/components/type/type'
   import Footer from '@/components/footer/footer'
-  import Datas from '@/assets/data.json'
+  // import Datas from '@/assets/data.json'
   
   export default {
     name:'Home',
@@ -44,31 +44,31 @@
       };
     },
     methods:{
-      // getHomeData(){
-      //   console.log("我开始请求后端，请求的链接是：",`${config.host}/data/getData`)
-      //   console.log("当前的user_id是：",this.$route.params.id)
-      //   axios.get(`${config.host}/data/getData`,{
-      //     params:{
-      //       user_id:this.$route.params.id
-      //     }
-      //   })
-      //   .then(this._getHomeData);
-      // },
-      // _getHomeData(res){
-      //   console.log("res",res)
-      //   this.types = Data.types
-      //   this.typeItem = Data.typeItem
-      //   this.banners = res.data.banners
-      //   this.quickEntrance = res.data.quickEntrance
-      // }
       getHomeData(){
-        console.log("data:",Datas[1])
-        const datas = Datas[1]
-        this.types = datas.types
-        this.typeItem = datas.typeItem
-        this.banners = datas.banners
-        this.quickEntrance = datas.quickEntrance
+        console.log("我开始请求后端，请求的链接是：",`${config.host}/data/getData`)
+        console.log("当前的user_id是：",this.$route.params.id)
+        axios.get(`${config.host}/data/getData`,{
+          params:{
+            user_id:this.$route.params.id
+          }
+        })
+        .then(this._getHomeData);
+      },
+      _getHomeData(res){
+        console.log("res",res)
+        this.types = Data.types
+        this.typeItem = Data.typeItem
+        this.banners = res.data.banners
+        this.quickEntrance = res.data.quickEntrance
       }
+      // getHomeData(){
+      //   console.log("data:",Datas[1])
+      //   const datas = Datas[1]
+      //   this.types = datas.types
+      //   this.typeItem = datas.typeItem
+      //   this.banners = datas.banners
+      //   this.quickEntrance = datas.quickEntrance
+      // }
     },
     mounted(){
       this.getHomeData();
