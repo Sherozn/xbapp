@@ -56,8 +56,8 @@
       },
       _getHomeData(res){
         console.log("res",res)
-        this.types = Data.types
-        this.typeItem = Data.typeItem
+        this.types = res.data.types
+        this.typeItem = res.data.typeItem
         this.banners = res.data.banners
         this.quickEntrance = res.data.quickEntrance
       }
