@@ -89,7 +89,6 @@ export default {
     },
     submitUpload(){
       if(this.name && this.name.length<20 && this.note && this.note.length<60 && this.price && this.buyUrl){
-        this.$emit('ifEdit',1)
          const data = {
           id:this.product.id,
           name:this.name,
@@ -114,6 +113,7 @@ export default {
               data: fd,
               params: data
           }).then(res => {
+              this.$emit('ifEdit',1)
               console.log(res.data);
           })
         }else if(fileArray.length == 0){
@@ -122,7 +122,8 @@ export default {
               method: 'post',
               data: data
           }).then(res => {
-              console.log(res.data);
+            this.$emit('ifEdit',1)
+            console.log(res.data);
           })
         }
         
