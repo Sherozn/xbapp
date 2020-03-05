@@ -17,10 +17,10 @@
     </template>
     
   </div>
-   <div class="goods-list">
+    <div class="goods-list">
       <GoodsList :products="products"></GoodsList>    
     </div>
-  </div></template>            
+  </div>        
 </template>
 
 <script>

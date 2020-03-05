@@ -28,6 +28,11 @@ module.exports = function(sequelize,DataTypes){
                 allowNull: true,
                 field: 'note'
             },
+            label:{
+                type: DataTypes.STRING,
+                allowNull: true,
+                field: 'label'
+            },
             price:{
                 type: DataTypes.FLOAT,
                 allowNull: true,

@@ -36,7 +36,7 @@ class productTypeModule {
                 },
                 attributes: ['id','as_sort'],
             }],
-            attributes: ['imgUrl','name','note','price','buyUrl','testUrl'],
+            attributes: ['imgUrl','name','note','label','price','buyUrl','testUrl'],
             raw:true,
             where:{
                 status:0

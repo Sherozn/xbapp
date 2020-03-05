@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
       <div class="header">
         <!-- <router-link tag="div" to="/admin">
           <Search></Search>
@@ -10,7 +10,9 @@
         </template>
       </div>
       <Type :types="types" :typeItem="typeItem"></Type>
-
+      <div class="footer-text">
+        产品和服务由小雨伞保险经纪有限公司、深圳市慧择保险经纪有限公司、网金保险销售服务有限公司、保通保险代理有限公司提供
+      </div>
 
       <!-- <Footer></Footer> -->
     </div>
@@ -78,11 +80,18 @@
 
 </script>
 <style lang='stylus' scoped>
+.container
+  background-color #f4f4f4
   .header
-      top 0
-      left 0
-      background-color #ff7700
-    
+    top 0
+    left 0
+    background-color #ff7700
+  .footer-text
+    text-align center
+    line-height 20px
+    padding 30px 15px 20px 15px
+    height 60px
+    color #888888
 
 
 </style>

@@ -19,6 +19,13 @@
               placeholder="【必填】不超过58个字">
           </div>
           <div class="row">
+            <label class="label">标签：</label>
+            <input v-model='label'
+              class="input"
+              maxlength='4'
+              placeholder="【选填】不超过4个字">
+          </div>
+          <div class="row">
             <label class="label">最低价格：</label>
             <input v-model='price'
               class="input"
@@ -75,6 +82,7 @@ export default {
     return{
       name:"",
       note:"",
+      label:"",
       price:"",
       buyUrl:"",
       testUrl:"",
@@ -104,6 +112,7 @@ export default {
           buyUrl:this.buyUrl,
           testUrl:this.testUrl,
           as_type:this.as_type,
+          label:this.label,
           user_id:this.user_id
         };
         console.log("data",data)

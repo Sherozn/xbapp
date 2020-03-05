@@ -27,6 +27,7 @@ class productModule {
             buyUrl: data.buyUrl,
             testUrl: data.testUrl,
             as_type:data.as_type,
+            label:data.label,
             imgUrl:imgUrl,
             user_id:data.user_id
         })
@@ -71,6 +72,7 @@ class productModule {
                 imgUrl:imgUrl,
                 name: data.name,
                 note: data.note,
+                label:data.label,
                 price: data.price,
                 buyUrl: data.buyUrl,
                 testUrl: data.testUrl
@@ -87,6 +89,7 @@ class productModule {
             {
                 name: data.name,
                 note: data.note,
+                label:data.label,
                 price: data.price,
                 buyUrl: data.buyUrl,
                 testUrl: data.testUrl

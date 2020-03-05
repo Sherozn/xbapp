@@ -3,6 +3,9 @@
         <a class="item" v-for="(product,index) in products" :href='product.buyUrl' :key="index">
             <div class="left">
                 <img :src="product.imgUrl">
+                <div class="img-text" v-if="product.label">
+                    {{product.label}}
+                </div>
             </div>
             <div class="right">
                 <div class="title">
@@ -25,7 +28,6 @@
                         </a>
                     </div>
                 </div>
-                <div class="line"></div>
             </div>
         </a>
     </div> 
@@ -49,19 +51,31 @@
 <style lang='stylus' scoped>
     .goods-list
         width 100%
-        padding-bottom 50px
+        padding-bottom 10px
         .item
-            margin-bottom 10px
-            padding 15px 15px 0px
+            padding 15px 15px
             display flex
+            border-bottom 1px  solid rgba(0,0,0,.05)
+
             .item-a
                 display block
             .left
-                width 122px
+                position relative
+                width 112px
                 heigh 172px
                 img 
-                    width 110px
+                    width 100px
                     height 100px
+                .img-text
+                    position absolute
+                    background-color #ffa100
+                    border-radius 8px
+                    margin 6px 6px
+                    padding 2px 5px
+                    color #ffffff
+                    font-size 10px
+                    left 0
+                    top 0
 
             .right
                 position relative
@@ -69,17 +83,11 @@
                 display flex
                 flex-direction column
                 justify-content space-between
-                .line
-                    position absolute
-                    bottom -10px
-                    right 0px
-                    width 199px
-                    height 0
-                    border-bottom 1px  solid rgba(0,0,0,.05)
                 .title
                     font-size 15px
                     color #151516
                     line-height 28px
+                    font-weight bold
                     height 28px
                     overflow hidden
                     letter-spacing 1px
