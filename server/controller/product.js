@@ -175,28 +175,6 @@ class productController {
         }
     }
 
-    static async editProduct(ctx){
-        console.log("进入编辑方法中了")
-        const data = ctx.request.body
-        console.log("data****************",data)
-        try{
-            const products = await productModule.deleteProduct(data.product_id);
-            console.log("products——---****************",products)
-            ctx.response.status = 200;
-            ctx.body = {
-                code: 0,
-                desc: '获取成功'
-            }
-        } catch (error) {
-            console.log("error",error)
-            ctx.response.status = 416;
-            ctx.body = {
-                code: -1,
-                desc: error
-            }
-        }
-    } 
-
     static async addProduct(ctx){
         console.log("进入添加保险方法中了")
         const files = ctx.req.files
@@ -219,6 +197,28 @@ class productController {
             }
         }
     }
+
+    // static async editProduct(ctx){
+    //     console.log("进入编辑方法中了")
+    //     const data = ctx.request.body
+    //     console.log("data****************",data)
+    //     try{
+    //         const products = await productModule.deleteProduct(data.product_id);
+    //         console.log("products——---****************",products)
+    //         ctx.response.status = 200;
+    //         ctx.body = {
+    //             code: 0,
+    //             desc: '获取成功'
+    //         }
+    //     } catch (error) {
+    //         console.log("error",error)
+    //         ctx.response.status = 416;
+    //         ctx.body = {
+    //             code: -1,
+    //             desc: error
+    //         }
+    //     }
+    // } 
 
     static async editProductFile(ctx){
         console.log("进入编辑保险方法中了")
