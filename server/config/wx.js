@@ -1,7 +1,7 @@
 // some wx fn
-const encode = require('encode')
-const config = require('config')
-const xml = require('xml')
+const encode = require('./encode')
+const config = require('./config')
+const xml = require('./xml')
 
 // 返回 true ／ false
 exports.auth = (ctx) => {

@@ -1,4 +1,4 @@
-const xml = require('xml')
+const xml = require('./xml')
 
 module.exports = () => {
     return async (ctx, next) => {
