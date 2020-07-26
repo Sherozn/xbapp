@@ -39,11 +39,11 @@
                </template>         
           </el-table-column> 
             <el-table-column prop="name" label="保险名称" width="120"></el-table-column>
-            <el-table-column prop="note" label="描述" width="260"></el-table-column>
-            <el-table-column prop="label" label="标签" width="90"></el-table-column>
+            <el-table-column prop="note" label="描述" width="230"></el-table-column>
+            <el-table-column prop="label" label="标签" width="80"></el-table-column>
             <el-table-column prop="price" label="最低价格" width="90"></el-table-column>
-            <el-table-column prop="buyUrl" label="购买链接" width="240"></el-table-column>
-            <el-table-column prop="testUrl" label="测评链接" width="210"></el-table-column>
+            <el-table-column prop="buyUrl" label="购买链接" width="220"></el-table-column>
+            <el-table-column prop="testUrl" label="测评链接" width="190"></el-table-column>
             <el-table-column label="操作" width="100">
               <template  slot-scope="scope">
                 <button class="delete" @click="editProduct(scope.row)">编辑
