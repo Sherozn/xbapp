@@ -1,16 +1,18 @@
-// index controller
-const wx = require('../util/wx')
+const wx = require('../config/wx')
 
-exports.getHandle = async (ctx, next) => {
+class gzhController {
+
+  static async getHandle(ctx){
     const result = wx.auth(ctx)
-    if (result) {
-        ctx.body = ctx.query.echostr
-    } else {
-        ctx.body = { code: -1, msg: "You aren't wechat server !"}
-    }
-}
+      if (result) {
+          ctx.body = ctx.query.echostr
+      } else {
+          ctx.body = { code: -1, msg: "You aren't wechat server !"}
+      }
+  }
 
-exports.postHandle = (ctx, next) => {
+  
+  static async postHandle(ctx){
     let msg,
         MsgType,
         result
@@ -33,4 +35,7 @@ exports.postHandle = (ctx, next) => {
     }
     ctx.res.setHeader('Content-Type', 'application/xml')
     ctx.res.end(result)
+  }
 }
+
+module.exports = gzhController;

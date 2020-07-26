@@ -6,12 +6,15 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+const xmlParse = require('./config/xmlParse')
+
 const index = require('./routes/index')
 const users = require('./routes/users')
 const data = require('./routes/data')
 const product = require('./routes/product')
 const product_type = require('./routes/product_type')
 const login = require('./routes/login')
+const gzh = require('./routes/gzh')
 const cors = require('koa-cors')
 
 // error handler
@@ -24,6 +27,7 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
+app.use(xmlParse())
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
@@ -45,6 +49,7 @@ app.use(data.routes(), data.allowedMethods())
 app.use(product.routes(), product.allowedMethods())
 app.use(product_type.routes(), product_type.allowedMethods())
 app.use(login.routes(), login.allowedMethods())
+app.use(gzh.routes(), gzh.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
