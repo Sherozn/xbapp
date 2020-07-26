@@ -56,7 +56,7 @@ app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
 
-app.listen(80,() => {
+app.listen(3303,() => {
 	console.log("app已经运行，端口为3303")
 	console.log("__dirname:",__dirname)
 });
