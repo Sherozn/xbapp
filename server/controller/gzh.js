@@ -1,5 +1,5 @@
 const wx = require('../config/wx')
-const config = require('../config/config')
+const config = require('../config/appid')
 const rp=require('request-promise')
 
 const path=require('path')

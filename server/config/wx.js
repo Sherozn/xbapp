@@ -1,6 +1,6 @@
 // some wx fn
 const encode = require('./encode')
-const config = require('./config')
+const config = require('./appid')
 const xml = require('./xml')
 
 // 返回 true ／ false
