@@ -100,6 +100,8 @@ class gzhController {
 
       var result = await rp(url)
 
+      console.log("result",result)
+
       if(!result.data.errCode){
         ctx.body = {
           state: '200',
