@@ -89,7 +89,7 @@ class gzhController {
 
   static async getUsers(ctx) {
     try{
-      var access_token = getAccessToken()
+      var access_token = await getAccessToken()
 
       const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
 
