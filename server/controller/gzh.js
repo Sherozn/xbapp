@@ -102,8 +102,9 @@ class gzhController {
 
       console.log("result",result)
       console.log("result",result.data)
+      console.log("result",result['data'])
 
-      if(!result.data.errCode){
+      if(!result['data'].errCode){
         ctx.body = {
           state: '200',
           msg: '获取用户信息 成功',
