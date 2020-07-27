@@ -98,13 +98,15 @@ class gzhController {
 
       const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
 
-      var result = await rp(url)
+      var res = await rp(url)
+
+      
+
+      const result = JSON.parse(res)
 
       console.log("result",result)
-      console.log(typeof result)
-      console.log("result",result['data'])
 
-      if(!result['data'].errCode){
+      if(!result.data.errCode){
         ctx.body = {
           state: '200',
           msg: '获取用户信息 成功',
