@@ -47,7 +47,7 @@ class gzhModule {
       return res.access_token
     }else{
       //如果失败 继续发送请求
-      await updateAccessToken()
+      await gzhModule.updateAccessToken()
     }
   }
 
