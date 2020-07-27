@@ -142,20 +142,16 @@ class gzhController {
       url: 'http://weixin.qq.com/download',
       data: {
         pay: {
-          value: '身份信息',
-          color: "#173177"
+          value: '身份信息'
         },
         address: {
-          value: '张三',
-          color: '#1d1d1d'
+          value: '张三'
         },
         time: {
-          value: '男',
-          color: '#1d1d1d'
+          value: '男'
         },
         remark: {
-          value: '已登记！',
-          color: '#173177'
+          value: '已登记！'
         }
       }
     };
@@ -166,7 +162,7 @@ class gzhController {
       params:requestData
     })
 
-    console.log("result",result); 
+    console.log("result1111",result); 
   }
 
   //获取code
