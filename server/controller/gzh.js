@@ -47,7 +47,7 @@ class gzhController {
   }
 
   //获取access_token
-  static async getAccessToken(ctx) {
+  static async getAccessToken() {
     //读取文件
     try{
       const readRes=fs.readFileSync(fileName,'utf8')
