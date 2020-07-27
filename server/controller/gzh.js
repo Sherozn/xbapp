@@ -9,6 +9,50 @@ const fs=require('fs')
 const urlencode= require('urlencode'); //URL编译模块
 const sha1 = require('node-sha1'); //加密模块
 
+class gzhModule {
+
+  static async getAccessToken() {
+    //读取文件
+    try{
+      const readRes=fs.readFileSync(fileName,'utf8')
+      console.log("readRes ",readRes)
+      const readObj=JSON.parse(readRes)
+      const createTime=new Date(readObj.createTime).getTime()
+      const nowTime=new Date().getTime()
+      //如果更新的时候断线了 重新获取
+      if((nowTime-createTime)/1000/60/60>=2){
+        await gzhModule.updateAccessToken()
+      }
+      return readObj.access_token
+    }catch(err){
+      //刚启动的时候没有 所以读取失败 再更新一次
+      console.log("再更新一次 ")
+      return await gzhModule.updateAccessToken()
+    }
+  }
+
+
+  static async updateAccessToken() {
+    console.log("updateAccessToken ")
+    const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.appid}&secret=${config.secret}`
+    const resStr = await rp(URL)
+    console.log("resStr ",resStr)
+    const res=JSON.parse(resStr)
+    // 写文件
+    if(res.access_token){
+      fs.writeFileSync(fileName,JSON.stringify({
+        access_token:res.access_token,
+        createTime:new Date()
+      }))
+      return res.access_token
+    }else{
+      //如果失败 继续发送请求
+      await updateAccessToken()
+    }
+  }
+
+}
+
 class gzhController {
 
   //接入服务器验证
@@ -47,49 +91,11 @@ class gzhController {
   }
 
   //获取access_token
-  static async getAccessToken() {
-    //读取文件
-    try{
-      const readRes=fs.readFileSync(fileName,'utf8')
-      console.log("readRes ",readRes)
-      const readObj=JSON.parse(readRes)
-      const createTime=new Date(readObj.createTime).getTime()
-      const nowTime=new Date().getTime()
-      //如果更新的时候断线了 重新获取
-      if((nowTime-createTime)/1000/60/60>=2){
-        await updateAccessToken()
-      }
-      return readObj.access_token
-    }catch(err){
-      //刚启动的时候没有 所以读取失败 再更新一次
-      console.log("再更新一次 ")
-      return await updateAccessToken()
-    }
-  }
-
-
-  static async updateAccessToken() {
-    console.log("updateAccessToken ")
-    const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.appid}&secret=${config.secret}`
-    const resStr=await rp(URL)
-    console.log("resStr ",resStr)
-    const res=JSON.parse(resStr)
-    // 写文件
-    if(res.access_token){
-      fs.writeFileSync(fileName,JSON.stringify({
-        access_token:res.access_token,
-        createTime:new Date()
-      }))
-      return res.access_token
-    }else{
-      //如果失败 继续发送请求
-      await updateAccessToken()
-    }
-  }
+  
 
   static async getUsers(ctx) {
     try{
-      var access_token = await getAccessToken()
+      var access_token = await gzhModule.getAccessToken()
 
       const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
 
