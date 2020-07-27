@@ -45,9 +45,6 @@ class gzhModule {
         createTime:new Date()
       }))
       return res.access_token
-    }else{
-      //如果失败 继续发送请求
-      await gzhModule.updateAccessToken()
     }
   }
 
