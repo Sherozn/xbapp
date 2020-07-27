@@ -8,6 +8,7 @@ const fileName=path.resolve(__dirname,'./access_token.json')
 const fs=require('fs')
 const urlencode= require('urlencode'); //URL编译模块
 const sha1 = require('node-sha1'); //加密模块
+const axios = require('axios');
 
 class gzhModule {
 
@@ -100,8 +101,6 @@ class gzhController {
 
       var res = await rp(url)
 
-      
-
       const result = JSON.parse(res)
 
       console.log("result",result)
@@ -112,7 +111,6 @@ class gzhController {
           msg: '获取用户信息 成功',
           data: result.data
         }
-        console.log("result.data",result.data)
       }else{
         ctx.body = {
           state: '0',
@@ -129,6 +127,46 @@ class gzhController {
         desc: e
       }
     }
+  }
+
+
+  static async sendTemplateMsg(ctx) {
+    const access_token = await gzhModule.getAccessToken()
+    const openid = "oHgzEvuyp0sKOEOx30613SCBg208"
+
+    const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; //发送模板消息的接口
+    
+    const requestData = { //发送模板消息的数据
+      touser: openid,
+      template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
+      url: 'http://weixin.qq.com/download',
+      data: {
+        pay: {
+          value: '身份信息',
+          color: "#173177"
+        },
+        address: {
+          value: '张三',
+          color: '#1d1d1d'
+        },
+        time: {
+          value: '男',
+          color: '#1d1d1d'
+        },
+        remark: {
+          value: '已登记！',
+          color: '#173177'
+        }
+      }
+    };
+
+    const result = await axios({
+      method: 'POST',
+      url: url,
+      params:requestData
+    })
+
+    console.log("result",result); 
   }
 
   //获取code
@@ -191,49 +229,6 @@ class gzhController {
  * @param  { string } access_token [发送模板消息的接口需要用到access_token参数]
  */
 
-// sendTemplateMsg(openid, access_token) {
-//         const access_token = getAccessToken()
-
-//         const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; //发送模板消息的接口
-        
-//         const requestData = { //发送模板消息的数据
-//             touser: openid,
-//             template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
-//             url: 'http://weixin.qq.com/download',
-//             data: {
-//                 first: {
-//                     value: '身份信息',
-//                     color: "#173177"
-//                 },
-//                 keyword1: {
-//                     value: '张三',
-//                     color: '#1d1d1d'
-//                 },
-//                 keyword2: {
-//                     value: '男',
-//                     color: '#1d1d1d'
-//                 },
-//                 keyword3: {
-//                     value: '45',
-//                     color: '#1d1d1d'
-//                 },
-//                 remark: {
-//                     value: '已登记！',
-//                     color: '#173177'
-//                 }
-//             }
-//         };
-
-//         request({
-//             url: url,
-//             method: 'post',
-//             body: requestData,
-//         }, function(error, response, body) {
-//             if (!error && response.statusCode == 200) {
-//                 console.log('模板消息推送成功'); 
-//             }
-//         });
-//     }
 
 
 }
