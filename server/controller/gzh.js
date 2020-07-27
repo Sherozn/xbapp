@@ -132,7 +132,8 @@ class gzhController {
 
   static async sendTemplateMsg(ctx) {
     const access_token = await gzhModule.getAccessToken()
-    const openid = "oHgzEvuyp0sKOEOx30613SCBg208"
+    // const openid = "oHgzEvuyp0sKOEOx30613SCBg208"
+    const openid = oHgzEvjh8uBw39MZTyAg_zgawZWU
 
     const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; //发送模板消息的接口
     
