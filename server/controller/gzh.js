@@ -19,7 +19,7 @@ class gzhModule {
       const readObj=JSON.parse(readRes)
       const createTime=new Date(readObj.createTime).getTime()
       const nowTime=new Date().getTime()
-      //如果更新的时候断线了 重新获取
+      //如果时效大于2小时 重新获取
       if((nowTime-createTime)/1000/60/60>=2){
         await gzhModule.updateAccessToken()
       }
@@ -33,8 +33,10 @@ class gzhModule {
 
 
   static async updateAccessToken() {
-    console.log("updateAccessToken ")
+    console.log("config.appid ",config.appid)
+    console.log("config.secret ",config.secret)
     const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.appid}&secret=${config.secret}`
+    console.log("URL ",URL)
     const resStr = await rp(URL)
     console.log("resStr ",resStr)
     const res=JSON.parse(resStr)
