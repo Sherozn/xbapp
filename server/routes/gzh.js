@@ -1,11 +1,17 @@
 const Router = require('koa-router');
 const gzhController = require('../controller/gzh')
 
-const router = new Router();
+const router = new Router({
+    prefix: '/wx'
+});
 
 //用户登录
-router.get('/wx',gzhController.getHandle)
+router.get('/',gzhController.getHandle)
 
-router.post('/wx',gzhController.postHandle)
+router.post('/',gzhController.postHandle)
+
+router.get('/users',gzhController.getUsers)
+
+router.post('/send',gzhController.sendTemplateMsg)
 
 module.exports = router;
