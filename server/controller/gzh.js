@@ -33,9 +33,9 @@ class gzhModule {
 
 
   static async updateAccessToken() {
-    console.log("config.appid ",config.appid)
-    console.log("config.secret ",config.secret)
-    const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.appid}&secret=${config.secret}`
+    console.log("config.appid ",config.wx.appid)
+    console.log("config.secret ",config.wx.secret)
+    const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.wx.appid}&secret=${config.wx.secret}`
     console.log("URL ",URL)
     const resStr = await rp(URL)
     console.log("resStr ",resStr)
