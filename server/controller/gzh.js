@@ -101,7 +101,7 @@ class gzhController {
       var result = await rp(url)
 
       console.log("result",result)
-      console.log("result",result.data)
+      console.log(typeof result)
       console.log("result",result['data'])
 
       if(!result['data'].errCode){
