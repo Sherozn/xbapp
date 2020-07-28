@@ -133,15 +133,15 @@ class gzhController {
   static async sendTemplateMsg(ctx) {
     const access_token = await gzhModule.getAccessToken()
     console.log("access_token",access_token)
-    // const openid = "oHgzEvuyp0sKOEOx30613SCBg208"
+
     var openid = "oHgzEvjh8uBw39MZTyAg_zgawZWU"
     const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; //发送模板消息的接口
     const nowTime=new Date().getTime()
     
-    const requestData = { //发送模板消息的数据
-      'touser': 'oHgzEvuyp0sKOEOx30613SCBg208',
-      'template_id': 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
-      'data': {
+    const requestData = JSON.parse({ //发送模板消息的数据
+      touser: 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
+      template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
+      data: {
         pay: {
           value: '身份信息'
         },
@@ -154,7 +154,7 @@ class gzhController {
         remark: {
           value: '已登记！'
         }
-      }
+      })
     };
     console.log("requestData",requestData)
 
