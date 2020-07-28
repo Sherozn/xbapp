@@ -141,7 +141,6 @@ class gzhController {
     const requestData = { //发送模板消息的数据
       touser: 'oHgzEvuyp0sKOEOx30613SCBg208',
       template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
-      url: 'http://weixin.qq.com/download',
       data: {
         pay: {
           value: '身份信息'
