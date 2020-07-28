@@ -162,9 +162,7 @@ class gzhController {
     // data = JSON.parse(requestData)
     console.log("requestData",requestData.touser)
 
-    const result = await axios.post(url,{
-      params:requestData
-    })
+    const result = await axios.post(url,requestData)
 
     // const result = await axios({
     //   method: 'POST',
