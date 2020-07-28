@@ -139,9 +139,9 @@ class gzhController {
     const nowTime=new Date().getTime()
     
     const requestData = { //发送模板消息的数据
-      touser: 'oHgzEvuyp0sKOEOx30613SCBg208',
-      template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
-      data: {
+      'touser': 'oHgzEvuyp0sKOEOx30613SCBg208',
+      'template_id': 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
+      'data': {
         pay: {
           value: '身份信息'
         },
