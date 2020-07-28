@@ -139,7 +139,7 @@ class gzhController {
     const nowTime=new Date().getTime()
     
     //发送模板消息的数据
-    const requestData = `{ 
+    const requestData = { 
       touser: 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
       template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
       data: {
@@ -156,13 +156,13 @@ class gzhController {
           value: '已登记！'
         }
       }
-    }`
+    }
 
-    data = JSON.parse(requestData)
-    console.log("data",data)
+    // data = JSON.parse(requestData)
+    console.log("requestData",typeof requestData)
 
     const result = await axios.post(url,{
-      params:data
+      params:requestData
     })
 
     // const result = await axios({
