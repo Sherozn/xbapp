@@ -130,7 +130,7 @@ class gzhController {
   }
 
 
-  static async sendTemplateMsg(ctx) {
+  static async sendTemplateMsg() {
     const access_token = await gzhModule.getAccessToken()
     console.log("access_token",access_token)
 
@@ -140,26 +140,26 @@ class gzhController {
     
     //发送模板消息的数据
     const requestData = { 
-      touser: 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
-      template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
-      data: {
-        pay: {
-          value: '身份信息'
+      "touser": 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
+      "template_id": 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
+      "data": {
+        "pay": {
+          "value": '身份信息'
         },
-        address: {
-          value: '张三'
+        "address": {
+          "value": '张三'
         },
-        time: {
-          value: '2018-01-01'
+        "time": {
+          "value": '2018-01-01'
         },
-        remark: {
-          value: '已登记！'
+        "remark": {
+          "value": '已登记！'
         }
       }
     }
 
     // data = JSON.parse(requestData)
-    console.log("requestData",typeof requestData)
+    console.log("requestData",requestData)
 
     const result = await axios.post(url,{
       params:requestData
