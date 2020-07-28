@@ -140,7 +140,7 @@ class gzhController {
     
     //发送模板消息的数据
     const requestData = { 
-      "touser": 'oHgzEvjh8uBw39MZTyAgzgawZWU',
+      "touse": 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
       "template_id": 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
       "data": {
         "pay": {
