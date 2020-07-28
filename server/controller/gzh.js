@@ -157,7 +157,8 @@ class gzhController {
         }
       }
     };
-
+    console.log("requestData",requestData)
+    
     const result = await axios({
       method: 'POST',
       url: url,
