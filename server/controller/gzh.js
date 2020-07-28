@@ -135,12 +135,13 @@ class gzhController {
     console.log("access_token",access_token)
 
     var openid = "oHgzEvjh8uBw39MZTyAg_zgawZWU"
-    const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; //发送模板消息的接口
+    //发送模板消息的接口
+    const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
     const nowTime=new Date().getTime()
     
     //发送模板消息的数据
     const requestData = { 
-      "touse": 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
+      "touser": 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
       "template_id": 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
       "data": {
         "pay": {
@@ -159,7 +160,7 @@ class gzhController {
     }
 
     // data = JSON.parse(requestData)
-    console.log("requestData",requestData)
+    console.log("requestData",requestData.touser)
 
     const result = await axios.post(url,{
       params:requestData
@@ -170,7 +171,7 @@ class gzhController {
     //   url: url,
     //   params:requestData
     // })
-
+    console.log("result2222",result); 
     console.log("result1111",result.data); 
   }
 
