@@ -154,8 +154,8 @@ class gzhController {
         remark: {
           value: '已登记！'
         }
-      })
-    };
+      }
+    });
     console.log("requestData",requestData)
 
     const result = await axios.post(url,{
