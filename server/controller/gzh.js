@@ -138,7 +138,8 @@ class gzhController {
     const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; //发送模板消息的接口
     const nowTime=new Date().getTime()
     
-    const requestData = JSON.parse({ //发送模板消息的数据
+    //发送模板消息的数据
+    const requestData = `{ 
       touser: 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
       template_id: 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
       data: {
@@ -149,17 +150,19 @@ class gzhController {
           value: '张三'
         },
         time: {
-          value: "2018-01-01"
+          value: '2018-01-01'
         },
         remark: {
           value: '已登记！'
         }
       }
-    });
-    console.log("requestData",requestData)
+    }`
+
+    data = JSON.parse(requestData)
+    console.log("data",data)
 
     const result = await axios.post(url,{
-      params:requestData
+      params:data
     })
 
     // const result = await axios({
