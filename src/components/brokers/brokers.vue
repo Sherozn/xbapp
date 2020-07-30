@@ -58,9 +58,7 @@
       getCode(){
         axios({
             url: `${config.host}/wx/getCode`,
-            method: 'post',
-            data: fd,
-            params: data
+            method: 'post'
         }).then(res => {
             // this.$emit('ifAdd',1)
             console.log("getCode",res);

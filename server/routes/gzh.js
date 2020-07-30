@@ -14,4 +14,6 @@ router.get('/users',gzhController.getUsers)
 
 router.get('/send',gzhController.sendTemplateMsg)
 
+router.post('/getCode',gzhController.getCode)
+
 module.exports = router;
