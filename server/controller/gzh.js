@@ -173,6 +173,7 @@ class gzhController {
     console.log("url",url)
     try{
       const resStr = await rp(url)
+      console.log("resStr",resStr)
     }catch(e){
       console.log("获取失败",e)
     }
