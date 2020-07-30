@@ -173,9 +173,9 @@ class gzhController {
     console.log("url",url)
     try{
       const resStr = await rp(url)
-      ctx.body = {
-        data:resStr
-      }
+      // ctx.body = {
+      //   data:resStr
+      // }
       console.log("resStr",resStr)
     }catch(e){
       console.log("获取失败",e)
