@@ -57,7 +57,7 @@
       },
       getCode(){
         axios({
-            url: `${config.host}/wx/getCode`,
+            url: "http://lgshuolicai.com/wx/getCode",
             method: 'get'
         }).then(res => {
             // this.$emit('ifAdd',1)

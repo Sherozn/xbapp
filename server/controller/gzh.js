@@ -163,8 +163,9 @@ class gzhController {
   }
 
   // 获取code
-  static async getCode(ctx) {
+  static async getCode() {
     const appid = config.appid;
+    console.log("appid",appid)
     const redirect_uri = urlencode(config.serverUrl + "/#/brokers"); //这里的url需要转为加密格式，它的作用是访问微信网页鉴权接口成功后微信会回调这个地址，并把code参数带在回调地址中
     const scope = 'snsapi_base';
     const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&state=123#wechat_redirect`;
