@@ -158,42 +158,19 @@ class gzhController {
         }
       }
     }
-
-    // data = JSON.parse(requestData)
-    console.log("requestData",requestData.touser)
-
     const result = await axios.post(url,requestData)
-
-    // const result = await axios({
-    //   method: 'POST',
-    //   url: url,
-    //   params:requestData
-    // })
-    console.log("result2222",result); 
     console.log("result1111",result.data); 
   }
 
-  //获取code
-  // static async getCode(ctx) {
-  //   const appid = config.appid;
-  //   const redirect_uri = urlencode("http://www.lgshuolicai.com/wx"); //这里的url需要转为加密格式，它的作用是访问微信网页鉴权接口成功后微信会回调这个地址，并把code参数带在回调地址中
-  //   const scope = 'snsapi_userinfo';
-  //   const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&state=STATE&connect_redirect=1#wechat_redirect`;
+  // 获取code
+  static async getCode(ctx) {
+    const appid = config.appid;
+    const redirect_uri = urlencode(config.serverUrl + "/#/brokers"); //这里的url需要转为加密格式，它的作用是访问微信网页鉴权接口成功后微信会回调这个地址，并把code参数带在回调地址中
+    const scope = 'snsapi_base';
+    const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&state=123#wechat_redirect`;
 
-  //   const resStr=await rp(url)
-  //   const html =
-  //     `<!DOCTYPE html>
-  //     <html>
-  //         <head>
-  //         <meta charset="utf-8" >
-  //         <title>微信鉴权引导</title>
-  //         </head>
-  //         <body><a href="${url}">跳转到鉴权页面</a></body>
-  //     </html>`;
-    
-  //   res.setHeader('Content-Type', 'text/html');
-  //   res.send(html);
-  // }
+    const resStr=await rp(url)
+  }
 
 
 /**

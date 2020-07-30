@@ -40,6 +40,14 @@ export default new Router({
       meta: {
         isLogin: true
       }
+    },
+    {
+      path: '/brokers',
+      name: 'Brokers',
+      component: resolve=>require(['@/components/brokers/brokers.vue'],resolve),
+      meta: {
+        isLogin: false
+      }
     }
   ]
 })

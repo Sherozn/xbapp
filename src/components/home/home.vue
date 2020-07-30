@@ -63,14 +63,6 @@
         this.banners = res.data.banners
         this.quickEntrance = res.data.quickEntrance
       }
-      // getHomeData(){
-      //   console.log("data:",Datas[1])
-      //   const datas = Datas[1]
-      //   this.types = datas.types
-      //   this.typeItem = datas.typeItem
-      //   this.banners = datas.banners
-      //   this.quickEntrance = datas.quickEntrance
-      // }
     },
     mounted(){
       this.getHomeData();

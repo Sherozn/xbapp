@@ -8,4 +8,5 @@ const router = new Router({
 //用户注册
 router.get('/getData',dataController.getData)
 
+
 module.exports = router;
