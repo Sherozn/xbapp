@@ -172,7 +172,7 @@ class gzhController {
 
     console.log("url",url)
     try{
-      const resStr = ctx.response.redirect(url)
+      const resStr = ctx.redirect(url)
       // ctx.body = {
       //   data:resStr
       // }
