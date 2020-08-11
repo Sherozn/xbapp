@@ -16,4 +16,6 @@ router.get('/send',gzhController.sendTemplateMsg)
 
 router.get('/getCode',gzhController.getCode)
 
+router.post('/addMenu',gzhController.addMenu)
+
 module.exports = router;

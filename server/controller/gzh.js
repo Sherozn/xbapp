@@ -183,6 +183,18 @@ class gzhController {
     
   }
 
+  static async addMenu(ctx) {
+    console.log("你好",ctx.request.body)
+    requestData = JSON.parse(ctx.request.query.key)
+    console.log("你好",requestData)
+    const access_token = await gzhModule.getAccessToken()
+    url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
+
+    const result = await axios.post(url,requestData)
+
+  }
+
+
 
 /**
  * 获取openid

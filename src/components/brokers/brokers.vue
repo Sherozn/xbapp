@@ -107,9 +107,5 @@
         .elswitch
           width 30%
           float:right
-          padding-left 30px
-
-
-          
-                    
+          padding-left 30px                      
 </style>
