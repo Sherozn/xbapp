@@ -20,9 +20,16 @@
     	submit(){
         if(this.data.length > 1){
           console.log(this.data)
+          // axios({
+          //   url: `${config.host}/wx/addMenu`,
+          //   method: 'post',
+          //   data: this.data
+          // }).then(res => {
+          //   console.log("submit",res);
+          // })
           axios({
             url: `${config.host}/wx/addMenu`,
-            method: 'post',
+            method: 'get',
             data: this.data
           }).then(res => {
             console.log("submit",res);
