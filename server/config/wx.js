@@ -38,15 +38,27 @@ exports.message = {
         console.log("content event",content)
         console.log("msg event",msg)
         if(msg.Event == "CLICK"){
-            return xml.jsonToXml({
-                xml: {
-                    ToUserName: msg.FromUserName,
-                    FromUserName: msg.ToUserName,
-                    CreateTime: Date.now(),
-                    MsgType: "text",
-                    Content: "收到第一个点击事件"
-                }
-            })
+            if(msg.EventKey == "V1001_TODAY_MUSIC"){
+                return xml.jsonToXml({
+                    xml: {
+                        ToUserName: msg.FromUserName,
+                        FromUserName: msg.ToUserName,
+                        CreateTime: Date.now(),
+                        MsgType: "text",
+                        Content: "收到第一个点击事件"
+                    }
+                })
+            }else if(msg.EventKey == "V1001_GOOD"){
+                return xml.jsonToXml({
+                    xml: {
+                        ToUserName: msg.FromUserName,
+                        FromUserName: msg.ToUserName,
+                        CreateTime: Date.now(),
+                        MsgType: "text",
+                        Content: "收到第二个点击事件"
+                    }
+                })
+            }
         }
         
     }

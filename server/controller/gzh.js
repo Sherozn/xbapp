@@ -39,7 +39,7 @@ class gzhModule {
     const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.wx.appid}&secret=${config.wx.secret}`
     console.log("URL ",URL)
     const resStr = await rp(URL)
-    console.log("resStr ",resStr)
+    console.log("resStr updateAccessToken",resStr)
     const res=JSON.parse(resStr)
     // 写文件
     if(res.access_token){
@@ -65,16 +65,13 @@ class gzhController {
       }
   }
   
+  // 公众号自动回复消息
   static async postHandle(ctx){
-    console.log("接收到微信消息请求")
-
-    // var buff = ''
     let msg,
         MsgType,
         result
 
     msg = ctx.req.body ? ctx.req.body.xml : ''
-    console.log("msg",msg)
 
     if (!msg) {
         ctx.body = 'error request.'
@@ -100,9 +97,7 @@ class gzhController {
     ctx.res.end(result)
   }
 
-  //获取access_token
-  
-
+  //获取所有关注用户的openid
   static async getUsers(ctx) {
     try{
       var access_token = await gzhModule.getAccessToken()
@@ -139,7 +134,7 @@ class gzhController {
     }
   }
 
-
+  // 发送模板消息
   static async sendTemplateMsg() {
     const access_token = await gzhModule.getAccessToken()
     console.log("access_token",access_token)
@@ -174,19 +169,21 @@ class gzhController {
 
   // 获取code
   static async getCode(ctx) {
+    console.log("我进来了")
     const appid = config.wx.appid;
-    console.log("appid",appid)
+    console.log("appid getCode",appid)
     const redirect_uri = urlencode(config.wx.serverUrl + "/brokers"); //这里的url需要转为加密格式，它的作用是访问微信网页鉴权接口成功后微信会回调这个地址，并把code参数带在回调地址中
     const scope = 'snsapi_base';
     const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&state=123&connect_redirect=1#wechat_redirect`;
 
     console.log("url",url)
     try{
-      const resStr = ctx.redirect(url)
+      const resStr = await axios.post(url)
+      // const resStr = ctx.redirect(url)
       // ctx.body = {
       //   data:resStr
       // }
-      console.log("resStr",resStr)
+      console.log("resStr getCode",resStr)
     }catch(e){
       console.log("获取失败",e)
     }
@@ -229,41 +226,8 @@ class gzhController {
     }
   }
 
-  // 公众号自动回复消息
-  static async addElse(ctx) {
-    try{
-      console.log(ctx.request.query)
-      console.log(ctx.request.query['0'])
-      const requestData = JSON.parse(ctx.request.query['0'])
-      console.log("你好",requestData)
-      const access_token = await gzhModule.getAccessToken()
-      const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
+  
 
-      const result = await axios.post(url,requestData)
-      console.log("result",result.data)
-
-      if(!result.data.errCode){
-        ctx.body = {
-          state: '200',
-          msg: '创建菜单 成功',
-          data: result.data
-        }
-      }else{
-        ctx.body = {
-          state: '0',
-          msg:'创建菜单 失败',
-          desc: result.data
-        }
-      }
-    }catch(e){
-      console.log("创建菜单失败",e)
-      ctx.body = {
-        state: '0',
-        msg:'创建菜单 失败',
-        desc: e
-      }
-    }
-  }
 
 
 
@@ -271,7 +235,6 @@ class gzhController {
  * 获取openid
  * @param  { string } code [调用获取openid的接口需要code参数]
  */
-
 
   // getOpenId(code) {
 
@@ -286,25 +249,6 @@ class gzhController {
 
   //     });
   // }
-
-
-/**
- * 获取code
- */
- 
-// app.get('/authentication', function(req, res) {
-
-    
-// });
-
-
-/**
- * 发送模板消息
- * @param  { string } openid [发送模板消息的接口需要用到openid参数]
- * @param  { string } access_token [发送模板消息的接口需要用到access_token参数]
- */
-
-
 
 }
 
