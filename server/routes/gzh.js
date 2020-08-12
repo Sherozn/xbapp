@@ -8,7 +8,7 @@ const router = new Router({
 //用户登录
 router.get('/',gzhController.getHandle)
 
-router.post('/',gzhController.postHandle)
+router.post('',gzhController.postHandle)
 
 router.get('/users',gzhController.getUsers)
 
