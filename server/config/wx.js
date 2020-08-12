@@ -33,5 +33,18 @@ exports.message = {
                 Content: content
             }
         })
+    },
+    event (msg, content) {
+        console.log("content event",content)
+        console.log("msg event",msg)
+        // return xml.jsonToXml({
+        //     xml: {
+        //         ToUserName: msg.FromUserName,
+        //         FromUserName: msg.ToUserName,
+        //         CreateTime: Date.now(),
+        //         MsgType: msg.MsgType,
+        //         Content: content
+        //     }
+        // })
     }
 }

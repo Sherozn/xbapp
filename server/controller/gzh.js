@@ -66,11 +66,15 @@ class gzhController {
   }
   
   static async postHandle(ctx){
+    console.log("接收到微信消息请求")
+
+    // var buff = ''
     let msg,
         MsgType,
         result
 
     msg = ctx.req.body ? ctx.req.body.xml : ''
+    console.log("msg",msg)
 
     if (!msg) {
         ctx.body = 'error request.'
@@ -78,10 +82,16 @@ class gzhController {
     }
     
     MsgType = msg.MsgType[0]
+    console.log("MsgType",MsgType)
 
     switch (MsgType) {
         case 'text':
             result = wx.message.text(msg, msg.Content)
+            console.log("resultTest",result)
+            break;
+        case 'event':
+            result = wx.message.text(msg, msg.Content)
+            console.log("resultTest",result)
             break;
         default: 
             result = 'success'
@@ -115,7 +125,7 @@ class gzhController {
         ctx.body = {
           state: '0',
           msg:'获取用户信息失败',
-          desc: e
+          desc: result.data
         }
 
       }
@@ -183,18 +193,76 @@ class gzhController {
     
   }
 
+  // 创建公众号菜单栏
   static async addMenu(ctx) {
-    console.log(ctx.request.query)
-    console.log(ctx.request.query['0'])
-    const requestData = JSON.parse(ctx.request.query['0'])
-    console.log("你好",requestData)
-    const access_token = await gzhModule.getAccessToken()
-    const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
+    try{
+      console.log(ctx.request.query)
+      console.log(ctx.request.query['0'])
+      const requestData = JSON.parse(ctx.request.query['0'])
+      console.log("你好",requestData)
+      const access_token = await gzhModule.getAccessToken()
+      const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
 
-    const result = await axios.post(url,requestData)
+      const result = await axios.post(url,requestData)
+      console.log("result",result.data)
 
-    console.log("result",result.data)
+      if(!result.data.errCode){
+        ctx.body = {
+          state: '200',
+          msg: '创建菜单 成功',
+          data: result.data
+        }
+      }else{
+        ctx.body = {
+          state: '0',
+          msg:'创建菜单 失败',
+          desc: result.data
+        }
+      }
+    }catch(e){
+      console.log("创建菜单失败",e)
+      ctx.body = {
+        state: '0',
+        msg:'创建菜单 失败',
+        desc: e
+      }
+    }
+  }
 
+  // 公众号自动回复消息
+  static async addElse(ctx) {
+    try{
+      console.log(ctx.request.query)
+      console.log(ctx.request.query['0'])
+      const requestData = JSON.parse(ctx.request.query['0'])
+      console.log("你好",requestData)
+      const access_token = await gzhModule.getAccessToken()
+      const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
+
+      const result = await axios.post(url,requestData)
+      console.log("result",result.data)
+
+      if(!result.data.errCode){
+        ctx.body = {
+          state: '200',
+          msg: '创建菜单 成功',
+          data: result.data
+        }
+      }else{
+        ctx.body = {
+          state: '0',
+          msg:'创建菜单 失败',
+          desc: result.data
+        }
+      }
+    }catch(e){
+      console.log("创建菜单失败",e)
+      ctx.body = {
+        state: '0',
+        msg:'创建菜单 失败',
+        desc: e
+      }
+    }
   }
 
 
