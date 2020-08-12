@@ -90,8 +90,8 @@ class gzhController {
             console.log("resultTest",result)
             break;
         case 'event':
-            result = wx.message.text(msg, msg.Content)
-            console.log("resultTest",result)
+            result = wx.message.event(msg, msg.Content)
+            console.log("resultEvent",result)
             break;
         default: 
             result = 'success'

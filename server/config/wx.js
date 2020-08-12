@@ -37,14 +37,17 @@ exports.message = {
     event (msg, content) {
         console.log("content event",content)
         console.log("msg event",msg)
-        // return xml.jsonToXml({
-        //     xml: {
-        //         ToUserName: msg.FromUserName,
-        //         FromUserName: msg.ToUserName,
-        //         CreateTime: Date.now(),
-        //         MsgType: msg.MsgType,
-        //         Content: content
-        //     }
-        // })
+        if(msg.Event == "CLICK"){
+            return xml.jsonToXml({
+                xml: {
+                    ToUserName: msg.FromUserName,
+                    FromUserName: msg.ToUserName,
+                    CreateTime: Date.now(),
+                    MsgType: "text",
+                    Content: "收到第一个点击事件"
+                }
+            })
+        }
+        
     }
 }
