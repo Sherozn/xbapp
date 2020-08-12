@@ -193,7 +193,7 @@ class gzhController {
 
     const result = await axios.post(url,requestData)
 
-    console.log("result",result)
+    console.log("result",result.data)
 
   }
 
