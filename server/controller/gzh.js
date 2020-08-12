@@ -186,12 +186,14 @@ class gzhController {
   static async addMenu(ctx) {
     console.log(ctx.request.query)
     console.log(ctx.request.query['0'])
-    requestData = JSON.parse(ctx.request.query['0'])
+    const requestData = JSON.parse(ctx.request.query['0'])
     console.log("你好",requestData)
     const access_token = await gzhModule.getAccessToken()
     const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
 
     const result = await axios.post(url,requestData)
+
+    console.log("result",result)
 
   }
 
