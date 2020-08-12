@@ -30,9 +30,7 @@
           axios({
             url: `${config.host}/wx/addMenu`,
             method: 'get',
-            params: {
-              data:this.data
-            },
+            params: this.data
           }).then(res => {
             console.log("submit",res);
           })

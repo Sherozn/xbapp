@@ -188,7 +188,7 @@ class gzhController {
     // requestData = JSON.parse(ctx.request.query.key)
     // console.log("你好",requestData)
     const access_token = await gzhModule.getAccessToken()
-    url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
+    const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
 
     const result = await axios.post(url,requestData)
 
