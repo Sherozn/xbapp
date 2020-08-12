@@ -51,6 +51,14 @@ export default new Router({
       }
     },
     {
+      path: '/brokerList',
+      name: 'BrokerList',
+      component: resolve=>require(['@/components/brokers/brokerList.vue'],resolve),
+      meta: {
+        isLogin: false
+      }
+    },
+    {
       path: '/menu',
       name: 'Menu',
       component: resolve=>require(['@/components/brokers/menu.vue'],resolve),
