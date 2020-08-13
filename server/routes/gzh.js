@@ -15,6 +15,7 @@ router.get('/users',gzhController.getUsers)
 router.get('/send',gzhController.sendTemplateMsg)
 
 router.get('/getCode',gzhController.getCode)
+router.post('/getOpenid',gzhController.getOpenid)
 
 router.get('/addMenu',gzhController.addMenu)
 

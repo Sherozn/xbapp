@@ -242,30 +242,31 @@ class gzhController {
     
   }
 
-  
-
-
-
-
 /**
  * 获取openid
- * @param  { string } code [调用获取openid的接口需要code参数]
  */
+  getOpenid() {
+    console.log("getOpenid",ctx.request.body)
+    const code = ctx.request.body['code']
+    const url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${config.wx.appid}&secret=${config.wx.secret}&code=${code}&grant_type=authorization_code`;
 
-  // getOpenId(code) {
+    const result = await axios.get(url,requestData)
+    console.log("result",result.data)
 
-  //     const url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${config.appid}&secret=${config.secret}&code=${code}&grant_type=authorization_code`;
-
-  //     request(url, function(error, response, body) {
-
-  //         if (!error && response.statusCode == 200) {
-  //            const openid =  body.openid;
-  //            getAccessToken(openid);   //获取openid成功后调用getAccessToken
-  //         }
-
-  //     });
-  // }
-
+    if(!result.data.errCode){
+      ctx.body = {
+        state: '200',
+        msg: '创建菜单 成功',
+        data: result.data
+      }
+    }else{
+      ctx.body = {
+        state: '0',
+        msg:'创建菜单 失败',
+        desc: result.data
+      }
+    }
+  }
 }
 
 module.exports = gzhController;

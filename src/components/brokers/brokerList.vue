@@ -22,11 +22,27 @@
           return urlObj;
         }
         return null;
+      },
+      getOpenid(){
+        console.log("this.serUrl(window.location.href)",this.serUrl(window.location.href))
+        
+        const code = this.serUrl(window.location.href).code
+        console.log("code",code)
+        axios({
+          url: `${config.host}/wx/getOpenid`,
+          method: 'post',
+          data:{
+            code:code
+          }
+        }).then(res => {
+          console.log("getOpenid",res);
+        })
+
       }
     },
     mounted(){
       console.log("urllll",window.location.href)
-      this.serUrl(window.location.href)
+      this.getOpenid()
     }
 
   }
