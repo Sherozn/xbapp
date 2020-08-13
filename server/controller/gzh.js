@@ -215,12 +215,12 @@ class gzhController {
 
     console.log("url",url)
     try{
-      const resStr = await axios.get(url)
+      const result = await axios.post(url)
       // const resStr = ctx.redirect(url)
       // ctx.body = {
       //   data:resStr
       // }
-      console.log("resStr getCode",resStr.data)
+      console.log("result getCode",result.data)
 
       if(!result.data.errCode){
         ctx.body = {
