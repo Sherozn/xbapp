@@ -55,15 +55,51 @@
         this.brokers[index][1] = res
         console.log("nihao",this.brokers)
       },
-      getCode(){
-        axios({
-            url: `${config.host}/wx/getCode`,
-            method: 'get'
-        }).then(res => {
-            // this.$emit('ifAdd',1)
-            console.log("getCode",res);
+      // getCode(){
+      //   axios({
+      //       url: `${config.host}/wx/getCode`,
+      //       method: 'get'
+      //   }).then(res => {
+      //       // this.$emit('ifAdd',1)
+      //       console.log("getCode",res);
+      //   })
+      // },
+      GetUrlParam(name){
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+        var r = window.location.search.substr(1).match(reg)
+        console.log("window.location.search", window.location.search)
+        console.log("rrrrrr",r)
+        if(r != null) return unescape(r[2])
+        return null
+      },
+      getCode () { // 非静默授权，第一次有弹框
+        const code = this.GetUrlParam('code') // 截取路径中的code，如果没有就去微信授权，如果已经获取到了就直接传code给后台获取openId
+        console.log("code",code)
+        const local = window.location.href
+        console.log("local",local)
+        console.log("window.APPID",window.APPID)
+        if (code == null || code === '') {
+            window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1#wechat_redirect'
+
+            
+        } else {
+            console.log("去获取用户信息")
+            // this.getOpenId(code) //把code传给后台获取用户信息
+        }
+      },
+      getOpenId (code) { 
+        // 通过code获取 openId等用户信息，/api/user/wechat/login 为后台接口
+        let _this = this
+        this.$http.post('/api/user/wechat/login', {code: code}).then((res) => {
+            let datas = res.data
+            if (datas.code === 0 ) {
+                console.log('成功')
+            }
+        }).catch((error) => {
+            console.log(error)
         })
       }
+
     },
     mounted(){
       this.getCode();
