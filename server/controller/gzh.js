@@ -214,13 +214,13 @@ class gzhController {
 
     console.log("url",url)
     try{
-      window.location.href = url
+      // global.origin = url
       // const resStr = ctx.redirect(url)
       // ctx.body = {
       //   data:resStr
       // }
       // console.log("result getCode",result.data)
-      console.log("window.location",window.location)
+      console.log("window.location",global.origin)
 
       // if(!result.data.errCode){
       //   ctx.body = {
