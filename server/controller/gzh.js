@@ -250,7 +250,7 @@ class gzhController {
     const code = ctx.request.body['code']
     const url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${config.wx.appid}&secret=${config.wx.secret}&code=${code}&grant_type=authorization_code`;
 
-    const result = await axios.get(url,requestData)
+    const result = await axios.get(url)
     console.log("result",result.data)
 
     if(!result.data.errCode){
