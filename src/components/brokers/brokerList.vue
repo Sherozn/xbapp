@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import config from '@/config.js'
+  import axios from 'axios'
   export default {
     name:'BrokerList',
     methods:{
@@ -25,7 +27,7 @@
       },
       getOpenid(){
         console.log("this.serUrl(window.location.href)",this.serUrl(window.location.href))
-        
+
         const code = this.serUrl(window.location.href).code
         console.log("code",code)
         axios({
