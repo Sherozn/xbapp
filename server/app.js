@@ -17,11 +17,13 @@ const login = require('./routes/login')
 const gzh = require('./routes/gzh')
 const cors = require('koa-cors')
 
+app.use(cors())
+
 // error handler
 onerror(app)
 
 // middlewares
-app.use(cors())
+
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
