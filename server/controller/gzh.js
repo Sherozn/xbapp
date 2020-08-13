@@ -245,7 +245,7 @@ class gzhController {
 /**
  * 获取openid
  */
-  static async getOpenid() {
+  static async getOpenid(ctx) {
     console.log("getOpenid",ctx.request.body)
     const code = ctx.request.body['code']
     const url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${config.wx.appid}&secret=${config.wx.secret}&code=${code}&grant_type=authorization_code`;
