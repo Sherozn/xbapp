@@ -220,7 +220,22 @@ class gzhController {
       // ctx.body = {
       //   data:resStr
       // }
-      console.log("resStr getCode",resStr)
+      console.log("resStr getCode",resStr.data)
+
+      if(!result.data.errCode){
+        ctx.body = {
+          state: '200',
+          msg: '成功',
+          data: result.data
+        }
+      }else{
+        ctx.body = {
+          state: '0',
+          msg:'失败',
+          desc: result.data
+        }
+      }
+      
     }catch(e){
       console.log("获取失败",e)
     }
