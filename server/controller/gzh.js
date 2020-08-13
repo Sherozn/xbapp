@@ -214,26 +214,27 @@ class gzhController {
 
     console.log("url",url)
     try{
-      const result = await axios.post(url)
+      window.location.href = url
       // const resStr = ctx.redirect(url)
       // ctx.body = {
       //   data:resStr
       // }
-      console.log("result getCode",result.data)
+      // console.log("result getCode",result.data)
+      console.log("window.location",window.location)
 
-      if(!result.data.errCode){
-        ctx.body = {
-          state: '200',
-          msg: '成功',
-          data: result.data
-        }
-      }else{
-        ctx.body = {
-          state: '0',
-          msg:'失败',
-          desc: result.data
-        }
-      }
+      // if(!result.data.errCode){
+      //   ctx.body = {
+      //     state: '200',
+      //     msg: '成功',
+      //     data: result.data
+      //   }
+      // }else{
+      //   ctx.body = {
+      //     state: '0',
+      //     msg:'失败',
+      //     desc: result.data
+      //   }
+      // }
       
     }catch(e){
       console.log("获取失败",e)

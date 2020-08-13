@@ -67,27 +67,37 @@
       GetUrlParam(name){
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
         var r = window.location.search.substr(1).match(reg)
-        console.log("window.location.search", window.location.search)
-        console.log("rrrrrr",r)
+        console.log("window.location.href GetUrlParam：", window.location.href)
+        console.log("rrrrrr GetUrlParam：",r)
         if(r != null) return unescape(r[2])
         return null
       },
-      getCode () { // 非静默授权，第一次有弹框
+      async getCode () { // 非静默授权，第一次有弹框
         const code = this.GetUrlParam('code') // 截取路径中的code，如果没有就去微信授权，如果已经获取到了就直接传code给后台获取openId
-        console.log("code",code)
-        const local = window.location.href
-        console.log("local",local)
-        console.log("window.APPID",window.APPID)
+        console.log("code：",code)
+        // const local = window.location.href
+        const local = "http://lgshuolicai.com/brokers"
+        console.log("localllll：",local)
         if (code == null || code === '') {
-            window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1#wechat_redirect'
 
+            var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
+            // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
+
+            // const res = await axios.get(url)
+            console.log("res：",res)
+            console.log("window.location.href getCode", window.location.href)
+
+            const code = this.GetUrlParam('code')
+            console.log("code getCode：",code)
             
+            this.getOpenId()
         } else {
             console.log("去获取用户信息")
             // this.getOpenId(code) //把code传给后台获取用户信息
         }
       },
-      getOpenId (code) { 
+      getOpenId () { 
+
         // 通过code获取 openId等用户信息，/api/user/wechat/login 为后台接口
         let _this = this
         this.$http.post('/api/user/wechat/login', {code: code}).then((res) => {
