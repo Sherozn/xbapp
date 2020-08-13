@@ -1,6 +1,6 @@
 <template>
   <div>
-   
+   我是
   </div>
 </template>
 
@@ -9,6 +9,7 @@
     name:'BrokerList',
     methods:{
       serUrl(url){
+        console.log("url setUrl",url)
         var urlObj = {}
         if(/\?/.test(url)){
           var urlStr = url.split('?')[1]
