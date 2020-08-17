@@ -110,7 +110,7 @@ class gzhController {
 
       console.log("result",result)
 
-      if(!result.data.errCode){
+      if(!result.errCode){
         ctx.body = {
           state: '200',
           msg: '获取用户信息 成功',
@@ -180,7 +180,7 @@ class gzhController {
       const result = await axios.post(url,requestData)
       console.log("result",result.data)
 
-      if(!result.data.errCode){
+      if(!result.errCode){
         ctx.body = {
           state: '200',
           msg: '创建菜单 成功',
@@ -222,7 +222,7 @@ class gzhController {
       // console.log("result getCode",result.data)
       console.log("window.location",global.origin)
 
-      // if(!result.data.errCode){
+      // if(!result.errCode){
       //   ctx.body = {
       //     state: '200',
       //     msg: '成功',
@@ -253,7 +253,7 @@ class gzhController {
     const result = await axios.get(url)
     console.log("result",result.data)
 
-    if(!result.data.errCode){
+    if(!result.errCode){
       ctx.body = {
         state: '200',
         msg: '获取openid 成功',

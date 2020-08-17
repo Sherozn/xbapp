@@ -85,18 +85,24 @@
       getOpenId (code) { 
         this.openid = localStorage.getItem("UserOpenid")
         if(!this.openid){
-          this.getCode();
-          axios({
-            url: `${config.host}/wx/getOpenid`,
-            method: 'post',
-            data:{
-              code:code
-            }
-          }).then(res => {
-            console.log("getOpenid",res);
-            localStorage.setItem("UserOpenid",res.data.openid);
-            this.openid = res.data.openid
-          })
+          const code = this.getCode();
+          if(code){
+            console.log("getOpenId code：",code)
+            axios({
+              url: `${config.host}/wx/getOpenid`,
+              method: 'post',
+              data:{
+                code:code
+              }
+            }).then(res => {
+              console.log("getOpenid",res);
+              localStorage.setItem("UserOpenid",res.data.openid);
+              this.openid = res.data.openid
+            })
+          }else{
+            console.log("code为null")
+          }
+          
         }
       }
 
