@@ -44,7 +44,10 @@
     data() {
       return {
         brokers:[["辉立",true],["华泰",true],["华赢",true],["东财",true],["尊嘉",true],["富途",true],["玖富",true],["友信",true],["东方",true],["广发",true],["华盛通",true],["青石",true],["佳兆业",true],["方德",true],["利弗莫尔",true],["国都",true],["复星",true],["瑞丰",true],["艾德",true],["雪盈",true],["老虎",true]],
-        rohs: true
+        rohs: true,
+        url:"",
+        openid:"",
+        code:""
       }
     },
 
@@ -60,55 +63,66 @@
         return null
       },
       getCode () { 
-        // const code = this.GetUrlParam('code') // 截取路径中的code，如果没有就去微信授权，如果已经获取到了就直接传code给后台获取openId
-        // console.log("code：",code)
-
-        // // const local = "http://lgshuolicai.com/brokerList"
-        
-        // console.log("localllll：",local)
-        // if (code == null || code === '') {
-            // 静默授权
-        const local = "http://lgshuolicai.com/brokers"
-        const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
-        window.location.href = url
-        console.log("url", url)
-        const code = this.GetUrlParam('code')
-        console.log("code：",code)
-        return code
-        // } 
-        // else {
-        //     console.log("去获取用户信息")
+        this.openid = localStorage.getItem("UserOpenid")
+        console.log("this.openid",this.openid)
+        if(!this.openid || this.openid==="undefined"){
+          this.code = this.GetUrlParam('code') // 截取路径中的code，如果没有就去微信授权，如果已经获取到了就直接传code给后台获取openId
+          console.log("code：",this.code)
+          if (this.code == null || this.code === '') {
+              // 静默授权
+            const local = "http://lgshuolicai.com/brokers"
+            const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
             
-        // }
+            window.location.href = url
+            console.log("url", url)
+            // const code = this.GetUrlParam('code')
+            console.log("code：",this.code)
+            
+          }
+        }else{
+          console.log("去获取用户信息") 
+          axios({
+            url: `${config.host}/wx/getOpenid`,
+            method: 'post',
+            data:{
+              code:this.code
+            }
+          }).then(res => {
+            console.log("getOpenid",res);
+            localStorage.setItem("UserOpenid",res.data.openid);
+            this.openid = res.data.openid
+          })
+        }
       },
 
-      getOpenId (code) { 
-        this.openid = localStorage.getItem("UserOpenid")
-        if(!this.openid){
-          const code = this.getCode();
-          if(code){
-            console.log("getOpenId code：",code)
-            axios({
-              url: `${config.host}/wx/getOpenid`,
-              method: 'post',
-              data:{
-                code:code
-              }
-            }).then(res => {
-              console.log("getOpenid",res);
-              localStorage.setItem("UserOpenid",res.data.openid);
-              this.openid = res.data.openid
-            })
-          }else{
-            console.log("code为null")
-          }
+      // getOpenId () { 
+      //   this.openid = localStorage.getItem("UserOpenid")
+      //   console.log("this.openid",this.openid)
+      //   if(!this.openid){
+      //     const code = this.getCode();
+      //     if(code){
+      //       console.log("getOpenId code：",code)
+      //       axios({
+      //         url: `${config.host}/wx/getOpenid`,
+      //         method: 'post',
+      //         data:{
+      //           code:code
+      //         }
+      //       }).then(res => {
+      //         console.log("getOpenid",res);
+      //         localStorage.setItem("UserOpenid",res.data.openid);
+      //         this.openid = res.data.openid
+      //       })
+      //     }else{
+      //       console.log("code为null")
+      //     }
           
-        }
-      }
+      //   }
+      // }
 
     },
     mounted(){
-      this.getOpenId()
+      this.getCode()
     }
 
   }
