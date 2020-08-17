@@ -41,8 +41,6 @@
     // components: {
     //   elSwitch
     // },
-
-    // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect
     data() {
       return {
         brokers:[["辉立",true],["华泰",true],["华赢",true],["东财",true],["尊嘉",true],["富途",true],["玖富",true],["友信",true],["东方",true],["广发",true],["华盛通",true],["青石",true],["佳兆业",true],["方德",true],["利弗莫尔",true],["国都",true],["复星",true],["瑞丰",true],["艾德",true],["雪盈",true],["老虎",true]],
@@ -55,64 +53,56 @@
         this.brokers[index][1] = res
         console.log("nihao",this.brokers)
       },
-      // getCode(){
-      //   axios({
-      //       url: `${config.host}/wx/getCode`,
-      //       method: 'get'
-      //   }).then(res => {
-      //       // this.$emit('ifAdd',1)
-      //       console.log("getCode",res);
-      //   })
-      // },
       GetUrlParam(name){
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
         var r = window.location.search.substr(1).match(reg)
-        console.log("window.location.href GetUrlParam：", window.location.href)
-        console.log("rrrrrr GetUrlParam：",r)
         if(r != null) return unescape(r[2])
         return null
       },
       getCode () { 
-        const code = this.GetUrlParam('code') // 截取路径中的code，如果没有就去微信授权，如果已经获取到了就直接传code给后台获取openId
-        console.log("code：",code)
+        // const code = this.GetUrlParam('code') // 截取路径中的code，如果没有就去微信授权，如果已经获取到了就直接传code给后台获取openId
+        // console.log("code：",code)
 
-        // const local = "http://lgshuolicai.com/brokerList"
-        const local = "http://lgshuolicai.com/brokers"
-        console.log("localllll：",local)
-        if (code == null || code === '') {
+        // // const local = "http://lgshuolicai.com/brokerList"
+        
+        // console.log("localllll：",local)
+        // if (code == null || code === '') {
             // 静默授权
-            const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
-
-            window.location.href = url
-
-            console.log("url", url)
-
-            const code = this.GetUrlParam('code')
-            console.log("code getCode：",code)
+        const local = "http://lgshuolicai.com/brokers"
+        const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
+        window.location.href = url
+        console.log("url", url)
+        const code = this.GetUrlParam('code')
+        console.log("code：",code)
+        return code
+        // } 
+        // else {
+        //     console.log("去获取用户信息")
             
-            // this.getOpenId(code)
-        } else {
-            console.log("去获取用户信息")
-            // this.getOpenId(code) //把code传给后台获取用户信息
-        }
+        // }
       },
-      getOpenId (code) { 
 
-        // 通过code获取 openId等用户信息，/api/user/wechat/login 为后台接口
-        let _this = this
-        this.$http.post('/api/user/wechat/login', {code: code}).then((res) => {
-            let datas = res.data
-            if (datas.code === 0 ) {
-                console.log('成功')
+      getOpenId (code) { 
+        this.openid = localStorage.getItem("UserOpenid")
+        if(!this.openid){
+          this.getCode();
+          axios({
+            url: `${config.host}/wx/getOpenid`,
+            method: 'post',
+            data:{
+              code:code
             }
-        }).catch((error) => {
-            console.log(error)
-        })
+          }).then(res => {
+            console.log("getOpenid",res);
+            localStorage.setItem("UserOpenid",res.data.openid);
+            this.openid = res.data.openid
+          })
+        }
       }
 
     },
     mounted(){
-      this.getCode();
+      this.getOpenId()
     }
 
   }
