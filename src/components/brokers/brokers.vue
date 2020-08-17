@@ -78,20 +78,20 @@
             // const code = this.GetUrlParam('code')
             console.log("code：",this.code)
             
+          }else{
+            console.log("去获取用户信息") 
+            axios({
+              url: `${config.host}/wx/getOpenid`,
+              method: 'post',
+              data:{
+                code:this.code
+              }
+            }).then(res => {
+              console.log("getOpenid",res);
+              localStorage.setItem("UserOpenid",res.data.openid);
+              this.openid = res.data.openid
+            })
           }
-        }else{
-          console.log("去获取用户信息") 
-          axios({
-            url: `${config.host}/wx/getOpenid`,
-            method: 'post',
-            data:{
-              code:this.code
-            }
-          }).then(res => {
-            console.log("getOpenid",res);
-            localStorage.setItem("UserOpenid",res.data.openid);
-            this.openid = res.data.openid
-          })
         }
       },
 
