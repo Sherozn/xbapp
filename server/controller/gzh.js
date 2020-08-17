@@ -256,13 +256,13 @@ class gzhController {
     if(!result.data.errCode){
       ctx.body = {
         state: '200',
-        msg: '创建菜单 成功',
+        msg: '获取openid 成功',
         data: result.data
       }
     }else{
       ctx.body = {
         state: '0',
-        msg:'创建菜单 失败',
+        msg:'获取openid 失败',
         desc: result.data
       }
     }

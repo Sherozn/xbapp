@@ -72,17 +72,20 @@
         if(r != null) return unescape(r[2])
         return null
       },
-      getCode () { // 非静默授权，第一次有弹框
+      getCode () { 
         const code = this.GetUrlParam('code') // 截取路径中的code，如果没有就去微信授权，如果已经获取到了就直接传code给后台获取openId
         console.log("code：",code)
-        // const local = window.location.href
-        const local = "http://lgshuolicai.com/brokerList"
+
+        // const local = "http://lgshuolicai.com/brokerList"
+        const local = "http://lgshuolicai.com/brokers"
         console.log("localllll：",local)
         if (code == null || code === '') {
-            window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
+            // 静默授权
+            const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
 
-            // const res = await axios.get(url)
-            console.log("window.location.href getCode", window.location.href)
+            window.location.href = url
+
+            console.log("url", url)
 
             const code = this.GetUrlParam('code')
             console.log("code getCode：",code)
