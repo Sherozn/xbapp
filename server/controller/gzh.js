@@ -203,45 +203,6 @@ class gzhController {
     }
   }
 
-  // 获取code
-  static async getCode(ctx) {
-    console.log("我进来了")
-    const appid = config.wx.appid;
-    const redirect_uri = urlencode(config.wx.serverUrl + "brokerList"); //这里的url需要转为加密格式，它的作用是访问微信网页鉴权接口成功后微信会回调这个地址，并把code参数带在回调地址中
-    console.log("redirect_uri ",redirect_uri)
-    const scope = 'snsapi_base';
-    const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=${scope}&state=123&connect_redirect=1#wechat_redirect`;
-
-    console.log("url",url)
-    try{
-      // global.origin = url
-      // const resStr = ctx.redirect(url)
-      // ctx.body = {
-      //   data:resStr
-      // }
-      // console.log("result getCode",result.data)
-      console.log("window.location",global.origin)
-
-      // if(!result.errCode){
-      //   ctx.body = {
-      //     state: '200',
-      //     msg: '成功',
-      //     data: result.data
-      //   }
-      // }else{
-      //   ctx.body = {
-      //     state: '0',
-      //     msg:'失败',
-      //     desc: result.data
-      //   }
-      // }
-      
-    }catch(e){
-      console.log("获取失败",e)
-    }
-    
-  }
-
 /**
  * 获取openid
  */
@@ -257,7 +218,7 @@ class gzhController {
       ctx.body = {
         state: '200',
         msg: '获取openid 成功',
-        data: result.data
+        openid: result.data.openid
       }
     }else{
       ctx.body = {
