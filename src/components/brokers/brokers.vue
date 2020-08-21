@@ -61,7 +61,7 @@
         return null
       },
       async getCode () { 
-        localStorage.setItem("UserOpenid","dHgzEvjh9uBw39MZTyAg_zgawZWU");
+        // localStorage.setItem("UserOpenid","dHgzEvjh9uBw39MZTyAg_zgawZWU");
         this.openid = localStorage.getItem("UserOpenid")
         console.log("this.openid",this.openid)
         if(!this.openid || this.openid==="undefined"){
