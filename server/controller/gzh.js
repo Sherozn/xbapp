@@ -184,20 +184,28 @@ class gzhController {
 
       const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
       const nowTime = new Date().getTime()
-      var openids = []
       if(as_type == 0){
-        openids = await gzhModule.getOpenId(data) 
+        const openids = await gzhModule.getOpenId(data) 
+        for(var i = 0;i<openids.length;i++){
+          console.log("openid",openids[i].openid)
+          templates["touser"] = openids[i].openid
+          console.log("templates",templates); 
+          const result = await axios.post(url,templates)
+          console.log("result openid",result); 
+        }
       }else if(as_type == 1){
-        openids = gzhModule.getUsers()
+        const openids = gzhModule.getUsers()
+        for(var i = 0;i<openids.length;i++){
+          console.log("openid",openids[i])
+          templates["touser"] = openids[i]
+          console.log("templates",templates); 
+          const result = await axios.post(url,templates)
+          console.log("result openid",result); 
+        }
       }
       console.log("openids",openids)
-      openids.forEach(function(openid){
-        console.log("openid",openid.openid)
-        templates["touser"] = openid.openid
-        console.log("templates",templates); 
-        const result = axios.post(url,templates)
-        console.log("result openid",result); 
-      });
+
+      
       ctx.body = {
         state: '200',
         msg: '发送 成功'
