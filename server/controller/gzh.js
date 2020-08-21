@@ -203,7 +203,6 @@ class gzhController {
           console.log("result openid",result); 
         }
       }
-      console.log("openids",openids)
 
       
       ctx.body = {
