@@ -194,8 +194,9 @@ class gzhController {
       openids.forEach(function(openid){
         console.log("openid",openid.openid)
         templates["touser"] = openid
+        console.log("templates",templates); 
         const result = axios.post(url,templates)
-        console.log("result openid",result.data); 
+        console.log("result openid",result); 
       });
       ctx.body = {
         state: '200',
