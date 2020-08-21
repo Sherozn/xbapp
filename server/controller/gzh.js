@@ -117,7 +117,7 @@ class gzhModule {
       const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
       var res = await rp(url)
       const result = JSON.parse(res)
-      console.log("result",result)
+      console.log("result",result.data.openid)
       return result.data.openid
     }catch(e){
       console.log("获取用户信息失败",e)
@@ -194,7 +194,7 @@ class gzhController {
           console.log("result openid",result); 
         }
       }else if(as_type == 1){
-        const openids = gzhModule.getUsers()
+        const openids = await gzhModule.getUsers()
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i])
           templates["touser"] = openids[i]
