@@ -184,7 +184,7 @@ class gzhController {
 
       const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
       const nowTime = new Date().getTime()
-      const openids = []
+      var openids = []
       if(as_type == 0){
         openids = await gzhModule.getOpenId(data) 
       }else if(as_type == 1){
