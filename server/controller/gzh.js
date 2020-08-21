@@ -193,7 +193,7 @@ class gzhController {
       console.log("openids",openids)
       openids.forEach(function(openid){
         console.log("openid",openid.openid)
-        templates["touser"] = openid
+        templates["touser"] = openid.openid
         console.log("templates",templates); 
         const result = axios.post(url,templates)
         console.log("result openid",result); 
