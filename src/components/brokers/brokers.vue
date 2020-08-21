@@ -105,7 +105,8 @@
           }
         }).then(res => {
           if(res.data.state==='200'){
-            this.rohs = res.data.brokers.isOrder
+            console.log("res.data.brokers",res.data.brokers)
+            this.rohs = res.data.brokers.isOrder === 1? true : false
             this.broker_id = res.data.brokers.id
             if(res.data.brokers.nos){
               this.nos = JSON.parse(`[${res.data.brokers.nos}]`)
