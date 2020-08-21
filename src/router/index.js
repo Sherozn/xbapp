@@ -65,6 +65,16 @@ export default new Router({
       meta: {
         isLogin: false
       }
+    },
+    {
+      path: '/sendTemplate',
+      name: 'SendTemplate',
+      component: resolve=>require(['@/components/brokers/sendTemplate.vue'],resolve),
+      meta: {
+        isLogin: false
+      }
     }
+
+    
   ]
 })

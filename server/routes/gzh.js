@@ -10,12 +10,17 @@ router.get('/',gzhController.getHandle)
 
 router.post('/',gzhController.postHandle)
 
-router.get('/users',gzhController.getUsers)
+// router.get('/users',gzhController.getUsers)
 
-router.get('/send',gzhController.sendTemplateMsg)
+router.post('/send',gzhController.sendTemplateMsg)
 
 router.post('/getOpenid',gzhController.getOpenid)
 
 router.get('/addMenu',gzhController.addMenu)
+
+router.get('/getOrder',gzhController.getOrder)
+router.post('/changeOrder',gzhController.changeOrder)
+router.post('/changeInOpen',gzhController.changeInOpen)
+
 
 module.exports = router;

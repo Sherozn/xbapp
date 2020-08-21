@@ -14,9 +14,9 @@ module.exports = function(sequelize,DataTypes){
                 field: 'openid'
             },
             isOrder:{
-                type: DataTypes.FLOAT,
+                type: DataTypes.BOOLEAN,
                 allowNull: false,
-                defaultValue:true,
+                defaultValue:false,
                 field: 'isOrder'
             },
             nos:{

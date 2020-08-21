@@ -9,6 +9,21 @@ const fs=require('fs')
 const urlencode= require('urlencode'); //URL编译模块
 const sha1 = require('node-sha1'); //加密模块
 const axios = require('axios');
+const Seq = require('sequelize')
+const Op = Seq.Op
+
+const db = require('../config/db')
+//引入sequelize对象
+const Sequelize = db.sequelize
+
+
+
+//引入数据表模型
+const brokers = Sequelize.import('../module/brokers')
+
+//自动创建表
+brokers.sync({ force: false }); 
+
 
 class gzhModule {
 
@@ -51,6 +66,63 @@ class gzhModule {
     }
   }
 
+  static async getOrder(openid){
+    return await brokers.findCreateFind({
+      where:{
+        openid:openid
+      },
+      attributes:['id','isOrder','nos'],
+      raw:true
+    })
+  }
+
+  static async changeOrder(data){
+    return await brokers.update(
+      {
+        isOrder:data.isOrder
+      },
+      {
+        'where': { 'id': data.broker_id }
+      }
+    )
+  }
+
+  static async changeInOpen(data){
+    return await brokers.update(
+      {
+        nos:data.nos
+      },
+      {
+        'where': { 'id': data.broker_id }
+      }
+    )
+  }
+
+  static async getOpenId(data){
+    return await brokers.findAll({
+      where:{
+        isOrder:true,
+        nos:{
+          [Op.notLike]:`%${data.broker}%`
+        }
+      },
+      attributes:['openid'],
+      raw:true
+    })
+  }
+
+  static async getUsers() {
+    try{
+      var access_token = await gzhModule.getAccessToken()
+      const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
+      var res = await rp(url)
+      const result = JSON.parse(res)
+      console.log("result",result)
+      return result.data.openid
+    }catch(e){
+      console.log("获取用户信息失败",e)
+    }
+  }
 }
 
 class gzhController {
@@ -97,74 +169,45 @@ class gzhController {
     ctx.res.end(result)
   }
 
-  //获取所有关注用户的openid
-  static async getUsers(ctx) {
+  // 发送模板消息
+  static async sendTemplateMsg(ctx) {
+    const data = ctx.request.body
+    console.log("data",data)
     try{
-      var access_token = await gzhModule.getAccessToken()
+      const as_type = ctx.request.body.as_type
+      console.log("as_type",as_type)
+      const templates = JSON.parse(ctx.request.body.templates)
+      console.log("templates",templates)
 
-      const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
+      const access_token = await gzhModule.getAccessToken()
+      console.log("access_token",access_token)
 
-      var res = await rp(url)
-
-      const result = JSON.parse(res)
-
-      console.log("result",result)
-
-      if(!result.errCode){
-        ctx.body = {
-          state: '200',
-          msg: '获取用户信息 成功',
-          data: result.data
-        }
-      }else{
-        ctx.body = {
-          state: '0',
-          msg:'获取用户信息失败',
-          desc: result.data
-        }
-
+      const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
+      const nowTime = new Date().getTime()
+      const openids = []
+      if(as_type == 0){
+        openids = await gzhModule.getOpenId(data) 
+      }else if(as_type == 1){
+        openids = gzhModule.getUsers()
+      }
+      console.log("openids",openids)
+      openids.forEach(function(openid){
+        console.log("openid",openid.openid)
+        templates["touser"] = openid
+        const result = axios.post(url,templates)
+        console.log("result openid",result.data); 
+      });
+      ctx.body = {
+        state: '200',
+        msg: '发送 成功'
       }
     }catch(e){
-      console.log("获取用户信息失败",e)
+      console.log("error",e)
       ctx.body = {
         state: '0',
-        msg:'获取用户信息失败',
-        desc: e
+        msg:'发送模板 失败'
       }
-    }
-  }
-
-  // 发送模板消息
-  static async sendTemplateMsg() {
-    const access_token = await gzhModule.getAccessToken()
-    console.log("access_token",access_token)
-
-    var openid = "oHgzEvjh8uBw39MZTyAg_zgawZWU"
-    //发送模板消息的接口
-    const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
-    const nowTime=new Date().getTime()
-    
-    //发送模板消息的数据
-    const requestData = { 
-      "touser": 'oHgzEvjh8uBw39MZTyAg_zgawZWU',
-      "template_id": 'hMwj2qBFJYGxpKFztn3j5etNbIJePJnwLowxAZCv6VE',
-      "data": {
-        "pay": {
-          "value": '身份信息'
-        },
-        "address": {
-          "value": '张三'
-        },
-        "time": {
-          "value": '2018-01-01'
-        },
-        "remark": {
-          "value": '已登记！'
-        }
-      }
-    }
-    const result = await axios.post(url,requestData)
-    console.log("result1111",result.data); 
+    }  
   }
 
   // 创建公众号菜单栏
@@ -225,6 +268,74 @@ class gzhController {
         state: '0',
         msg:'获取openid 失败',
         desc: result.data
+      }
+    }
+  }
+
+  static async getOrder(ctx) {
+    
+    const openid = ctx.request.query.openid
+    console.log("openid",openid)
+    try{
+      const res = await gzhModule.getOrder(openid);
+
+      console.log("res getOrder",res[0])
+
+      ctx.body = {
+        state: '200',
+        msg: '获取Order 成功',
+        brokers: res[0]
+      }
+    }catch (error) {
+      console.log("error",error)
+      ctx.body = {
+        state: '0',
+        msg:'获取Order 失败',
+        desc: error
+      }
+    }
+  }
+
+  static async changeOrder(ctx) {
+    
+    const data = ctx.request.body
+    console.log("data",data)
+    try{
+      const res = await gzhModule.changeOrder(data);
+
+      console.log("res",res)
+
+      ctx.body = {
+        state: '200',
+        msg: '获取Order 成功'
+      }
+    }catch (error) {
+      ctx.body = {
+        state: '0',
+        msg:'获取Order 失败',
+        desc: error
+      }
+    }
+  }
+
+  static async changeInOpen(ctx) {
+    
+    const data = ctx.request.body
+    console.log("data",data)
+    try{
+      const res = await gzhModule.changeInOpen(data);
+
+      console.log("res",res)
+
+      ctx.body = {
+        state: '200',
+        msg: '获取Order 成功'
+      }
+    }catch (error) {
+      ctx.body = {
+        state: '0',
+        msg:'获取Order 失败',
+        desc: error
       }
     }
   }

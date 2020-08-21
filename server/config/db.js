@@ -1,5 +1,5 @@
 var Sequelize = require("sequelize")
-var sequelize = new Sequelize('xbapp','root','xzn19950712',{
+var sequelize = new Sequelize('xbapp','root','123456',{
     host:'localhost',
     dialect:'mysql',
     operatorsAliases:false,

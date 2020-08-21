@@ -7,6 +7,7 @@
       <span class="open">打开订阅</span>
       <el-switch
         v-model="rohs"
+        @change="changeOrder()"
         active-color="#ff7700"
         inactive-color="#dcdfe7">
       </el-switch>
@@ -15,12 +16,11 @@
     <div class="in-context" v-if="rohs">
       <div class="broker" v-for="(broker,index) in brokers" :key="index">
         <!-- <elSwitch :broker="broker"></elSwitch> -->
-        <span class="in-open">{{broker[0]}}</span>
+        <span class="in-open">{{broker}}</span>
         <div class="elswitch">
           <el-switch
-            v-model="broker[1]"
+            v-model="brokers_status[index]"
             @change="changeInOpen($event,index)"
-            
             active-color="#ff7700"
             inactive-color="#dcdfe7">
           </el-switch>
@@ -43,26 +43,25 @@
     // },
     data() {
       return {
-        brokers:[["辉立",true],["华泰",true],["华赢",true],["东财",true],["尊嘉",true],["富途",true],["玖富",true],["友信",true],["东方",true],["广发",true],["华盛通",true],["青石",true],["佳兆业",true],["方德",true],["利弗莫尔",true],["国都",true],["复星",true],["瑞丰",true],["艾德",true],["雪盈",true],["老虎",true]],
-        rohs: true,
-        url:"",
+        brokers:["辉立","华泰","华赢","东财","尊嘉","富途","玖富","友信","有鱼","东方","广发","华盛通","青石","佳兆业","方德","利弗莫尔","国都","复星恒利","瑞丰","艾德","雪盈","老虎","耀才"],
+        brokers_status:[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],
+        nos:[],
+        rohs: false,
         openid:"",
-        code:""
+        code:"",
+        broker_id:0
       }
     },
 
     methods:{
-      changeInOpen(res,index){
-        this.brokers[index][1] = res
-        console.log("nihao",this.brokers)
-      },
       GetUrlParam(name){
         var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
         var r = window.location.search.substr(1).match(reg)
         if(r != null) return unescape(r[2])
         return null
       },
-      getCode () { 
+      async getCode () { 
+        localStorage.setItem("UserOpenid","dHgzEvjh9uBw39MZTyAg_zgawZWU");
         this.openid = localStorage.getItem("UserOpenid")
         console.log("this.openid",this.openid)
         if(!this.openid || this.openid==="undefined"){
@@ -80,7 +79,7 @@
             
           }else{
             console.log("去获取用户信息") 
-            axios({
+            await axios({
               url: `${config.host}/wx/getOpenid`,
               method: 'post',
               data:{
@@ -90,10 +89,79 @@
               console.log("getOpenid",res);
               localStorage.setItem("UserOpenid",res.data.openid);
               this.openid = res.data.openid
+              this.getOrder()
             })
           }
+        }else{
+          this.getOrder()
         }
-      }
+      },
+      // 获取当前用户的订阅状态
+      async getOrder(){
+        console.log("this.openid getOrder",this.openid)
+        await axios.get(`${config.host}/wx/getOrder`,{
+          params:{
+            openid:this.openid
+          }
+        }).then(res => {
+          if(res.data.state==='200'){
+            this.rohs = res.data.brokers.isOrder
+            this.broker_id = res.data.brokers.id
+            if(res.data.brokers.nos){
+              this.nos = JSON.parse(`[${res.data.brokers.nos}]`)
+              var i=0,len=this.nos.length;
+              for(; i<len;){
+                this.brokers_status[this.nos[i]-10] = false
+                i++;
+              }
+            }
+            console.log("this.brokers_status",this.brokers_status)
+          }else{
+            console.log("error",res)
+          }
+        })
+      },
+      changeOrder(){
+        console.log("this.rohs",this.rohs)
+        axios({
+          url: `${config.host}/wx/changeOrder`,
+          method: 'post',
+          data:{
+            isOrder:this.rohs,
+            broker_id:this.broker_id
+          }
+        }).then(res => {
+          console.log("changeOrder",res);
+
+        })
+      },
+      changeInOpen(res,index){
+        this.brokers_status[index] = res
+        index = index + 10
+        var ind = this.nos.indexOf(index)
+        console.log("ind",ind)
+        if(res){
+          if(ind > -1){
+            this.nos.splice(ind, 1)
+          }
+        }else{
+          if(ind == -1){
+            this.nos.push(index)
+          }
+        }
+        console.log("this.nos",this.nos)
+        axios({
+          url: `${config.host}/wx/changeInOpen`,
+          method: 'post',
+          data:{
+            nos:this.nos.join(","),
+            broker_id:this.broker_id
+          }
+        }).then(res => {
+          console.log("changeInOpen",res);
+
+        })
+      },
     },
     mounted(){
       this.getCode()
@@ -128,8 +196,8 @@
       border-radius 5px
       margin-top 15px
       .broker
-        height 40px
-        line-height 40px
+        height 50px
+        line-height 50px
         font-size 13px
         border-bottom 1px  solid rgba(0,0,0,.05)
         .in-open
