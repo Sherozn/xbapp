@@ -214,6 +214,7 @@ class gzhController {
             console.log("resultEvent",result)
             break;
         case 'subscribe':
+            console.log("Subscribe",msg)
             result = wx.message.subscribe(msg, msg.Content)
             console.log("resultSubscribe",result)
             break;
