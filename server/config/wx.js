@@ -51,10 +51,14 @@ exports.message = {
                         CreateTime: Date.now(),
                         MsgType: "news",
                         ArticleCount:1,
-                        Articles.item.Title:"你好",
-                        Articles.item.Description:"我也好"
-                        Articles.item.PicUrl:"/static/img/预约顾问.jpg"
-                        Articles.item.Url:"http://mp.weixin.qq.com/s?__biz=MzIwMDUxOTE5OA==&mid=100000005&idx=1&sn=47e6091cb32d88b8ce2326f0fcd0d93f&chksm=16faba74218d33626c641727c796c0b263a434e6d343a5b8e04722a83c20098350adeeb621d8#rd"
+                        Articles:{
+                            item:{
+                                Title:"你好",
+                                Description:"我也好",
+                                PicUrl:"/static/img/预约顾问.jpg",
+                                Url:"http://mp.weixin.qq.com/s?__biz=MzIwMDUxOTE5OA==&mid=100000005&idx=1&sn=47e6091cb32d88b8ce2326f0fcd0d93f&chksm=16faba74218d33626c641727c796c0b263a434e6d343a5b8e04722a83c20098350adeeb621d8#rd"
+                            }
+                        }
                     }
                 })
             }else if(msg.EventKey == "V1001_GOOD"){
