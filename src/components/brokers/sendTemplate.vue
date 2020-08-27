@@ -29,10 +29,8 @@
 </template>
 
 <script>
-  // import elSwitch from '@/components/brokers/elSwitch'
   import config from '@/config.js'
   import axios from 'axios'
-  import elSwitch from '@/components/brokers/elSwitch'
   export default {
     name:'SendTemplate',
     data() {

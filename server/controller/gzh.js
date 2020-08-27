@@ -20,9 +20,11 @@ const Sequelize = db.sequelize
 
 //引入数据表模型
 const brokers = Sequelize.import('../module/brokers')
+const msgs = Sequelize.import('../module/msgs')
 
 //自动创建表
 brokers.sync({ force: false }); 
+msgs.sync({ force: false }); 
 
 
 class gzhModule {
@@ -123,10 +125,59 @@ class gzhModule {
       console.log("获取用户信息失败",e)
     }
   }
+
+  static async addMsg(data) {
+    return await msgs.create({
+      context: data.context,
+      key_type: data.key_type,
+      keyword:data.keyword,
+      as_type:data.as_type
+    })
+  }
+
+  static async changeMsg(id,data) {
+    return await msgs.update(
+      {
+        context: data.context,
+        key_type: data.key_type
+      },
+      {
+        'where': { 'id': id}
+      }
+    )
+  }
+
+  static async getMsg(data) {
+    return await msgs.findOne({
+      where:{
+        keyword:data.keyword,
+        as_type:data.as_type
+      },
+      attributes:['id'],
+      raw:true
+    })
+  }
+
+  static async deleteMsg(id) {
+    return await msgs.destroy({
+      where: {
+        id: id
+      }
+    })
+  }
+
+  static async getMsgs(as_type) {
+    return await msgs.findAll({
+      where:{
+        as_type:as_type
+      },
+      attributes:['id','keyword',"context"],
+      raw:true
+    })
+  }
 }
 
 class gzhController {
-
   //接入服务器验证
   static async getHandle(ctx){
     const result = wx.auth(ctx)
@@ -161,6 +212,10 @@ class gzhController {
         case 'event':
             result = wx.message.event(msg, msg.Content)
             console.log("resultEvent",result)
+            break;
+        case 'subscribe':
+            result = wx.message.subscribe(msg, msg.Content)
+            console.log("resultSubscribe",result)
             break;
         default: 
             result = 'success'
@@ -254,9 +309,7 @@ class gzhController {
     }
   }
 
-/**
- * 获取openid
- */
+  // 获取openid
   static async getOpenid(ctx) {
     console.log("getOpenid",ctx.request.body)
     const code = ctx.request.body['code']
@@ -344,6 +397,77 @@ class gzhController {
         state: '0',
         msg:'获取Order 失败',
         desc: error
+      }
+    }
+  }
+
+  // 设置消息回复
+  static async sendMsg(ctx) {
+    const data = ctx.request.body
+    console.log("data",data)
+    try{
+      const res = await gzhModule.getMsg(data);
+      console.log("res",res)
+
+      if(res){
+        await gzhModule.changeMsg(res.id,data);
+      }else{
+        await gzhModule.addMsg(data);
+      }
+
+      ctx.body = {
+        state: '200',
+        msg: '获取Order 成功'
+      }
+    }catch (error) {
+      console.log("error",error)
+      ctx.body = {
+        state: '0',
+        msg:'获取Order 失败',
+        desc: error
+      }
+    }
+  }
+
+  // 设置消息回复
+  static async getMsg(ctx) {
+    const as_type = ctx.request.query.as_type
+    console.log("as_type",as_type)
+    try{
+
+      const res = await gzhModule.getMsgs(as_type);
+      console.log("res",res)
+
+      ctx.body = {
+        state: '200',
+        msg: '获取Order 成功',
+        msgs:res
+      }
+    }catch (error) {
+      ctx.body = {
+        state: '0',
+        msg:'获取Order 失败',
+        desc: error
+      }
+    }
+  }
+
+  // 删除关键词回复
+  static async deleteMsg(ctx) {
+    const id = ctx.request.body.id
+    console.log("id",id)
+    try{
+      const res = await gzhModule.deleteMsg(id);
+      console.log("res",res)
+
+      ctx.body = {
+        state: '200',
+        msg: '获取Order 成功'
+      }
+    }catch (error) {
+      ctx.body = {
+        state: '0',
+        msg:'获取Order 失败'
       }
     }
   }

@@ -63,13 +63,21 @@ export default new Router({
       name: 'Menu',
       component: resolve=>require(['@/components/brokers/menu.vue'],resolve),
       meta: {
-        isLogin: false
+        isLogin: true
       }
     },
     {
       path: '/sendTemplate',
       name: 'SendTemplate',
       component: resolve=>require(['@/components/brokers/sendTemplate.vue'],resolve),
+      meta: {
+        isLogin: true
+      }
+    },
+    {
+      path: '/msg',
+      name: 'Msg',
+      component: resolve=>require(['@/components/brokers/msg.vue'],resolve),
       meta: {
         isLogin: false
       }
