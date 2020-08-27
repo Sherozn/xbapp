@@ -24,6 +24,12 @@ module.exports = function(sequelize,DataTypes){
                 defaultValue:0,
                 field: 'key_type'
             },
+            context_type:{
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue:0,
+                field: 'context_type'
+            },
             as_type:{
                 type: DataTypes.INTEGER,
                 allowNull: false,

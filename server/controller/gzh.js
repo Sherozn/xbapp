@@ -139,7 +139,8 @@ class gzhModule {
     return await msgs.update(
       {
         context: data.context,
-        key_type: data.key_type
+        key_type: data.key_type,
+        context_type: data.context_type
       },
       {
         'where': { 'id': id}
@@ -153,7 +154,7 @@ class gzhModule {
         keyword:data.keyword,
         as_type:data.as_type
       },
-      attributes:['id'],
+      attributes:['id',"context","context_type"],
       raw:true
     })
   }
@@ -203,20 +204,41 @@ class gzhController {
     
     MsgType = msg.MsgType[0]
     console.log("MsgType",MsgType)
+    const as_type = 0
+    const context = ""
+    const context_type = 0
+    if(msg.Event == "subscribe"){
+      as_type = 1
+    }else{
+      as_type = 0
+    }
+
+    const data = {
+      keyword:msg.Content,
+      as_type:as_type
+    }
+    const res = await getMsg(data)
+
+    if(res){
+      context = res.context
+      context_type = res.context_type
+    }else{
+      data.as_type = 2
+      res = await getMsg(data)
+      if(res){
+        context = res.context
+        context_type = res.context_type
+      }
+    }
 
     switch (MsgType) {
         case 'text':
-            result = wx.message.text(msg, msg.Content)
+            result = wx.message.text(msg, context,context_type)
             console.log("resultTest",result)
             break;
         case 'event':
-            result = wx.message.event(msg, msg.Content)
+            result = wx.message.event(msg, context)
             console.log("resultEvent",result)
-            break;
-        case 'subscribe':
-            console.log("Subscribe",msg)
-            result = wx.message.subscribe(msg, msg.Content)
-            console.log("resultSubscribe",result)
             break;
         default: 
             result = 'success'

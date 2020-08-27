@@ -28,19 +28,41 @@ exports.auth = (ctx) => {
 }
 
 exports.message = {
-    text (msg, content) {
-        return xml.jsonToXml({
-            xml: {
-                ToUserName: msg.FromUserName,
-                FromUserName: msg.ToUserName,
-                CreateTime: Date.now(),
-                MsgType: msg.MsgType,
-                Content: content
-            }
-        })
+    text (msg, context,context_type) {
+        if(context_type == 0){
+            return xml.jsonToXml({
+                xml: {
+                    ToUserName: msg.FromUserName,
+                    FromUserName: msg.ToUserName,
+                    CreateTime: Date.now(),
+                    MsgType: "text",
+                    Content: context
+                }
+            })
+        }else if(context_type == 1){
+            const arrs = context.split("**")
+            return xml.jsonToXml({
+                xml: {
+                    ToUserName: msg.FromUserName,
+                    FromUserName: msg.ToUserName,
+                    CreateTime: Date.now(),
+                    MsgType: "news",
+                    ArticleCount:1,
+                    Articles:{
+                        item:{
+                            Title:arrs[0],
+                            Description:arrs[1],
+                            PicUrl:"http://365jia.cn/uploads/13/0301/5130c2ff93618.jpg",
+                            Url:arrs[2]
+                        }
+                    }
+                }
+            }) 
+        }
+        
     },
-    event (msg, content) {
-        console.log("content event",content)
+    event (msg, context) {
+        console.log("content event",context)
         console.log("msg event",msg)
         if(msg.Event == "CLICK"){
             if(msg.EventKey == "V1001_TODAY_MUSIC"){
@@ -49,7 +71,7 @@ exports.message = {
                         ToUserName: msg.FromUserName,
                         FromUserName: msg.ToUserName,
                         CreateTime: Date.now(),
-                        MsgType: "news",
+                        MsgType: context_type,
                         ArticleCount:1,
                         Articles:{
                             item:{
@@ -67,22 +89,32 @@ exports.message = {
                         ToUserName: msg.FromUserName,
                         FromUserName: msg.ToUserName,
                         CreateTime: Date.now(),
-                        MsgType: "text",
+                        MsgType: context_type,
                         Content: "收到第二个点击事件"
                     }
                 })
             }
-        } 
+        }else if(msg.Event == "subscribe"){
+            return xml.jsonToXml({
+                xml: {
+                    ToUserName: msg.FromUserName,
+                    FromUserName: msg.ToUserName,
+                    CreateTime: Date.now(),
+                    MsgType: "text",
+                    Content: context
+                }
+            })
+        }
     },
-    subscribe (msg, content) {
-        return xml.jsonToXml({
-            xml: {
-                ToUserName: msg.FromUserName,
-                FromUserName: msg.ToUserName,
-                CreateTime: Date.now(),
-                MsgType: msg.MsgType,
-                Content: "你好"
-            }
-        })
-    },
+    // subscribe (msg, content) {
+    //     return xml.jsonToXml({
+    //         xml: {
+    //             ToUserName: msg.FromUserName,
+    //             FromUserName: msg.ToUserName,
+    //             CreateTime: Date.now(),
+    //             MsgType: msg.MsgType,
+    //             Content: "你好"
+    //         }
+    //     })
+    // },
 }

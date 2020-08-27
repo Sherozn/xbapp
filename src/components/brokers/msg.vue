@@ -87,7 +87,7 @@
       changeContextType(event){
         this.context_type = parseInt(event.target.value);
         console.log("context_type",this.context_type)
-      }
+      },
       async submit(){
         if(this.context.length > 0){
           await axios({
@@ -97,7 +97,8 @@
               as_type:this.as_type,
               keyword:this.keyword,
               context:this.context,
-              key_type:this.key_type
+              key_type:this.key_type,
+              context_type:this.context_type
             }
           }).then(res => {
             console.log("res",res);
