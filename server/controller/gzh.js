@@ -246,9 +246,9 @@ class gzhController {
         
         const content = msg.Content
         const keyword = results[i].keyword
-        console.log("keyword",results[i].keyword)
-        console.log("msg.Content",msg.Content)
-        console.log("content.indexOf(keyword",content.indexOf(keyword))
+        console.log("keyword",type(results[i].keyword))
+        console.log("msg.Content",type(msg.Content))
+        console.log("content.indexOf(keyword","基金训练营什么时候".indexOf("基金训练营"))
         if(content.indexOf(keyword) != -1){
           flag = false
           context = results[i].context

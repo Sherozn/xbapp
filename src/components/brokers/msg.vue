@@ -124,6 +124,7 @@
     },
     mounted(){
       this.getMsg()
+      // console.log("bbbbbb","基金训练营什么时候".indexOf("基金训练营"))
     }
 
   }
