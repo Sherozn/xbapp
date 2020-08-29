@@ -240,11 +240,16 @@ class gzhController {
       res = await gzhModule.getMsg(data)
     }else if(MsgType == "text"){
       const results = await gzhModule.getKeys()
-      console.log("results",results)
+      // console.log("results",results)
       for(var i = 0;i<results.length;i++){
+        // 如果用户发的消息包含关键字
+        
+        const content = msg.Content
+        const keyword = results[i].keyword
         console.log("keyword",results[i].keyword)
-        // 如果用户发的消息包含关键字，
-        if(msg.Content.indexOf(results[i].keyword) != -1){
+        console.log("msg.Content",msg.Content)
+        console.log("content.indexOf(keyword",content.indexOf(keyword)
+        if(content.indexOf(keyword) != -1){
           flag = false
           context = results[i].context
           context_type = results[i].context_type
