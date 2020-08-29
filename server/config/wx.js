@@ -105,16 +105,5 @@ exports.message = {
                 }
             })
         }
-    },
-    // subscribe (msg, content) {
-    //     return xml.jsonToXml({
-    //         xml: {
-    //             ToUserName: msg.FromUserName,
-    //             FromUserName: msg.ToUserName,
-    //             CreateTime: Date.now(),
-    //             MsgType: msg.MsgType,
-    //             Content: "你好"
-    //         }
-    //     })
-    // },
+    }
 }

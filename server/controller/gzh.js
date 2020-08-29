@@ -239,15 +239,15 @@ class gzhController {
       data.as_type = 1
       res = await gzhModule.getMsg(data)
     }else if(MsgType == "text"){
-      const result = await gzhModule.getKeys()
-      console.log("result",)
-      for(var i = 0;i<result.length;i++){
-        console.log("keyword",result[i].keyword)
+      const results = await gzhModule.getKeys()
+      console.log("results",results)
+      for(var i = 0;i<results.length;i++){
+        console.log("keyword",results[i].keyword)
         // 如果用户发的消息包含关键字，
-        if(msg.Content.indexOf(result[i].keyword) != -1){
+        if(msg.Content.indexOf(results[i].keyword) != -1){
           flag = false
-          context = result[i].context
-          context_type = result[i].context_type
+          context = results[i].context
+          context_type = results[i].context_type
           console.log("context",context); 
         }
       }
