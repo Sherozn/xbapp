@@ -226,9 +226,9 @@ class gzhController {
     }
     if(msg.Event == "subscribe"){
       data.as_type = 1
-      const res = await getMsg(data)
+      const res = await gzhModule.getMsg(data)
     }else if(MsgType == "text"){
-      const result = await getKeys()
+      const result = await gzhModule.getKeys()
       for(var i = 0;i<result.length;i++){
         console.log("result",result[i].keyword)
         // 如果用户发的消息包含关键字，
@@ -241,7 +241,7 @@ class gzhController {
       }
       if(flag){
         data.as_type = 2
-        const res = await getMsg(data)
+        const res = await gzhModule.getMsg(data)
       }
     }
     console.log("res",res)
