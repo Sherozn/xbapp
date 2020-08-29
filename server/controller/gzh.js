@@ -192,7 +192,7 @@ class gzhModule {
       where:{
         as_type:2
       },
-      attributes:["context"],
+      attributes:["context","context_type"],
       raw:true
     })
   }
