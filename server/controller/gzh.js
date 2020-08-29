@@ -217,6 +217,7 @@ class gzhController {
     // var as_type = 0
     const context = ""
     const context_type = 0
+    var res = ""
     var flag = true
     // 关注事件
 
@@ -226,11 +227,12 @@ class gzhController {
     }
     if(msg.Event == "subscribe"){
       data.as_type = 1
-      const res = await gzhModule.getMsg(data)
+      res = await gzhModule.getMsg(data)
     }else if(MsgType == "text"){
       const result = await gzhModule.getKeys()
+      console.log("result",)
       for(var i = 0;i<result.length;i++){
-        console.log("result",result[i].keyword)
+        console.log("keyword",result[i].keyword)
         // 如果用户发的消息包含关键字，
         if(msg.Content.indexOf(result[i].keyword) != -1){
           flag = false
@@ -239,9 +241,10 @@ class gzhController {
           console.log("context",context); 
         }
       }
+      console.log("flag",flag); 
       if(flag){
         data.as_type = 2
-        const res = await gzhModule.getMsg(data)
+        res = await gzhModule.getMsg(data)
       }
     }
     console.log("res",res)
