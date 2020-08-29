@@ -225,8 +225,8 @@ class gzhController {
     MsgType = msg.MsgType[0]
     console.log("MsgType",MsgType)
     // var as_type = 0
-    const context = ""
-    const context_type = 0
+    var context = ""
+    var context_type = 0
     var res = ""
     var flag = true
     // 关注事件
