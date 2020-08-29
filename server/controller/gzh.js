@@ -186,6 +186,16 @@ class gzhModule {
       raw:true
     })
   }
+
+  static async getOtherMsg() {
+    return await msgs.findOne({
+      where:{
+        as_type:2
+      },
+      attributes:["context"],
+      raw:true
+    })
+  }
 }
 
 class gzhController {
@@ -243,8 +253,7 @@ class gzhController {
       }
       console.log("flag",flag); 
       if(flag){
-        data.as_type = 2
-        res = await gzhModule.getMsg(data)
+        res = await gzhModule.getOtherMsg()
       }
     }
     console.log("res",res)

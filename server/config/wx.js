@@ -71,7 +71,7 @@ exports.message = {
                         ToUserName: msg.FromUserName,
                         FromUserName: msg.ToUserName,
                         CreateTime: Date.now(),
-                        MsgType: context_type,
+                        MsgType: "news",
                         ArticleCount:1,
                         Articles:{
                             item:{
@@ -89,7 +89,7 @@ exports.message = {
                         ToUserName: msg.FromUserName,
                         FromUserName: msg.ToUserName,
                         CreateTime: Date.now(),
-                        MsgType: context_type,
+                        MsgType: "text",
                         Content: "收到第二个点击事件"
                     }
                 })
