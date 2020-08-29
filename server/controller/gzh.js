@@ -176,6 +176,16 @@ class gzhModule {
       raw:true
     })
   }
+
+  static async getKeys() {
+    return await msgs.findAll({
+      where:{
+        as_type:0
+      },
+      attributes:['id','keyword',"context","context_type"],
+      raw:true
+    })
+  }
 }
 
 class gzhController {
@@ -204,31 +214,41 @@ class gzhController {
     
     MsgType = msg.MsgType[0]
     console.log("MsgType",MsgType)
-    const as_type = 0
+    // var as_type = 0
     const context = ""
     const context_type = 0
-    if(msg.Event == "subscribe"){
-      as_type = 1
-    }else{
-      as_type = 0
-    }
+    var flag = true
+    // 关注事件
 
-    const data = {
+    var data = {
       keyword:msg.Content,
-      as_type:as_type
+      as_type:0
     }
-    const res = await getMsg(data)
+    if(msg.Event == "subscribe"){
+      data.as_type = 1
+      const res = await getMsg(data)
+    }else if(MsgType == "text"){
+      const result = await getKeys()
+      for(var i = 0;i<result.length;i++){
+        console.log("result",result[i].keyword)
+        // 如果用户发的消息包含关键字，
+        if(msg.Content.indexOf(result[i].keyword) != -1){
+          flag = false
+          context = result[i].context
+          context_type = result[i].context_type
+          console.log("context",context); 
+        }
+      }
+      if(flag){
+        data.as_type = 2
+        const res = await getMsg(data)
+      }
+    }
+    console.log("res",res)
 
     if(res){
       context = res.context
       context_type = res.context_type
-    }else{
-      data.as_type = 2
-      res = await getMsg(data)
-      if(res){
-        context = res.context
-        context_type = res.context_type
-      }
     }
 
     switch (MsgType) {
