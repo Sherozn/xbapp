@@ -265,6 +265,7 @@ class gzhController {
 
     switch (MsgType) {
         case 'text':
+            console.log("context,context_type",context,context_type)
             result = wx.message.text(msg, context,context_type)
             console.log("resultTest",result)
             break;
