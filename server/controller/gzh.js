@@ -131,7 +131,8 @@ class gzhModule {
       context: data.context,
       key_type: data.key_type,
       keyword:data.keyword,
-      as_type:data.as_type
+      as_type:data.as_type,
+      context_type:data.context_type
     })
   }
 
