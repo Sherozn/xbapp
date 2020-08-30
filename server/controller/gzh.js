@@ -243,11 +243,10 @@ class gzhController {
       // console.log("results",results)
       for(var i = 0;i<results.length;i++){
         // 如果用户发的消息包含关键字
-        
         const content = JSON.stringify(msg.Content)
         const keyword = results[i].keyword
         console.log("keyword",results[i].keyword)
-        console.log("msg.Content",typeof(msg.Content))
+        // console.log("msg.Content",typeof(msg.Content))
         // console.log("content.indexOf(keyword","基金训练营什么时候".indexOf("基金训练营"))
         if(content.indexOf(keyword) != -1){
           flag = false

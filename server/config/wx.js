@@ -52,7 +52,7 @@ exports.message = {
                         item:{
                             Title:arrs[0],
                             Description:arrs[1],
-                            PicUrl:"http://365jia.cn/uploads/13/0301/5130c2ff93618.jpg",
+                            PicUrl:arrs[3],
                             Url:arrs[2]
                         }
                     }
