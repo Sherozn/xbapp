@@ -2,7 +2,7 @@
 // 所以现在配置的域名是本地的，当项目实际上线，这里需要换成实际的已备案的域名
 const host = 'http://lgshuolicai.com:3303'
 // const host = 'http://localhost:3303'
-const appid = 'wx144003c81a20afee'
+const appid = 'wx8128ba79f71cdcbb'
 
 const config = {
   host,
