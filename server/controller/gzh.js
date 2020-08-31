@@ -289,7 +289,7 @@ class gzhController {
   // 发送模板消息
   static async sendTemplateMsg(ctx) {
     const data = ctx.request.body
-    console.log("data",data)
+    // console.log("data",data)
     try{
       const as_type = ctx.request.body.as_type
       console.log("as_type",as_type)
@@ -309,6 +309,7 @@ class gzhController {
           // console.log("templates",templates); 
           try{
             var result = await axios.post(url,templates)
+            console.log("result",result)
           }catch(e){
             console.log("e",e)
           }
@@ -323,6 +324,7 @@ class gzhController {
           // console.log("templates",templates); 
           try{
             var result = await axios.post(url,templates)
+            console.log("result",result)
           }catch(e){
             console.log("e",e)
           }
