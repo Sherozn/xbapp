@@ -310,7 +310,7 @@ class gzhController {
           try{
             var result = await axios.post(url,templates)
           }catch(e){
-            console.log("e",e.data)
+            console.log("e",e)
           }
           
           // console.log("result openid",result.data); 
@@ -324,7 +324,7 @@ class gzhController {
           try{
             var result = await axios.post(url,templates)
           }catch(e){
-            console.log("e",e.data)
+            console.log("e",e)
           }
           console.log("result openid",result.data); 
         }
