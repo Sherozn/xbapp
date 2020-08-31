@@ -15,7 +15,6 @@
 
     <div class="in-context" v-if="rohs">
       <div class="broker" v-for="(broker,index) in brokers" :key="index">
-        <!-- <elSwitch :broker="broker"></elSwitch> -->
         <span class="in-open">{{broker}}</span>
         <div class="elswitch">
           <el-switch
@@ -32,15 +31,10 @@
 </template>
 
 <script>
-  // import elSwitch from '@/components/brokers/elSwitch'
   import config from '@/config.js'
   import axios from 'axios'
-  import elSwitch from '@/components/brokers/elSwitch'
   export default {
     name:'Brokers',
-    // components: {
-    //   elSwitch
-    // },
     data() {
       return {
         brokers:["辉立","华泰","华赢","东财","尊嘉","富途","玖富","友信","有鱼","东方","广发","华盛通","青石","佳兆业","方德","利弗莫尔","国都","复星恒利","瑞丰","艾德","雪盈","老虎","耀才"],
