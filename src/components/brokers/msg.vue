@@ -153,7 +153,6 @@
         .text
           height 150px
           width 80%
-          line-height 150px
           padding-left 10px
           background-color #f4f4f4
       .row2

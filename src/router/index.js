@@ -63,7 +63,7 @@ export default new Router({
       name: 'Menu',
       component: resolve=>require(['@/components/brokers/menu.vue'],resolve),
       meta: {
-        isLogin: true
+        isLogin: false
       }
     },
     {

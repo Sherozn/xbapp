@@ -9,7 +9,7 @@ module.exports = function(sequelize,DataTypes){
                 autoIncrement: true
             },
             context:{
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
                 field: 'context'
             },

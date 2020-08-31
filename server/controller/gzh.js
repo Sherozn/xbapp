@@ -236,8 +236,10 @@ class gzhController {
       keyword:msg.Content,
       as_type:0
     }
+    console.log("msg",msg)
     if(msg.Event == "subscribe"){
       data.as_type = 1
+      data.keyword = ""
       res = await gzhModule.getMsg(data)
     }else if(MsgType == "text"){
       const results = await gzhModule.getKeys()
@@ -253,7 +255,7 @@ class gzhController {
           flag = false
           context = results[i].context
           context_type = results[i].context_type
-          console.log("context",context); 
+          // console.log("context",context); 
         }
       }
       console.log("flag",flag); 
@@ -270,13 +272,13 @@ class gzhController {
 
     switch (MsgType) {
         case 'text':
-            console.log("context,context_type",context,context_type)
+            // console.log("context,context_type",context,context_type)
             result = wx.message.text(msg, context,context_type)
-            console.log("resultTest",result)
+            // console.log("resultTest",result)
             break;
         case 'event':
             result = wx.message.event(msg, context)
-            console.log("resultEvent",result)
+            // console.log("resultEvent",result)
             break;
         default: 
             result = 'success'
@@ -319,7 +321,6 @@ class gzhController {
           console.log("result openid",result); 
         }
       }
-
       
       ctx.body = {
         state: '200',
