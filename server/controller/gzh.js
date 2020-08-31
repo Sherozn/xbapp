@@ -309,7 +309,7 @@ class gzhController {
           templates["touser"] = openids[i].openid
           console.log("templates",templates); 
           const result = await axios.post(url,templates)
-          console.log("result openid",result); 
+          console.log("result openid",result.data); 
         }
       }else if(as_type == 1){
         const openids = await gzhModule.getUsers()
@@ -318,7 +318,7 @@ class gzhController {
           templates["touser"] = openids[i]
           console.log("templates",templates); 
           const result = await axios.post(url,templates)
-          console.log("result openid",result); 
+          console.log("result openid",result.data); 
         }
       }
       
