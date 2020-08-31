@@ -250,7 +250,6 @@ class gzhController {
         const keyword = results[i].keyword
         console.log("keyword",results[i].keyword)
         // console.log("msg.Content",typeof(msg.Content))
-        // console.log("content.indexOf(keyword","基金训练营什么时候".indexOf("基金训练营"))
         if(content.indexOf(keyword) != -1){
           flag = false
           context = results[i].context
@@ -307,17 +306,26 @@ class gzhController {
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i].openid)
           templates["touser"] = openids[i].openid
-          console.log("templates",templates); 
-          const result = await axios.post(url,templates)
-          console.log("result openid",result.data); 
+          // console.log("templates",templates); 
+          try{
+            var result = await axios.post(url,templates)
+          }catch(e){
+            console.log("e",e.data)
+          }
+          
+          // console.log("result openid",result.data); 
         }
       }else if(as_type == 1){
         const openids = await gzhModule.getUsers()
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i])
           templates["touser"] = openids[i]
-          console.log("templates",templates); 
-          const result = await axios.post(url,templates)
+          // console.log("templates",templates); 
+          try{
+            var result = await axios.post(url,templates)
+          }catch(e){
+            console.log("e",e.data)
+          }
           console.log("result openid",result.data); 
         }
       }
