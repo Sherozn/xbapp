@@ -22,6 +22,7 @@ module.exports = function(sequelize,DataTypes){
             nos:{
                 type: DataTypes.STRING,
                 allowNull: true,
+                defaultValue:"",
                 field: 'nos'
             }
         },

@@ -33,7 +33,7 @@ class gzhModule {
     //读取文件
     try{
       const readRes=fs.readFileSync(fileName,'utf8')
-      console.log("readRes ",readRes)
+      // console.log("readRes ",readRes)
       const readObj=JSON.parse(readRes)
       const createTime=new Date(readObj.createTime).getTime()
       const nowTime=new Date().getTime()
@@ -44,19 +44,19 @@ class gzhModule {
       return readObj.access_token
     }catch(err){
       //刚启动的时候没有 所以读取失败 再更新一次
-      console.log("再更新一次 ")
+      // console.log("再更新一次 ")
       return await gzhModule.updateAccessToken()
     }
   }
 
 
   static async updateAccessToken() {
-    console.log("config.appid ",config.wx.appid)
-    console.log("config.secret ",config.wx.secret)
+    // console.log("config.appid ",config.wx.appid)
+    // console.log("config.secret ",config.wx.secret)
     const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.wx.appid}&secret=${config.wx.secret}`
-    console.log("URL ",URL)
+    // console.log("URL ",URL)
     const resStr = await rp(URL)
-    console.log("resStr updateAccessToken",resStr)
+    // console.log("resStr updateAccessToken",resStr)
     const res=JSON.parse(resStr)
     // 写文件
     if(res.access_token){
@@ -119,7 +119,7 @@ class gzhModule {
       const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
       var res = await rp(url)
       const result = JSON.parse(res)
-      console.log("result",result.data.openid)
+      // console.log("result",result.data.openid)
       return result.data.openid
     }catch(e){
       console.log("获取用户信息失败",e)
@@ -224,7 +224,7 @@ class gzhController {
     }
     
     MsgType = msg.MsgType[0]
-    console.log("MsgType",MsgType)
+    // console.log("MsgType",MsgType)
     // var as_type = 0
     var context = ""
     var context_type = 0
@@ -236,7 +236,7 @@ class gzhController {
       keyword:msg.Content,
       as_type:0
     }
-    console.log("msg",msg)
+    // console.log("msg",msg)
     if(msg.Event == "subscribe"){
       data.as_type = 1
       data.keyword = ""
@@ -248,7 +248,7 @@ class gzhController {
         // 如果用户发的消息包含关键字
         const content = JSON.stringify(msg.Content)
         const keyword = results[i].keyword
-        console.log("keyword",results[i].keyword)
+        // console.log("keyword",results[i].keyword)
         // console.log("msg.Content",typeof(msg.Content))
         if(content.indexOf(keyword) != -1){
           flag = false
@@ -262,7 +262,7 @@ class gzhController {
         res = await gzhModule.getOtherMsg()
       }
     }
-    console.log("res",res)
+    // console.log("res",res)
 
     if(res){
       context = res.context
