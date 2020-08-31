@@ -4,8 +4,8 @@ module.exports = {
     port: 80,
     wx: {
         token: 'xznggdx',
-        appid: 'wx144003c81a20afee',
-        secret: '1689b1e448c03ff2417afb5bb0a2dacc',
+        appid: 'wx8128ba79f71cdcbb',
+        secret: '0f88bd96ee80773941881ade9affcc05',
         encodingAESKey: 'YrpmTxUDRCZokovuPSWRkIcvZNOdnD7peVybIvNYbc3',
         serverUrl: 'http://lgshuolicai.com/'
     }
