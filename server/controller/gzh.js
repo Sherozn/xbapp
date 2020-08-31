@@ -308,6 +308,7 @@ class gzhController {
           templates["touser"] = openids[i].openid
           // console.log("templates",templates); 
           try{
+            console.log("我进来了")
             var result = await axios.post(url,templates)
             console.log("result",result)
           }catch(e){
