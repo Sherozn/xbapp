@@ -47,6 +47,12 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+const defaultTitle = '力哥理财'
+router.beforeEach((to, from, next) => {
+ document.title = to.meta.title ? to.meta.title : defaultTitle
+ next()
+})
+
 router.afterEach(route => {
   window.scroll(0, 0);
 });

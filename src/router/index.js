@@ -47,7 +47,8 @@ export default new Router({
       name: 'Brokers',
       component: resolve=>require(['@/components/brokers/brokers.vue'],resolve),
       meta: {
-        isLogin: false
+        isLogin: false,
+        title: '小贝的赚钱日记'
       }
     },
     {
@@ -63,7 +64,7 @@ export default new Router({
       name: 'Menu',
       component: resolve=>require(['@/components/brokers/menu.vue'],resolve),
       meta: {
-        isLogin: false
+        isLogin: true
       }
     },
     {
@@ -79,7 +80,7 @@ export default new Router({
       name: 'Msg',
       component: resolve=>require(['@/components/brokers/msg.vue'],resolve),
       meta: {
-        isLogin: false
+        isLogin: true
       }
     }
 
