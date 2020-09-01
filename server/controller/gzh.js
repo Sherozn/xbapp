@@ -273,7 +273,7 @@ class gzhController {
         case 'text':
             // console.log("context,context_type",context,context_type)
             result = wx.message.text(msg, context,context_type)
-            // console.log("resultTest",result)
+            console.log("resultTest",result)
             break;
         case 'event':
             result = wx.message.event(msg, context)
@@ -406,6 +406,7 @@ class gzhController {
     }
   }
 
+  // 获取当前的订阅状态
   static async getOrder(ctx) {
     
     const openid = ctx.request.query.openid
@@ -413,7 +414,7 @@ class gzhController {
     try{
       const res = await gzhModule.getOrder(openid);
 
-      console.log("res getOrder",res[0])
+      // console.log("res getOrder",res[0])
 
       ctx.body = {
         state: '200',
