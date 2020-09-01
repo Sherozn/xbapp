@@ -104,7 +104,6 @@ class gzhModule {
     return await brokers.findAll({
       where:{
         isOrder:true,
-        openid:'oPu1L08MuRZ5hnzSQco3PuzcS3g8',
         nos:{
           [Op.notLike]:`%${data.broker}%`
         }
@@ -296,10 +295,10 @@ class gzhController {
       const as_type = ctx.request.body.as_type
       console.log("as_type",as_type)
       const templates = JSON.parse(ctx.request.body.templates)
-      console.log("templates",templates)
+      // console.log("templates",templates)
 
       const access_token = await gzhModule.getAccessToken()
-      console.log("access_token",access_token)
+      // console.log("access_token",access_token)
 
       const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
       const nowTime = new Date().getTime()
