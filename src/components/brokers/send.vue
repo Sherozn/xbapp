@@ -18,7 +18,7 @@
         </select>
       </div>  
       <div class="row2">
-        <span>用户范围：全部</span>
+        <span>用户范围：指定</span>
       </div>  
       <div class="btnConfirm" @click="submit">提交</div>
     </div>
@@ -50,7 +50,7 @@
             url: `${config.host}/wx/send`,
             method: 'post',
             data:{
-              as_type:1,
+              as_type:0,
               broker:this.default_broker+10,
               templates:this.templates
             }

@@ -104,6 +104,7 @@ class gzhModule {
     return await brokers.findAll({
       where:{
         isOrder:true,
+        openid:'oPu1L08MuRZ5hnzSQco3PuzcS3g8',
         nos:{
           [Op.notLike]:`%${data.broker}%`
         }
@@ -290,6 +291,7 @@ class gzhController {
   static async sendTemplateMsg(ctx) {
     const data = ctx.request.body
     // console.log("data",data)
+    // oPu1L08MuRZ5hnzSQco3PuzcS3g8
     try{
       const as_type = ctx.request.body.as_type
       console.log("as_type",as_type)
@@ -319,18 +321,20 @@ class gzhController {
         }
       }else if(as_type == 1){
         const openids = await gzhModule.getUsers()
-        for(var i = 0;i<openids.length;i++){
-          console.log("openid",openids[i])
-          templates["touser"] = openids[i]
-          // console.log("templates",templates); 
-          try{
-            var result = await axios.post(url,templates)
-            console.log("result",result.data)
-          }catch(e){
-            console.log("e",e)
-          }
-          // console.log("result openid",result.data); 
-        }
+        // console.log("openid",openids)
+        console.log("openid.length",openids.length)
+        // for(var i = 0;i<openids.length;i++){
+        //   console.log("openid",openids[i])
+        //   templates["touser"] = openids[i]
+        //   // console.log("templates",templates); 
+        //   try{
+        //     var result = await axios.post(url,templates)
+        //     console.log("result",result.data)
+        //   }catch(e){
+        //     console.log("e",e)
+        //   }
+        //   // console.log("result openid",result.data); 
+        // }
       }
       
       ctx.body = {

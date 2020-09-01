@@ -76,6 +76,14 @@ export default new Router({
       }
     },
     {
+      path: '/send',
+      name: 'Send',
+      component: resolve=>require(['@/components/brokers/send.vue'],resolve),
+      meta: {
+        isLogin: true
+      }
+    },
+    {
       path: '/msg',
       name: 'Msg',
       component: resolve=>require(['@/components/brokers/msg.vue'],resolve),
