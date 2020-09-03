@@ -1,7 +1,7 @@
 <template>
 	<div>
     菜单信息（仅支持json）：
-		<input v-model='data'
+		<input v-model='menus'
            class="input">
     <div class="modal-footer btnConfirm" @click="submit">提交</div>
 	</div>
@@ -13,24 +13,21 @@
   export default {
     data(){
       return{
-        data:""
+        menus:""
       }
     },
     methods:{
     	submit(){
-        if(this.data.length > 1){
-          console.log(this.data)
-          // axios({
-          //   url: `${config.host}/wx/addMenu`,
-          //   method: 'post',
-          //   data: this.data
-          // }).then(res => {
-          //   console.log("submit",res);
-          // })
+        if(this.menus.length > 1){
+          const data = {
+            menus:this.menus,
+            part:this.$route.params.part
+          }
+          console.log("data",data)
           axios({
             url: `${config.host}/wx/addMenu`,
             method: 'get',
-            params: this.data
+            params: data
           }).then(res => {
             console.log("submit",res);
           })

@@ -17,7 +17,6 @@ const db = require('../config/db')
 const Sequelize = db.sequelize
 
 
-
 //引入数据表模型
 const brokers = Sequelize.import('../module/brokers')
 const msgs = Sequelize.import('../module/msgs')
@@ -29,7 +28,7 @@ msgs.sync({ force: false });
 
 class gzhModule {
 
-  static async getAccessToken() {
+  static async getAccessToken(part) {
     //读取文件
     try{
       const readRes=fs.readFileSync(fileName,'utf8')
@@ -39,22 +38,22 @@ class gzhModule {
       const nowTime=new Date().getTime()
       //如果时效大于2小时 重新获取
       if((nowTime-createTime)/1000/60/60>=2){
-        await gzhModule.updateAccessToken()
+        await gzhModule.updateAccessToken(part)
       }
       return readObj.access_token
     }catch(err){
       //刚启动的时候没有 所以读取失败 再更新一次
       // console.log("再更新一次 ")
-      return await gzhModule.updateAccessToken()
+      return await gzhModule.updateAccessToken(part)
     }
   }
 
 
-  static async updateAccessToken() {
-    // console.log("config.appid ",config.wx.appid)
-    // console.log("config.secret ",config.wx.secret)
-    const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.wx.appid}&secret=${config.wx.secret}`
-    // console.log("URL ",URL)
+  static async updateAccessToken(part) {
+    console.log("config.appid ",config[part].appid)
+    console.log("config.secret ",config[part].secret)
+    const URL=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config[part].appid}&secret=${config[part].secret}`
+    console.log("URL ",URL)
     const resStr = await rp(URL)
     // console.log("resStr updateAccessToken",resStr)
     const res=JSON.parse(resStr)
@@ -116,11 +115,19 @@ class gzhModule {
   static async getUsers() {
     try{
       var access_token = await gzhModule.getAccessToken()
-      const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
+      var url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
       var res = await rp(url)
-      const result = JSON.parse(res)
+      var result = JSON.parse(res)
+      var openids = result.data.openid
       // console.log("result",result.data.openid)
-      return result.data.openid
+      while(result.data.openid.length >= 10000){
+        url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=${result.next_openid}`
+        res = await rp(url)
+        result = JSON.parse(res)
+        openids = openids.concat(result.data.openid)
+      }
+      console.log("openids.length",openids.length)
+      return openids
     }catch(e){
       console.log("获取用户信息失败",e)
     }
@@ -291,13 +298,15 @@ class gzhController {
     const data = ctx.request.body
     // console.log("data",data)
     // oPu1L08MuRZ5hnzSQco3PuzcS3g8
+    const part = data.part
+    console.log("part",part)
     try{
       const as_type = ctx.request.body.as_type
       console.log("as_type",as_type)
       const templates = JSON.parse(ctx.request.body.templates)
       // console.log("templates",templates)
 
-      const access_token = await gzhModule.getAccessToken()
+      const access_token = await gzhModule.getAccessToken(part)
       // console.log("access_token",access_token)
 
       const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
@@ -319,9 +328,24 @@ class gzhController {
           // console.log("result openid",result.data); 
         }
       }else if(as_type == 1){
-        const openids = await gzhModule.getUsers()
+        var openids = await gzhModule.getUsers()
         // console.log("openid",openids)
-        console.log("openid.length",openids.length)
+        // console.log("openid.length",openids.length)
+        
+        await Promise.all(openids.map(async (openid) => {
+          console.log("openid",openid)
+          templates["touser"] = openid
+          // 耗时操作
+          console.time('test')
+          try{
+            setTimeout(function(){console.log(openid)},200);
+            // var result = await axios.post(url,templates)
+            // console.log("result",result.data)
+          }catch(e){
+            console.log("e",e)
+          }
+          console.timeEnd('test')
+        }));
         // for(var i = 0;i<openids.length;i++){
         //   console.log("openid",openids[i])
         //   templates["touser"] = openids[i]
@@ -335,7 +359,6 @@ class gzhController {
         //   // console.log("result openid",result.data); 
         // }
       }
-      
       ctx.body = {
         state: '200',
         msg: '发送 成功'
@@ -352,11 +375,11 @@ class gzhController {
   // 创建公众号菜单栏
   static async addMenu(ctx) {
     try{
-      console.log(ctx.request.query)
-      console.log(ctx.request.query['0'])
-      const requestData = JSON.parse(ctx.request.query['0'])
+      const data = ctx.request.query
+      const requestData = JSON.parse(ctx.request.query.menus)
       console.log("你好",requestData)
-      const access_token = await gzhModule.getAccessToken()
+      const part = ctx.request.query.part
+      const access_token = await gzhModule.getAccessToken(part)
       const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${access_token}`
 
       const result = await axios.post(url,requestData)
@@ -389,7 +412,8 @@ class gzhController {
   static async getOpenid(ctx) {
     console.log("getOpenid",ctx.request.body)
     const code = ctx.request.body['code']
-    const url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${config.wx.appid}&secret=${config.wx.secret}&code=${code}&grant_type=authorization_code`;
+    const part = ctx.request.body['part']
+    const url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${config[part].appid}&secret=${config[part].secret}&code=${code}&grant_type=authorization_code`;
 
     const result = await axios.get(url)
     console.log("result",result.data)

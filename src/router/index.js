@@ -43,7 +43,7 @@ export default new Router({
       }
     },
     {
-      path: '/brokers',
+      path: '/brokers/:part',
       name: 'Brokers',
       component: resolve=>require(['@/components/brokers/brokers.vue'],resolve),
       meta: {
@@ -60,7 +60,7 @@ export default new Router({
       }
     },
     {
-      path: '/menu',
+      path: '/menu/:part',
       name: 'Menu',
       component: resolve=>require(['@/components/brokers/menu.vue'],resolve),
       meta: {
@@ -76,7 +76,7 @@ export default new Router({
       }
     },
     {
-      path: '/send',
+      path: '/send/:part',
       name: 'Send',
       component: resolve=>require(['@/components/brokers/send.vue'],resolve),
       meta: {

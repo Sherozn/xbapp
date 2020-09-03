@@ -52,7 +52,8 @@
             data:{
               as_type:0,
               broker:this.default_broker+10,
-              templates:this.templates
+              templates:this.templates,
+              part:this.$route.params.part
             }
           }).then(res => {
             console.log("res",res);
@@ -64,6 +65,7 @@
       }
     },
     mounted(){
+      console.log("当前的part是：",this.$route.params.part)
     }
 
   }
