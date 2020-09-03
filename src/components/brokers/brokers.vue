@@ -64,7 +64,8 @@
           if (this.code == null || this.code === '') {
               // 静默授权
             const local = `http://lgshuolicai.com/brokers/${this.$route.params.part}`
-            const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid[this.$route.params.part] + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
+            
+            const url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid[this.$route.params.part].appid + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect'
             
             window.location.href = url
             console.log("url", url)
@@ -158,6 +159,8 @@
       },
     },
     mounted(){
+      // this.part = config.appid[this.$route.params.part]
+      // console.log("part",this.part)
       this.getCode()
     }
 
