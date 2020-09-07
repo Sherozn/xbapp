@@ -34,13 +34,13 @@ class gzhModule {
       const readRes=fs.readFileSync(fileName,'utf8')
       // console.log("readRes ",readRes)
       const readObj=JSON.parse(readRes)
-      const createTime=new Date(readObj.createTime).getTime()
+      const createTime=new Date(readObj.part.createTime).getTime()
       const nowTime=new Date().getTime()
       //如果时效大于2小时 重新获取
       if((nowTime-createTime)/1000/60/60>=2){
         await gzhModule.updateAccessToken(part)
       }
-      return readObj.access_token
+      return readObj.part.access_token
     }catch(err){
       //刚启动的时候没有 所以读取失败 再更新一次
       // console.log("再更新一次 ")
@@ -59,10 +59,14 @@ class gzhModule {
     const res=JSON.parse(resStr)
     // 写文件
     if(res.access_token){
-      fs.writeFileSync(fileName,JSON.stringify({
+      const readRes=fs.readFileSync(fileName,'utf8')
+      // console.log("readRes ",readRes)
+      var readObj=JSON.parse(readRes)
+      readObj.part = {
         access_token:res.access_token,
         createTime:new Date()
-      }))
+      }
+      fs.writeFileSync(fileName,JSON.stringify(readObj))
       return res.access_token
     }
   }
@@ -112,9 +116,9 @@ class gzhModule {
     })
   }
 
-  static async getUsers() {
+  static async getUsers(part) {
     try{
-      var access_token = await gzhModule.getAccessToken()
+      var access_token = await gzhModule.getAccessToken(part)
       var url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${access_token}&next_openid=`
       var res = await rp(url)
       var result = JSON.parse(res)
@@ -343,7 +347,7 @@ class gzhController {
         //   }
         // }
       }else if(as_type == 1){
-        var openids = await gzhModule.getUsers()
+        var openids = await gzhModule.getUsers(part)
         // console.log("openid.length",openids.length)
         console.time('test')
         var index = 0
