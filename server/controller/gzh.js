@@ -34,13 +34,13 @@ class gzhModule {
       const readRes=fs.readFileSync(fileName,'utf8')
       // console.log("readRes ",readRes)
       const readObj=JSON.parse(readRes)
-      const createTime=new Date(readObj.part.createTime).getTime()
+      const createTime=new Date(readObj[part].createTime).getTime()
       const nowTime=new Date().getTime()
       //如果时效大于2小时 重新获取
       if((nowTime-createTime)/1000/60/60>=2){
         await gzhModule.updateAccessToken(part)
       }
-      return readObj.part.access_token
+      return readObj[part].access_token
     }catch(err){
       //刚启动的时候没有 所以读取失败 再更新一次
       // console.log("再更新一次 ")
@@ -62,7 +62,7 @@ class gzhModule {
       const readRes=fs.readFileSync(fileName,'utf8')
       // console.log("readRes ",readRes)
       var readObj=JSON.parse(readRes)
-      readObj.part = {
+      readObj[part] = {
         access_token:res.access_token,
         createTime:new Date()
       }
