@@ -332,6 +332,7 @@ class gzhController {
         // console.log("openid",openids)
         // console.log("openid.length",openids.length)
         console.time('test')
+        var index = 0
         await Promise.all(openids.map(async (openid) => {
           templates["touser"] = openid
           // 耗时操作
@@ -339,7 +340,8 @@ class gzhController {
           try{
             setTimeout(function(){console.log(openid)},500);
             // var result = await axios.post(url,templates)
-            console.log("openid",openid)
+            index = index + 1
+            console.log("openid",openid,"index",index)
           }catch(e){
             console.log("e",e)
           }
