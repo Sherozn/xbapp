@@ -311,7 +311,7 @@ class gzhController {
       // console.log("templates",templates)
 
       const access_token = await gzhModule.getAccessToken(part)
-      // console.log("access_token",access_token)
+      console.log("access_token",access_token)
 
       const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
       const nowTime = new Date().getTime()
