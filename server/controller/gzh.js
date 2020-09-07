@@ -329,7 +329,6 @@ class gzhController {
         }
       }else if(as_type == 1){
         var openids = await gzhModule.getUsers()
-        // console.log("openid",openids)
         // console.log("openid.length",openids.length)
         console.time('test')
         var index = 0
@@ -338,7 +337,7 @@ class gzhController {
           // 耗时操作
           console.time('test1')
           try{
-            setTimeout(function(){console.log(openid)},500);
+            setTimeout(function(){console.log(openid)},1000);
             // var result = await axios.post(url,templates)
             index = index + 1
             console.log("openid",openid,"index",index)
