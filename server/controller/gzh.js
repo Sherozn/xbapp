@@ -325,9 +325,9 @@ class gzhController {
           var index = 0
           console.time('aaaaaaaa')
           try{
-            var result = axios.post(url,templates)
+            var result = await axios.post(url,templates)
             index = index + 1
-            console.log("result",result.data,"index",index)
+            console.log("result",result,"index",index)
           }catch(e){
             console.log("e",e)
           }
@@ -357,9 +357,9 @@ class gzhController {
           console.time('test2')
           try{
             // setTimeout(function(){console.log(openid)},1000);
-            var result = await axios.post(url,templates)
+            // var result = await axios.post(url,templates)
             index = index + 1
-            console.log("result",result.data,"index",index)
+            // console.log("result",result.data,"index",index)
             
             // console.log("openid",openid)
           }catch(e){
