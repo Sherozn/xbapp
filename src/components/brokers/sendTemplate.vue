@@ -52,7 +52,8 @@
             data:{
               as_type:1,
               broker:this.default_broker+10,
-              templates:this.templates
+              templates:this.templates,
+              part:this.$route.params.part
             }
           }).then(res => {
             console.log("res",res);

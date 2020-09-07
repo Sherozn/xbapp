@@ -316,7 +316,7 @@ class gzhController {
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i].openid)
           templates["touser"] = openids[i].openid
-          console.log("templates",templates); 
+          // console.log("templates",templates); 
           try{
             // console.log("我进来了")
             var result = await axios.post(url,templates)

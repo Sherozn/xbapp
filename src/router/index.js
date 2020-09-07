@@ -68,7 +68,7 @@ export default new Router({
       }
     },
     {
-      path: '/sendTemplate',
+      path: '/sendTemplate/:part',
       name: 'SendTemplate',
       component: resolve=>require(['@/components/brokers/sendTemplate.vue'],resolve),
       meta: {
