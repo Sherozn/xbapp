@@ -323,15 +323,15 @@ class gzhController {
           templates["touser"] = openid.openid
           // 耗时操作
           var index = 0
-          console.time('test1')
+          console.time('aaaaaaaa')
           try{
-            var result = await axios.post(url,templates)
+            var result = axios.post(url,templates)
             index = index + 1
             console.log("result",result.data,"index",index)
           }catch(e){
             console.log("e",e)
           }
-          console.timeEnd('test1')
+          console.timeEnd('aaaaaaaa')
         }));
 
         // for(var i = 0;i<openids.length;i++){
