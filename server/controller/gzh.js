@@ -326,7 +326,7 @@ class gzhController {
           try{
             var result = await axios.post(url,templates)
             index = index + 1
-            console.log("result",result,"index",index)
+            console.log("result",result.data,"index",index)
           }catch(e){
             console.log("e",e)
           }
