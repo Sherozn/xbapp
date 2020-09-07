@@ -351,13 +351,12 @@ class gzhController {
         await Promise.all(openids.map(async (openid) => {
           // 耗时操作
           try{
-            console.log("openid",openid.openid)  
-
+            // console.log("openid",openid.openid)  
             templates["touser"] = openid.openid
             // console.log("templates",templates)
             var result = await axios.post(url,templates)
             index = index + 1
-            console.log("result",result.data,"templates",templates,"index",index)
+            console.log("result",result.data,"openid",openid.openid,"templates",templates,"index",index)
           }catch(e){
             console.log("e",e)
           }
