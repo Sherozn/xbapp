@@ -317,13 +317,12 @@ class gzhController {
       const nowTime = new Date().getTime()
       if(as_type == 0){
         const openids = await gzhModule.getOpenId(data) 
-
+        var index = 0
+        console.time('test1')
         await Promise.all(openids.map(async (openid) => {
           console.log("openid",openid)
           templates["touser"] = openid.openid
           // 耗时操作
-          var index = 0
-          console.time('aaaaaaaa')
           try{
             var result = await axios.post(url,templates)
             index = index + 1
@@ -331,9 +330,8 @@ class gzhController {
           }catch(e){
             console.log("e",e)
           }
-          console.timeEnd('aaaaaaaa')
         }));
-
+        console.timeEnd('test1')
         // for(var i = 0;i<openids.length;i++){
         //   console.log("openid",openids[i].openid)
         //   templates["touser"] = openids[i].openid
