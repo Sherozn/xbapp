@@ -325,10 +325,10 @@ class gzhController {
             console.log("openid",typeof(openid.openid))  
 
             templates["touser"] = openid.openid
-            console.log("templates",templates)
+            // console.log("templates",templates)
             var result = await axios.post(url,templates)
             index = index + 1
-            console.log("result",result.data,"openid",openid.openid,"index",index)
+            console.log("result",result.data,"templates",templates,"index",index)
           }catch(e){
             console.log("e",e)
           }
