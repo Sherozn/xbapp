@@ -313,20 +313,35 @@ class gzhController {
       const nowTime = new Date().getTime()
       if(as_type == 0){
         const openids = await gzhModule.getOpenId(data) 
-        for(var i = 0;i<openids.length;i++){
-          console.log("openid",openids[i].openid)
-          templates["touser"] = openids[i].openid
-          // console.log("templates",templates); 
+
+        await Promise.all(openids.map(async (openid) => {
+          console.log("openid",openid)
+          templates["touser"] = openid.openid
+          // 耗时操作
+          var index = 0
+          console.time('test1')
           try{
-            // console.log("我进来了")
             var result = await axios.post(url,templates)
-            console.log("result",result.data)
+            index = index + 1
+            console.log("result",result.data,"index",index)
           }catch(e){
             console.log("e",e)
           }
-          
-          // console.log("result openid",result.data); 
-        }
+          console.timeEnd('test1')
+        }));
+
+        // for(var i = 0;i<openids.length;i++){
+        //   console.log("openid",openids[i].openid)
+        //   templates["touser"] = openids[i].openid
+        //   // console.log("templates",templates); 
+        //   try{
+        //     // console.log("我进来了")
+        //     var result = await axios.post(url,templates)
+        //     console.log("result",result.data)
+        //   }catch(e){
+        //     console.log("e",e)
+        //   }
+        // }
       }else if(as_type == 1){
         var openids = await gzhModule.getUsers()
         // console.log("openid.length",openids.length)
@@ -337,10 +352,12 @@ class gzhController {
           // 耗时操作
           console.time('test1')
           try{
-            setTimeout(function(){console.log(openid)},1000);
-            // var result = await axios.post(url,templates)
+            // setTimeout(function(){console.log(openid)},1000);
+            var result = await axios.post(url,templates)
             index = index + 1
-            console.log("openid",openid,"index",index)
+            console.log("result",result.data,"index",index)
+            
+            // console.log("openid",openid)
           }catch(e){
             console.log("e",e)
           }
@@ -353,7 +370,7 @@ class gzhController {
         //   // console.log("templates",templates); 
         //   try{
         //     var result = await axios.post(url,templates)
-        //     console.log("result",result.data)
+        //     
         //   }catch(e){
         //     console.log("e",e)
         //   }
