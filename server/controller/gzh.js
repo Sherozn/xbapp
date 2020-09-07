@@ -352,8 +352,8 @@ class gzhController {
           // 耗时操作
           try{
             // console.log("openid",openid.openid)  
-            templates["touser"] = openid.openid
-            // console.log("templates",templates)
+            templates.touser = openid.openid
+            console.log("templates",templates)
             var result = await axios.post(url,templates)
             index = index + 1
             console.log("result",result.data,"openid",openid.openid,"templates",templates,"index",index)
