@@ -354,7 +354,7 @@ class gzhController {
         await Promise.all(openids.map(async (openid) => {
           templates["touser"] = openid
           // 耗时操作
-          console.time('test1')
+          console.time('test2')
           try{
             // setTimeout(function(){console.log(openid)},1000);
             var result = await axios.post(url,templates)
@@ -365,7 +365,7 @@ class gzhController {
           }catch(e){
             console.log("e",e)
           }
-          console.timeEnd('test1')
+          console.timeEnd('test2')
         }));
         console.timeEnd('test')
         // for(var i = 0;i<openids.length;i++){
