@@ -320,13 +320,13 @@ class gzhController {
         var index = 0
         console.time('test1')
         await Promise.all(openids.map(async (openid) => {
-          console.log("openid",openid)
-          templates["touser"] = openid.openid
           // 耗时操作
           try{
+            // console.log("openid",openid)
+            templates["touser"] = openid.openid
             var result = await axios.post(url,templates)
             index = index + 1
-            console.log("result",result.data,"index",index)
+            console.log("result",result.data,"openid",openid,"index",index)
           }catch(e){
             console.log("e",e)
           }
