@@ -319,49 +319,49 @@ class gzhController {
         const openids = await gzhModule.getOpenId(data) 
         var index = 0
         console.time('test1')
-        templates = {
-    "template_id": "Nu69-vZ-xKE5cZbVRszHFKskg4ptc-hJJN0vDrsDgtQ", 
-    "touser": "oDzyG6ILgTC6hgqoGoNGN7cDDYDI", 
-    "data": {
-        "first": {
-            "value": ""
-        }, 
-        "keyword1": {
-            "value": "雪盈", 
-            "color": "#0066CC"
-        }, 
-        "keyword2": {
-            "value": "港股打新融资额度提醒"
-        }, 
-        "keyword3": {
-            "value": "福禄已开放7.1倍融资!截止9月11日认购", 
-            "color": "#ff0000"
-        }, 
-        "keyword4": {
-            "value": "2020-09-07"
-        }, 
-        "remark": {
-            "value": "如果不需要该券商提醒，可以在工具箱--订阅额度提醒中关闭"
-        }
-    }
-}
-var result = await axios.post(url,templates)
- console.log("result",result)
+//         templates = {
+//     "template_id": "Nu69-vZ-xKE5cZbVRszHFKskg4ptc-hJJN0vDrsDgtQ", 
+//     "touser": "oDzyG6ILgTC6hgqoGoNGN7cDDYDI", 
+//     "data": {
+//         "first": {
+//             "value": ""
+//         }, 
+//         "keyword1": {
+//             "value": "雪盈", 
+//             "color": "#0066CC"
+//         }, 
+//         "keyword2": {
+//             "value": "港股打新融资额度提醒"
+//         }, 
+//         "keyword3": {
+//             "value": "福禄已开放7.1倍融资!截止9月11日认购", 
+//             "color": "#ff0000"
+//         }, 
+//         "keyword4": {
+//             "value": "2020-09-07"
+//         }, 
+//         "remark": {
+//             "value": "如果不需要该券商提醒，可以在工具箱--订阅额度提醒中关闭"
+//         }
+//     }
+// }
+// var result = await axios.post(url,templates)
+//  console.log("result",result)
 
-        // await Promise.all(openids.map(async (openid) => {
-        //   // 耗时操作
-        //   try{
-        //     console.log("openid",openid.openid)  
+        await Promise.all(openids.map(async (openid) => {
+          // 耗时操作
+          try{
+            console.log("openid",openid.openid)  
 
-        //     templates["touser"] = openid.openid
-        //     // console.log("templates",templates)
-        //     var result = await axios.post(url,templates)
-        //     index = index + 1
-        //     console.log("result",result.data,"templates",templates,"index",index)
-        //   }catch(e){
-        //     console.log("e",e)
-        //   }
-        // }));
+            templates["touser"] = openid.openid
+            // console.log("templates",templates)
+            var result = await axios.post(url,templates)
+            index = index + 1
+            console.log("result",result.data,"templates",templates,"index",index)
+          }catch(e){
+            console.log("e",e)
+          }
+        }));
 
         console.timeEnd('test1')
         // for(var i = 0;i<openids.length;i++){
