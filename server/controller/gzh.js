@@ -331,21 +331,21 @@ class gzhController {
         var openids = await gzhModule.getUsers()
         // console.log("openid",openids)
         // console.log("openid.length",openids.length)
-        
+        console.time('test')
         await Promise.all(openids.map(async (openid) => {
-          console.log("openid",openid)
           templates["touser"] = openid
           // 耗时操作
-          console.time('test')
+          console.time('test1')
           try{
-            setTimeout(function(){console.log(openid)},200);
+            setTimeout(function(){console.log(openid)},500);
             // var result = await axios.post(url,templates)
-            // console.log("result",result.data)
+            console.log("openid",openid)
           }catch(e){
             console.log("e",e)
           }
-          console.timeEnd('test')
+          console.timeEnd('test1')
         }));
+        console.timeEnd('test')
         // for(var i = 0;i<openids.length;i++){
         //   console.log("openid",openids[i])
         //   templates["touser"] = openids[i]
