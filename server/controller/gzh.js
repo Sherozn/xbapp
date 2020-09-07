@@ -307,7 +307,7 @@ class gzhController {
     try{
       const as_type = ctx.request.body.as_type
       console.log("as_type",as_type)
-      const templates = JSON.parse(ctx.request.body.templates)
+      var templates = JSON.parse(ctx.request.body.templates)
       // console.log("templates",templates)
 
       const access_token = await gzhModule.getAccessToken(part)
