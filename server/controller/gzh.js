@@ -395,7 +395,7 @@ class gzhController {
         // 自定义请求函数
         var requestFn = openid => {
           return new Promise(resolve => {
-            templates.touser = openid.openid
+            templates.touser = openid
             console.log("templates1",templates)
             
             setTimeout(_ => {
