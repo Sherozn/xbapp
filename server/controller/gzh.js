@@ -389,7 +389,8 @@ class gzhController {
         }
       }else if(as_type == 1){
         var openids = await gzhModule.getUsers(part)
-        // console.log("openid.length",openids.length)
+        var openids = openids.slice(-5)
+        console.log("openid.length",openids)
         console.time('test')
         // 自定义请求函数
         var requestFn = openid => {
@@ -406,7 +407,7 @@ class gzhController {
           })
         }
 
-        const pool = new PromisePool(10, requestFn); // 并发数为10
+        const pool = new PromisePool(2, requestFn); // 并发数为10
         pool.start(openids);
         
         console.timeEnd('test')
