@@ -389,8 +389,7 @@ class gzhController {
         }
       }else if(as_type == 1){
         var openids = await gzhModule.getUsers(part)
-        var openids = openids.slice(-5)
-        console.log("openid.length",openids)
+        var openids = openids
         console.time('test')
         // 自定义请求函数
         var requestFn = openid => {
@@ -406,36 +405,16 @@ class gzhController {
           })
         }
 
-        const pool = new PromisePool(2, requestFn); // 并发数为10
+        const pool = new PromisePool(10, requestFn); // 并发数为10
         pool.start(openids);
-        
         console.timeEnd('test')
-
         // var index = 0
-        // await Promise.all(openids.map(async (openid) => {
-        //   templates["touser"] = openid
-        //   // 耗时操作
-        //   console.time('test2')
-        //   try{
-        //     // setTimeout(function(){console.log(openid)},1000);
-        //     // var result = await axios.post(url,templates)
-        //     index = index + 1
-        //     // console.log("result",result.data,"index",index)
-            
-        //     // console.log("openid",openid)
-        //   }catch(e){
-        //     console.log("e",e)
-        //   }
-        //   console.timeEnd('test2')
-        // }));
-
         // for(var i = 0;i<openids.length;i++){
         //   console.log("openid",openids[i])
         //   templates["touser"] = openids[i]
         //   // console.log("templates",templates); 
         //   try{
         //     var result = await axios.post(url,templates)
-        //     
         //   }catch(e){
         //     console.log("e",e)
         //   }
