@@ -65,13 +65,12 @@ const openids = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","1
 // 自定义请求函数
 var requestFn = openid => {
   return new Promise(resolve => {
-    templates.touser = openid.openid
-    console.log("templates1",templates)
-    
+    templates.touser = openid
     setTimeout(_ => {
       const res = axios.post(url,templates);
+      console.log("templates1",templates)
       resolve(openid);
-    }, 0)
+    }, 10)
   }).then(res => {
     console.log('外部逻辑 ', res.data);
   })
