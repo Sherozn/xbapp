@@ -1,6 +1,9 @@
 .DS_Store
 src/config.js
 server/config/db.js
+server/controller/access_token.json
+server/package-lock.json
+server/package.json
 node_modules/
 npm-debug.log*
 yarn-debug.log*
