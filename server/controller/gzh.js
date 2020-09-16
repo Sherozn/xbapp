@@ -399,13 +399,13 @@ class gzhController {
               const res = axios.post(url,templates);
               console.log("templates1",templates)
               resolve(openid);
-            }, 10)
+            }, 0)
           }).then(res => {
             console.log('外部逻辑 ', res);
           })
         }
 
-        const pool = new PromisePool(10, requestFn); // 并发数为10
+        const pool = new PromisePool(2, requestFn); // 并发数为10
         pool.start(openids);
         console.timeEnd('test')
         // var index = 0
@@ -415,6 +415,7 @@ class gzhController {
         //   // console.log("templates",templates); 
         //   try{
         //     var result = await axios.post(url,templates)
+
         //   }catch(e){
         //     console.log("e",e)
         //   }
