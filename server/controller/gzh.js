@@ -396,14 +396,13 @@ class gzhController {
         var requestFn = openid => {
           return new Promise(resolve => {
             templates.touser = openid
-            console.log("templates1",templates)
-            
             setTimeout(_ => {
               const res = axios.post(url,templates);
+              console.log("templates1",templates)
               resolve(openid);
             }, 10)
           }).then(res => {
-            console.log('外部逻辑 ', res.data);
+            console.log('外部逻辑 ', res);
           })
         }
 

@@ -71,7 +71,7 @@ var requestFn = openid => {
     setTimeout(_ => {
       const res = axios.post(url,templates);
       resolve(openid);
-    }, 10)
+    }, 0)
   }).then(res => {
     console.log('外部逻辑 ', res.data);
   })
