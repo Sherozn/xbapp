@@ -210,6 +210,47 @@ class gzhModule {
   }
 }
 
+class PromisePool {
+  constructor(max, fn) {
+    this.max = max; // 最大并发数
+    this.fn = fn;   // 自定义的请求函数
+    this.pool = []; // 并发池
+    this.urls = []; // 剩余的请求地址
+  }
+
+  start(urls) {
+    this.urls = urls;
+    // 先循环把并发池塞满
+    while (this.pool.length < this.max) {
+      let url = this.urls.shift();
+      this.setTask(url);
+    }
+    // 利用Promise.race 方法来获得并发池中某任务完成的信号
+    let race = Promise.race(this.pool);
+    return this.run(race);
+  }
+
+  run(race) {
+    race.then(res => {
+        // 每当并发池跑完一个任务，就再塞入一个任务
+        let url = this.urls.shift();
+        this.setTask(url);
+        return this.run(Promise.race(this.pool));
+      });
+  }
+  setTask(url) {
+    if (!url) return;
+    let task = this.fn(url);
+    this.pool.push(task); // 将该任务推入pool并发池中
+    console.log(`\x1B[43m ${url} 开始，当前并发数：${this.pool.length}`);
+    task.then(res => {
+      // 请求结束后将该Promise任务从并发池中移除
+      this.pool.splice(this.pool.indexOf(task), 1);
+      console.log(`\x1B[43m ${url} 结束，当前并发数：${this.pool.length}`);
+    });
+  }
+}
+
 class gzhController {
   //接入服务器验证
   static async getHandle(ctx){
@@ -315,11 +356,11 @@ class gzhController {
 
       const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`; 
       const nowTime = new Date().getTime()
+      
       if(as_type == 0){
         const openids = await gzhModule.getOpenId(data) 
         var index = 0
         // console.time('test1')
-
         // await Promise.all(openids.map(async (openid) => {
         //   // 耗时操作
         //   // return (async ()=>{
@@ -333,7 +374,6 @@ class gzhController {
         //     // return result.data
         //   // })
         // }));
-
         // console.timeEnd('test1')
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i].openid)
@@ -351,24 +391,44 @@ class gzhController {
         var openids = await gzhModule.getUsers(part)
         // console.log("openid.length",openids.length)
         console.time('test')
-        var index = 0
-        await Promise.all(openids.map(async (openid) => {
-          templates["touser"] = openid
-          // 耗时操作
-          console.time('test2')
-          try{
-            // setTimeout(function(){console.log(openid)},1000);
-            // var result = await axios.post(url,templates)
-            index = index + 1
-            // console.log("result",result.data,"index",index)
+        // 自定义请求函数
+        var requestFn = openid => {
+          return new Promise(resolve => {
+            templates.touser = openid.openid
+            console.log("templates1",templates)
             
-            // console.log("openid",openid)
-          }catch(e){
-            console.log("e",e)
-          }
-          console.timeEnd('test2')
-        }));
+            setTimeout(_ => {
+              const res = axios.post(url,templates);
+              resolve(openid);
+            }, 10)
+          }).then(res => {
+            console.log('外部逻辑 ', res.data);
+          })
+        }
+
+        const pool = new PromisePool(10, requestFn); // 并发数为10
+        pool.start(openids);
+        
         console.timeEnd('test')
+
+        // var index = 0
+        // await Promise.all(openids.map(async (openid) => {
+        //   templates["touser"] = openid
+        //   // 耗时操作
+        //   console.time('test2')
+        //   try{
+        //     // setTimeout(function(){console.log(openid)},1000);
+        //     // var result = await axios.post(url,templates)
+        //     index = index + 1
+        //     // console.log("result",result.data,"index",index)
+            
+        //     // console.log("openid",openid)
+        //   }catch(e){
+        //     console.log("e",e)
+        //   }
+        //   console.timeEnd('test2')
+        // }));
+
         // for(var i = 0;i<openids.length;i++){
         //   console.log("openid",openids[i])
         //   templates["touser"] = openids[i]

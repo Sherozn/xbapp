@@ -24,6 +24,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "node-sha1": "^1.0.1",
+    "promise-queue-plus": "^1.2.2",
     "pug": "^2.0.3",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
