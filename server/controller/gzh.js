@@ -400,7 +400,7 @@ class gzhController {
               const res = axios.post(url,templates);
               console.log("templates1",templates)
               resolve(openid);
-            }, 10)
+            }, 0)
           }).then(res => {
             console.log('外部逻辑 ', res);
           })
