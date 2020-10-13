@@ -360,29 +360,13 @@ class gzhController {
       if(as_type == 0){
         const openids = await gzhModule.getOpenId(data) 
         var index = 0
-        // console.time('test1')
-        // await Promise.all(openids.map(async (openid) => {
-        //   // 耗时操作
-        //   // return (async ()=>{
-        //     // console.log("openid",openid.openid)  
-        //     templates.touser = openid.openid
-        //     console.log("templates1",templates)
-        //     var result = await axios.post(url,templates)
-        //     index = index + 1
-        //     console.log("templates2",templates)
-        //     console.log("result",result.data,"openid",openid.openid,"templates",templates,"index",index)
-        //     // return result.data
-        //   // })
-        // }));
-        // console.timeEnd('test1')
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i].openid)
           templates["touser"] = openids[i].openid
           // console.log("templates",templates); 
           try{
-            // console.log("我进来了")
             var result = await axios.post(url,templates)
-            console.log("result",result.data)
+            // console.log("result",result.data)
           }catch(e){
             console.log("e",e)
           }
