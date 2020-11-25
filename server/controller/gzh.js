@@ -378,7 +378,7 @@ class gzhController {
           // console.log("templates",templates); 
           try{
             var result = await axios.post(url,templates)
-            // console.log("result",result.data)
+            console.log("result",result.data)
           }catch(e){
             console.log("e",e)
           }
