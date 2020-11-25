@@ -370,14 +370,14 @@ class gzhController {
       
       if(as_type == 0){
         const openids = await gzhModule.getOpenId(data) 
-        console.log("openids.length",openids.length)
+        // console.log("openids.length",openids.length)
         var index = 0
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i].openid)
           templates["touser"] = openids[i].openid
           // console.log("templates",templates); 
           try{
-            // var result = await axios.post(url,templates)
+            var result = await axios.post(url,templates)
             // console.log("result",result.data)
           }catch(e){
             console.log("e",e)
