@@ -62,8 +62,8 @@ exports.message = {
         
     },
     event (msg, context) {
-        console.log("content event",context)
-        console.log("msg event",msg)
+        // console.log("content event",context)
+        // console.log("msg event",msg)
         if(msg.Event == "CLICK"){
             if(msg.EventKey == "V1001_TODAY_MUSIC"){
                 return xml.jsonToXml({

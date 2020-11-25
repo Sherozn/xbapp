@@ -104,16 +104,27 @@ class gzhModule {
   }
 
   static async getOpenId(data){
-    return await brokers.findAll({
-      where:{
-        isOrder:true,
-        nos:{
-          [Op.notLike]:`%${data.broker}%`
-        }
-      },
-      attributes:['openid'],
-      raw:true
-    })
+    if(data.broker == 33){
+      return await brokers.findAll({
+        where:{
+          isOrder:true
+        },
+        attributes:['openid'],
+        raw:true
+      })
+    }else{
+      return await brokers.findAll({
+        where:{
+          isOrder:true,
+          nos:{
+            [Op.notLike]:`%${data.broker}%`
+          }
+        },
+        attributes:['openid'],
+        raw:true
+      })
+    }
+    
   }
 
   static async getUsers(part) {
@@ -359,13 +370,14 @@ class gzhController {
       
       if(as_type == 0){
         const openids = await gzhModule.getOpenId(data) 
+        console.log("openids.length",openids.length)
         var index = 0
         for(var i = 0;i<openids.length;i++){
           console.log("openid",openids[i].openid)
           templates["touser"] = openids[i].openid
           // console.log("templates",templates); 
           try{
-            var result = await axios.post(url,templates)
+            // var result = await axios.post(url,templates)
             // console.log("result",result.data)
           }catch(e){
             console.log("e",e)
