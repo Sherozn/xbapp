@@ -393,7 +393,7 @@ class gzhController {
             setTimeout(_ => {
               templates.touser = openid
               const res = axios.post(url,templates);
-              console.log("templates1",templates)
+              // console.log("templates1",templates)
               resolve(openid);
             }, 0)
           }).then(res => {
