@@ -4,7 +4,8 @@ const rp=require('request-promise')
 
 const path=require('path')
 //输出绝对路径
-const fileName=path.resolve(__dirname,'./access_token.json')
+const fileName = path.resolve(__dirname,'./access_token.json')
+const taoliPath = path.resolve(__dirname,'../python/taoli.py')
 const fs=require('fs')
 const urlencode= require('urlencode'); //URL编译模块
 const sha1 = require('node-sha1'); //加密模块
@@ -199,7 +200,7 @@ class gzhModule {
       raw:true
     })
   }
-
+  // as_type 0 关键字
   static async getKeys() {
     return await msgs.findAll({
       where:{
@@ -210,6 +211,7 @@ class gzhModule {
     })
   }
 
+  // as_type 2 其他没有触发关键字的语句
   static async getOtherMsg() {
     return await msgs.findOne({
       where:{
@@ -280,10 +282,9 @@ class gzhController {
         result
 
     msg = ctx.req.body ? ctx.req.body.xml : ''
-
     if (!msg) {
-        ctx.body = 'error request.'
-        return;
+      ctx.body = 'error request.'
+      return;
     }
     
     MsgType = msg.MsgType[0]
@@ -305,22 +306,26 @@ class gzhController {
       data.keyword = ""
       res = await gzhModule.getMsg(data)
     }else if(MsgType == "text"){
+      // 获取所有关键字
       const results = await gzhModule.getKeys()
-      // console.log("results",results)
+      // 如果用户发的消息包含关键字
       for(var i = 0;i<results.length;i++){
-        // 如果用户发的消息包含关键字
         const content = JSON.stringify(msg.Content)
         const keyword = results[i].keyword
-        // console.log("keyword",results[i].keyword)
-        // console.log("msg.Content",typeof(msg.Content))
-        if(content.indexOf(keyword) != -1){
+        console.log("content",content)
+        console.log("keyword",keyword)
+
+        if(content == keyword){
           flag = false
           context = results[i].context
           context_type = results[i].context_type
-          // console.log("context",context); 
+        }else if(content.indexOf(keyword) != -1 && results[i].key_type != 1){
+          flag = false
+          context = results[i].context
+          context_type = results[i].context_type
         }
       }
-      console.log("flag",flag); 
+      // 如果用户发的消息没有包含关键字
       if(flag){
         res = await gzhModule.getOtherMsg()
       }
