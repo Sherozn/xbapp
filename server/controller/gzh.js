@@ -206,7 +206,7 @@ class gzhModule {
       where:{
         as_type:0
       },
-      attributes:['id','keyword',"context","context_type"],
+      attributes:['id','keyword',"context","context_type","key_type"],
       raw:true
     })
   }
@@ -313,14 +313,17 @@ class gzhController {
         const keyword = results[i].keyword
         console.log("content", content)
         console.log("keyword",keyword)
-        console.log("results",results)
+        console.log("results[i].key_type1",results[i].key_type)
+        console.log("results[i].key_type2",results[i].key_type == 0)
+        console.log("results[i].key_type3",typeof(results[i].key_type))
+
 
         if(content == keyword){
           console.log("全匹配")
           flag = false
           context = results[i].context
           context_type = results[i].context_type
-        }else if(content.indexOf(keyword) != -1 && results[i].key_type == '0'){
+        }else if(content.indexOf(keyword) != -1 && results[i].key_type == 0){
           console.log("半匹配")
           flag = false
           context = results[i].context
