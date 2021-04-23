@@ -313,13 +313,14 @@ class gzhController {
         const keyword = results[i].keyword
         console.log("content",content)
         console.log("keyword",keyword)
+        console.log("半匹配",results[i].key_type == 0)
 
         if(content == keyword){
           console.log("全匹配")
           flag = false
           context = results[i].context
           context_type = results[i].context_type
-        }else if(content.indexOf(keyword) != -1 && results[i].key_type != 1){
+        }else if(content.indexOf(keyword) != -1 && results[i].key_type == 0){
           console.log("半匹配")
           flag = false
           context = results[i].context
