@@ -311,11 +311,8 @@ class gzhController {
       for(var i = 0;i<results.length;i++){
         const content = JSON.stringify(msg.Content[0]).replace("\"","").replace("\"","")
         const keyword = results[i].keyword
-        console.log("content", content)
-        console.log("keyword",keyword)
-        console.log("results[i].key_type1",results[i].key_type)
-        console.log("results[i].key_type2",results[i].key_type == 0)
-        console.log("results[i].key_type3",typeof(results[i].key_type))
+        // console.log("content", content)
+        // console.log("keyword",keyword)
 
 
         if(content == keyword){
