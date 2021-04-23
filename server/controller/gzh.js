@@ -309,11 +309,12 @@ class gzhController {
       const results = await gzhModule.getKeys()
       // 如果用户发的消息包含关键字
       for(var i = 0;i<results.length;i++){
-        const content = JSON.stringify(msg.Content[0])
+        const content = JSON.stringify(msg.Content[0]).replace("\"","").replace("\"","")
         const keyword = results[i].keyword
-        console.log("content", typeof(content))
-        console.log("keyword",typeof(keyword))
-        console.log("半匹配",results[i].key_type == '0')
+        console.log("content", content)
+        console.log("keyword",keyword)
+        console.log("半匹配",results[i].key_type)
+        console.log("半匹配类型",typeof(results[i].key_type))
 
         if(content == keyword){
           console.log("全匹配")
