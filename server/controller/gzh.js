@@ -309,7 +309,7 @@ class gzhController {
       const results = await gzhModule.getKeys()
       // 如果用户发的消息包含关键字
       for(var i = 0;i<results.length;i++){
-        const content = JSON.stringify(msg.Content)
+        const content = JSON.stringify(msg.Content[0])
         const keyword = results[i].keyword
         console.log("content",content)
         console.log("keyword",keyword)
