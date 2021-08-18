@@ -36,8 +36,7 @@ exports.message = {
                     FromUserName: msg.ToUserName,
                     CreateTime: Date.now(),
                     MsgType: "text",
-                    Content: context,
-                    Status:"success"
+                    Content: context
                 }
             })
         }else if(context_type == 1){
@@ -56,8 +55,7 @@ exports.message = {
                             PicUrl:arrs[3],
                             Url:arrs[2]
                         }
-                    },
-                    Status:"success"
+                    }
                 }
             }) 
         }
