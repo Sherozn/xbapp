@@ -282,6 +282,7 @@ class gzhController {
         result
 
     msg = ctx.req.body ? ctx.req.body.xml : ''
+    console.log("msg",msg)
     if (!msg) {
       ctx.body = 'error request.'
       return;
