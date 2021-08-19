@@ -11,7 +11,7 @@ const xml = require('./xml')
 // 返回 true ／ false
 exports.auth = (ctx) => {
     console.log("ctx",ctx)
-    const token = config.wx.token,
+    const token = config["xly"].token,
           signature = ctx.query.signature,
           timestamp = ctx.query.timestamp,
           nonce = ctx.query.nonce
