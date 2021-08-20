@@ -355,6 +355,7 @@ class gzhController {
     }
     ctx.res.setHeader('Content-Type', 'application/xml')
     ctx.res.end(result)
+    console.log("ctx",ctx)
   }
 
   // 发送模板消息
