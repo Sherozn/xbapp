@@ -7,7 +7,7 @@ const router = new Router({
 
 //用户登录
 router.get('/',gzhController.getHandle)
-// router.post('/',gzhController.postHandle)
+router.post('/',gzhController.postHandle)
 router.post('/send',gzhController.sendTemplateMsg)
 router.post('/getOpenid',gzhController.getOpenid)
 router.get('/addMenu',gzhController.addMenu)
