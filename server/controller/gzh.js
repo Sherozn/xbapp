@@ -354,6 +354,11 @@ class gzhController {
             result = 'success'
     }
     ctx.res.setHeader('Content-Type', 'application/xml')
+    ctx.response.body = {
+      status: 200,
+      description: 'ok',
+      result: data
+    }
     ctx.res.end(result)
     console.log("ctx",ctx)
   }
