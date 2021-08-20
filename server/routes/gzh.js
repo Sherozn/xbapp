@@ -7,12 +7,7 @@ const router = new Router({
 
 //用户登录
 router.get('/',gzhController.getHandle)
-try{
-	console.log("我我我")
-	router.post('/',gzhController.postHandle)
-}catch(e){
-  console.log("e",e)
-}
+// router.post('/',gzhController.postHandle)
 router.post('/send',gzhController.sendTemplateMsg)
 router.post('/getOpenid',gzhController.getOpenid)
 router.get('/addMenu',gzhController.addMenu)
